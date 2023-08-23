@@ -4,8 +4,8 @@ import { useRouter } from "next/router"
 export default function Header() {
   const router = useRouter()
   return (
-    <header className='fixed z-50 w-full font-montserrat backdrop-blur '>
-      <div className="flex flex-row items-center uppercase text-base leading-[26.4px] font-normal my-6 px-11 justify-between border-b border-black pb-5">
+    <header className='fixed z-50 w-full font-montserrat backdrop-blur'>
+      <div className="flex flex-row items-center uppercase text-base leading-[26.4px] font-normal mt-6 px-11 justify-between border-b border-black pb-5">
         <div className="flex flex-row items-center gap-6 ">
           <a href='/'>
             <img

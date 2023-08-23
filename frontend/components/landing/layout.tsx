@@ -9,7 +9,7 @@ export default function Layout(
   return (
     <div className="font-ibm text-black">
       <Header/>
-      <div className="h-px mb-32"></div>
+      <div className="h-px mb-[92.5px]"></div>
       {children}
       <Footer />
     </div>
