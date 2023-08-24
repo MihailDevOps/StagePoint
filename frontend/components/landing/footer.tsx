@@ -7,7 +7,7 @@ export default function Footer() {
         <div className="flex flex-row items-center justify-between px-20 pt-14 pb-5">
             <div className="flex flex-col gap-10">
                 <img 
-                    src="./images/FooterLogo.svg"
+                    src="/images/FooterLogo.svg"
                     alt="Logo"
                 />
                 <div className="flex uppercase flex-row items-center gap-6 font-normal text-base text-white leading-[26.4px]">
@@ -21,19 +21,19 @@ export default function Footer() {
             <div className="flex flex-col gap-10 font-normal text-base leading-[26.4px] text-white">
                 <div className="flex flex-row items-center gap-9">
                     <img
-                        src='./images/social-networks/Facebook.svg'
+                        src='/images/social-networks/Facebook.svg'
                         alt='facebook'
                     />
                     <img
-                        src='./images/social-networks/Instagram.svg'
+                        src='/images/social-networks/Instagram.svg'
                         alt='instagram'
                     />
                     <img
-                        src='./images/social-networks/LinkedIn.svg'
+                        src='/images/social-networks/LinkedIn.svg'
                         alt='linkedin'
                     />
                     <img
-                        src='./images/social-networks/Twitter.svg'
+                        src='/images/social-networks/Twitter.svg'
                         alt='twitter'
                     />
                 </div>

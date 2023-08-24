@@ -20,10 +20,10 @@ export default function AboutUs(){
             </div>
           </div>
           <p className='font-normal px-4 sm:px-20 text-[64px] leading-19 uppercase'>team bios</p>
-          <div className='px-4 sm:px-20 flex flex-wrap justify-between text-black gap-5'>
+          <div className='px-4 sm:px-20 flex flex-wrap justify-between text-black gap-5 mb-24'>
             {data.map(person=> 
                 <div key={person.id} className='flex w-full space-y-3 md:space-y-0 flex-col md:flex-row md:w-[600px] space-x-5 items-center'>
-                    <img src='./images/personImage.svg' alt='woman' className='min-w-[50%] w-[250px] h-[250px]'/>
+                    <img src='/images/personImage.svg' alt='woman' className='min-w-[50%] w-[250px] h-[250px]'/>
                     <div className='w-full md:w-[50%] font-normal text-base leading-[26.4px]'>
                         <p className='font-bold text-3xl leading-9'>{person.name}</p>
                         <p className='opacity-70'>{person.title}</p>

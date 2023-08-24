@@ -9,7 +9,7 @@ export default function Header() {
         <div className="flex flex-row items-center gap-6 ">
           <a href='/'>
             <img
-                src="./images/HeaderLogo.svg"
+                src="/images/HeaderLogo.svg"
                 alt='logo'
             />
           </a>
