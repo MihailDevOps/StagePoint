@@ -1,7 +1,6 @@
 import Image from 'next/image'
 import Layout from '@/components/landing/layout'
 import Steps from '@/components/landing/steps'
-
 export default function Home() {
 
   return (
@@ -164,12 +163,12 @@ export default function Home() {
         <p className='uppercase text-[64px] leading-19 font-medium mt-4 mb-4'>WEB 3?</p>
         <p className='uppercase text-xl leading-[33px] font-normal mt-4 mb-4 max-w-[250px]'>Our process of working with WEB3 technologies is simple and convenient:</p>
         <Steps/>
-        <div className='w-full mt-12 rounded-3xl flex justify-center h-[564px] bg-black'>
-          <p className='font-bold text-[61px] leading-20 text-white'>DONT MISS</p>
-          <button>CONNECT TO WEB 3</button>
+        <div className='mt-12'>
+          <video src='./videos/SPoint.mp4' autoPlay muted loop className='rounded-xl'/>
         </div>
+        
       </div>
-
+      
     </Layout>
   )
 }

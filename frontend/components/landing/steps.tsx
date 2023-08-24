@@ -41,7 +41,7 @@ export default function Steps(){
         {
           cards.map((card, id) =>
           <div key={id}>
-            <div className={`bg-[#141318] rounded-xl border border-[#9CA3AF] p-6 w-[285px] h-[243px]`}>
+            <div className={`bg-[#141318] rounded-xl border border-[#9CA3AF] p-6 w-[285px] h-[243px] space-y-2`}>
                 <p className="text-[#0050F6] text-xs font-medium leading-5">Step {card.step}</p>
                 <p className="text-white text-xl font-semibold leading-[33px]">{card.title}</p>
                 <p className="text-white opacity-70 text-xs font-normal leading-5">{card.description}</p>
