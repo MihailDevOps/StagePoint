@@ -164,7 +164,7 @@ export default function Home() {
         <p className='uppercase text-xl leading-[33px] font-normal mt-4 mb-4 max-w-[250px]'>Our process of working with WEB3 technologies is simple and convenient:</p>
         <Steps/>
         <div className='mt-12'>
-          <video src='./videos/SPoint.mp4' autoPlay muted loop className='rounded-xl'/>
+          <video src='/videos/SPoint003 (1).mp4' autoPlay muted loop className='w-full h-max'/>
         </div>
         
       </div>

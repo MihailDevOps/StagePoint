@@ -35,7 +35,7 @@ export default function Steps(){
     { id: 6, step: 6, title: 'Earn profit', description: "Monitor your investment portfolio on the Web3 service. You'll have access to status and profit information."}
   ]
   return (
-    <div className=" bg-pink-300" ref={lastChild}>
+    <div className="" ref={lastChild}>
       <div  className='text-white flex flex-row justify-end mb-8 gap-2 mr-1'>
         <button onClick={scrollLeft}  className={`text-[#0050F6]`}>
             <HiOutlineArrowLeft />
