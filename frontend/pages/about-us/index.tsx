@@ -24,9 +24,10 @@ export default function AboutUs(){
             {data.map(person=> 
                 <div key={person.id} className='flex w-full space-y-3 md:space-y-0 flex-col md:flex-row md:w-[600px] space-x-5 items-center'>
                     <img src='/images/personImage.svg' alt='woman' className='min-w-[50%] w-[250px] h-[250px]'/>
-                    <div className='w-full md:w-[50%] font-normal text-base leading-[26.4px]'>
+                    <div className='w-full md:w-[50%] font-normal text-base leading-[26.4px] space-y-2'>
                         <p className='font-bold text-3xl leading-9'>{person.name}</p>
                         <p className='opacity-70'>{person.title}</p>
+                        <p className='opacity-70'>{person.mail}</p>
                         <p>{person.shortdescription}</p>
                         <Link href={`/about-us/${person.id}`} className='text-[#0050F6] font-medium text-xs leading-5'>Read more</Link>
                     </div>

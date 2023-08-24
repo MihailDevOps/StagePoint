@@ -17,6 +17,8 @@ export default function(){
                     TEAM BIOS
                 </div>
                 <p className="font-normal text-[64px] leading-19 ">{user?.name}</p>
+                <p className='opacity-70 py-3'>{user?.title}</p>
+                <p className='opacity-70'>{user?.mail}</p>
             </div>
           </div>
           <p className="px-4 sm:px-20 font-normal text-xl leading-[33px] pb-20">{user?.description}</p>

@@ -10,17 +10,20 @@ interface Card{
 export default function Steps(){
   const content = useRef<HTMLDivElement>(null);
   const lastChild = useRef<HTMLDivElement>(null);
+  console.log(content.current?.offsetWidth);
+  const [position, setPosition] = useState<number|undefined>(1585);
   const scrollLeft = () => {    
     if (content.current) {
       content.current.scrollLeft -= 301;
-      console.log(lastChild.current?.offsetWidth)
-      console.log(content.current?.offsetWidth)
+      console.log(lastChild.current?.getBoundingClientRect(), 'parent');
+      console.log(content.current.getBoundingClientRect(), 'children');
     }
   };
   const scrollRight = () => {
     if (content.current) {
       content.current.scrollLeft += 301;  
-      
+      console.log(lastChild.current?.getBoundingClientRect(), 'parent');
+      console.log(content.current.getBoundingClientRect(), 'children');
     }
   };  
   const cards:Card[] = [
@@ -32,9 +35,9 @@ export default function Steps(){
     { id: 6, step: 6, title: 'Earn profit', description: "Monitor your investment portfolio on the Web3 service. You'll have access to status and profit information."}
   ]
   return (
-    <div className="">
+    <div className=" bg-pink-300" ref={lastChild}>
       <div  className='text-white flex flex-row justify-end mb-8 gap-2 mr-1'>
-        <button onClick={scrollLeft}  className={`text-[#0050F6] `}>
+        <button onClick={scrollLeft}  className={`text-[#0050F6]`}>
             <HiOutlineArrowLeft />
         </button>
         <button onClick={scrollRight}  className={`text-[#0050F6] `}>
@@ -44,7 +47,7 @@ export default function Steps(){
       <div ref={content} className={`flex items-center justify-start gap-4 overflow-x-hidden w-full scroll-smooth`}>
         {
           cards.map((card, id) =>
-          <div key={id} ref={lastChild}>
+          <div key={id} >
             <div className={`bg-[#141318] rounded-xl border border-[#9CA3AF] p-6 w-[285px] h-[243px] space-y-2`}>
                 <p className="text-[#0050F6] text-xs font-medium leading-5">Step {card.step}</p>
                 <p className="text-white text-xl font-semibold leading-[33px]">{card.title}</p>
