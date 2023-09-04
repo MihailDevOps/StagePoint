@@ -55,7 +55,7 @@ export default function Strategy(){
                     STRATEGY
                 </div>
                 <p>WHAT</p>
-                <p className="">DIFF<wbr/>ERENTIATES</p>
+                <p className="lg:text-[54px] xl:text-[64px]">DIFFERENTIATES</p>
                 <p>SPF</p>
             </div>
             <div className='w-full lg:w-[60%] font-normal text-xl leading-[33px] pt-6 lg:pt-16 pb-14 lg:pl-5 space-y-3'>  
