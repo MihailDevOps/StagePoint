@@ -3,7 +3,7 @@ export default function Strategy(){
     return(
         <Layout>
           <div className='text-black w-full flex flex-col lg:flex-row px-4 sm:px-20  border-b  border-black'>
-            <div className='w-full lg:w-[40%] lg:border-r border-black font-normal text-[64px] leading-19 uppercase pt-16 lg:pb-14'>
+            <div className='w-full lg:w-[40%] lg:border-r border-black font-normal text-[64px] leading-[96px] uppercase pt-16 lg:pb-14'>
                 <div className='bg-black text-white py-1.5 px-5 font-bold text-sm leading-[23px] w-max rounded-full'>
                     STRATEGY
                 </div>
@@ -55,7 +55,7 @@ export default function Strategy(){
                     STRATEGY
                 </div>
                 <p>WHAT</p>
-                <p>DIFFERENTIATES</p>
+                <p className="">DIFF<wbr/>ERENTIATES</p>
                 <p>SPF</p>
             </div>
             <div className='w-full lg:w-[60%] font-normal text-xl leading-[33px] pt-6 lg:pt-16 pb-14 lg:pl-5 space-y-3'>  

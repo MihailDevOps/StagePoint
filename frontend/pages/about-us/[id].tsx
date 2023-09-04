@@ -10,13 +10,13 @@ export default function(){
         <Layout>
           <div className='text-black w-full flex flex-col lg:flex-row px-4 sm:px-20 my-12 border-b border-black'>
             <div className='w-full lg:w-[40%] lg:border-r border-black font-normal text-[64px] leading-19 uppercase'>
-                <img src='/images/personImage.svg' className="h-[405px] w-[405px]"/>
+                <img src={`/images/people/${user?.image}`} alt='loading...' className="h-[405px] w-[405px]"/>
             </div>
             <div className='w-full lg:w-[60%] font-normal text-xl leading-[33px] lg:pt-16 pb-14 pl-5 space-y-2'>
                 <div className='bg-black text-white py-1.5 px-5 font-bold text-sm leading-[23px] mb-12 w-max rounded-full'>
                     TEAM BIOS
                 </div>
-                <p className="font-normal text-[64px] leading-19 ">{user?.name}</p>
+                <p className="font-normal text-[64px] leading-[96px] ">{user?.name}</p>
                 <p className='opacity-70 py-3'>{user?.title}</p>
                 <p className='opacity-70'>{user?.mail}</p>
             </div>

@@ -28,8 +28,8 @@ export default function Home() {
           OUR EXPERTS
         </div>
         <p className='uppercase text-[64px] leading-19 font-medium mt-4 mb-8'>advisers</p>
-        <div className='flex space-y-4 sm:space-y-10 md:space-y-0 flex-wrap items-start justify-between'>
-          <div className='max-w-[250px] sm:max-w-full md:max-w-[300px] flex flex-col sm:flex-row md:flex-col justify-center gap-7'>
+        <div className='flex space-y-4 sm:space-y-10 md:space-y-4 xl:space-y-0 flex-wrap items-start justify-between'>
+          <div className='max-w-[250px] sm:max-w-full mx-auto md:max-w-[300px] flex flex-col sm:flex-row md:flex-col justify-center gap-7'>
             <img
               className='min-w-[300px] min-h-[300px]' 
               src='./images/personImage.svg'
@@ -48,7 +48,7 @@ export default function Home() {
             </div>
             
           </div>
-          <div className='max-w-[250px] sm:max-w-full md:max-w-[300px] flex flex-col sm:flex-row md:flex-col justify-center gap-7'>
+          <div className='max-w-[250px] sm:max-w-full mx-auto md:max-w-[300px] flex flex-col sm:flex-row md:flex-col justify-center gap-7'>
             <img 
               className='min-w-[300px] min-h-[300px]' 
               src='./images/personImage.svg'
@@ -63,7 +63,7 @@ export default function Home() {
               </p>
             </div>
           </div>
-          <div className='max-w-[250px] sm:max-w-full md:max-w-[300px] flex flex-col sm:flex-row md:flex-col justify-center gap-7'>
+          <div className='max-w-[250px] sm:max-w-full mx-auto md:max-w-[300px] flex flex-col sm:flex-row md:flex-col justify-center gap-7'>
             <img 
               className='min-w-[300px] min-h-[300px]' 
               src='./images/personImage.svg'
@@ -78,7 +78,7 @@ export default function Home() {
               </p>
             </div>
           </div>
-          <div className='max-w-[250px] sm:max-w-full md:max-w-[300px] flex flex-col sm:flex-row md:flex-col justify-center gap-7'>
+          <div className='max-w-[250px] sm:max-w-full mx-auto md:max-w-[300px] flex flex-col sm:flex-row md:flex-col justify-center gap-7'>
             <img 
               className='min-w-[300px] min-h-[300px]' 
               src='./images/personImage.svg'
@@ -122,7 +122,7 @@ export default function Home() {
         </div>
       </div>
 
-      <div className='text-black px-4 sm:px-20 py-12 border-b border-black relative'>
+      <div className='text-black px-4 sm:px-20 py-12 overflow-hidden border-b border-black relative'>
         <p className='font-medium text-[64px] leading-19 uppercase max-w-[800px] z-50'>Value-added construction lending</p>
         <p className='font-normal text-xl leading-[33px] max-w-[700px]'>As a result, SPF combines its expertise in real estate lending with cutting-edge technology, providing a modern and efficient lending platform for borrowers in the entry-level workforce housing market.</p>
         <img 
