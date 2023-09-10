@@ -3,12 +3,12 @@ import Footer from "./footer"
 
 
 export default function Layout(
-{ children }: 
-    {children: React.ReactNode}
+  { children }:
+    { children: React.ReactNode }
 ) {
   return (
     <div className="font-ibm text-black">
-      <Header/>
+      <Header />
       <div className="h-px mb-[92.5px]"></div>
       {children}
       <Footer />
