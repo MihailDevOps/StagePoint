@@ -4,7 +4,7 @@ export default function Header(
     {activeLink}: {activeLink:string}
 ) {
   return (
-    <header className="h-14 flex flex-row w-full justify-between items-center p-4 bg-white text-black">
+    <header className="h-14 flex flex-row w-full justify-between items-center p-4 pt-6 bg-white text-black">
         <div className="flex flex-col">
             <p className="font-medium text-3xl leading-8 ">{activeLink.charAt(0).toUpperCase() + activeLink.slice(1)}</p>
             <p className="font-normal text-xs leading-4 text-[#5A5A5A]">Дуже раді тебе бачити, реально</p>
