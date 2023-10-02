@@ -1,12 +1,21 @@
 import React, { useState } from "react"
 import AppLayout from "../components/profile/layout/appLayout"
 import { IconInfoCircle } from '@tabler/icons-react';
-import { MuiTelInput } from 'mui-tel-input'
+import { useMutation, useQuery } from "@apollo/client";
+import { USER_QUERY } from "../graphql/queries/user";
+// import { MuiTelInput } from 'mui-tel-input'
 export default function Profile() {
   const [phone, setPhone] = useState('');
   const handleChange = (phone: string) => {
     setPhone(phone)
   }
+  const { data, loading, error } = useQuery(USER_QUERY, {
+    fetchPolicy: 'cache-and-network',
+    nextFetchPolicy: 'cache-first',
+    variables: { id: '112'  },
+    // skip: !id || !userId
+  });
+  console.log(data)
   return (
     <AppLayout>
         <div className="bg-blue-100 text-blue-900 flex gap-2 items-center rounded-xl p-4">
@@ -33,7 +42,7 @@ export default function Profile() {
               placeholder="Ivanov1488@gmail.com"
             />
             <p className="leadng-6 font-normal mb-1">Phone number</p>
-            <MuiTelInput value={phone} onChange={handleChange} className="w-full bg-gray-50 rounded-md"/>
+            {/* <MuiTelInput value={phone} onChange={handleChange} className="w-full bg-gray-50 rounded-md"/> */}
             <p className="leadng-6 font-normal mb-1 mt-3">Country</p>
             <input 
               className="w-full bg-gray-50 rounded-md p-2 px-4 mb-3"
