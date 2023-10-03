@@ -1,12 +1,12 @@
 import express from 'express';
 import { ApolloServer } from 'apollo-server-express';
-import depthLimit from 'graphql-depth-limit';
 import { createServer } from 'http';
 import compression from 'compression';
 import cors from 'cors';
-import schema from './graphql/schema';
 import Database from './mongodb/database';
-
+import "reflect-metadata";
+import { buildSchema } from 'type-graphql';
+import { UserResolver } from './graphql/resolvers/user';
 
 
 const app = express();
@@ -21,8 +21,18 @@ const corsOptions = {
   allowedHeaders: ['Content-Type', 'Authorization', 'Access-Control-Allow-Origin'],
   credentials: true,
 }
+
 app.use(cors(corsOptions));
+
 const startServer = async () => {  
+  const schema = await buildSchema({
+    resolvers: [UserResolver],
+    emitSchemaFile: {
+      path: __dirname + '/graphql/schema.gql',
+      commentDescriptions: true
+    }
+  });
+
   const apollo = new ApolloServer({
         schema,
         introspection: true,

@@ -1,4 +1,5 @@
 import { IResolvers  } from '@graphql-tools/utils';
+
 const resolverMap: IResolvers = {
   Query: {
     helloWorld(_: void, args: {id: string, new: string}): {name:string} {
