@@ -1,7 +1,8 @@
 type Query {
-  helloWorld(id: String!): abc!
+  getUser(name: String!, lastName: String!): User!
 }
 
-type abc{
-  name: String!
+type User {
+  name: String
+  lastName: String
 }
