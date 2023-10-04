@@ -3,19 +3,19 @@ import AppLayout from "../components/profile/layout/appLayout"
 import { IconInfoCircle } from '@tabler/icons-react';
 import { useMutation, useQuery } from "@apollo/client";
 import { USER_QUERY } from "../graphql/queries/user";
-// import { MuiTelInput } from 'mui-tel-input'
+import { useSession } from 'next-auth/react';
 export default function Profile() {
+  const { data: session } = useSession();
+  const userId = session?.userId;
   const [phone, setPhone] = useState('');
-  const handleChange = (phone: string) => {
-    setPhone(phone)
-  }
+  const handleChange = (phone: string) => {setPhone(phone)}
   const { data, loading, error } = useQuery(USER_QUERY, {
     fetchPolicy: 'cache-and-network',
     nextFetchPolicy: 'cache-first',
-    variables: { id: '112'  },
-    // skip: !id || !userId
+    variables: { id: userId },
+    skip: !userId
   });
-  console.log(data)
+  console.log(userId)
   return (
     <AppLayout>
         <div className="bg-blue-100 text-blue-900 flex gap-2 items-center rounded-xl p-4">

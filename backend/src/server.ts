@@ -1,4 +1,4 @@
-import express from 'express';
+import express, { json } from 'express';
 import { ApolloServer } from 'apollo-server-express';
 import { createServer } from 'http';
 import compression from 'compression';
@@ -7,11 +7,13 @@ import Database from './mongodb/database';
 import "reflect-metadata";
 import { buildSchema } from 'type-graphql';
 import { UserResolver } from './graphql/resolvers/user';
-
-
+import cookieParser from 'cookie-parser';
+import userRouter from './routes/userRouter'
 const app = express();
 Database.connectToDatabase();
 app.use(compression());
+app.use(cookieParser());
+app.use(json());
 // server.applyMiddleware({ app, path: '/graphql' });
 const port = 8000;
 const httpServer = createServer(app);
@@ -50,4 +52,7 @@ const startServer = async () => {
   });
   httpServer.listen({ port }, () => { console.log(`🚀 Server ready at http://localhost:${port}/`) })
 }
+
+app.use('/api/users', userRouter)
+
 startServer();

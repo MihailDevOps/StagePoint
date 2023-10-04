@@ -1,20 +1,22 @@
 import "reflect-metadata";
-import { Field, ID, ObjectType, Query, Resolver } from "type-graphql";
+import { Field, ID, ObjectType, Query, Resolver, Args, ArgsType } from "type-graphql";
+import { UserModel } from "../../mongodb/models/usersModel";
+import { User } from "../types/user";
 
-@ObjectType()
-export class Subscription {
-  @Field()
-  id: string = '';
+@ArgsType()
+class GetUser {
+  @Field(() => ID)
+  id: string;
 }
 
 @Resolver()
 export class UserResolver {
-  @Query(() =>  Subscription)
+  @Query(() =>  User)
   async user(
-    // @Args() { id }: GetUserArgs
+    @Args() { id }: GetUser
   ) {
-    // const user = await UserModel.findOne({ _id: id }).lean();
-    // const notificationConfig = await NotificationConfigModel.findOne({ user: id })
-    // return { ...user, id: user._id, notificationConfig }
+    console.log(id)
+    const user = await UserModel.findById({ _id: id})
+    return user
   }
 }
