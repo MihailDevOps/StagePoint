@@ -32,7 +32,8 @@ const startServer = async () => {
     emitSchemaFile: {
       path: __dirname + '/graphql/schema.gql',
       commentDescriptions: true
-    }
+    },
+    validate: false
   });
 
   const apollo = new ApolloServer({

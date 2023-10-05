@@ -4,6 +4,11 @@ export const USER_FRAGMENT = gql`
   fragment UserFragment on User {
     _id
     name
-    lastname
+    lastName
+    email
+    phone
+    country
+    telegram
+    whatsUp
   }
 `;

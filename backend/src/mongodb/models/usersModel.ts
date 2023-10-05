@@ -4,8 +4,11 @@ import { generateNonce } from 'siwe';
 
 const UserSchema = new Schema<IUserDocument>(
   {
-    job: {
-      type: String,
+    name: {type: String},
+    lastName: { type: String},
+    email: { 
+      type: String, 
+      unique: true
     },
     phone: {
       type: String,
@@ -15,6 +18,14 @@ const UserSchema = new Schema<IUserDocument>(
     country: {
       type: String,
       sparse: true
+    },
+    telegram: { 
+      type: String, 
+      unique: true
+    },
+    whatsUp: { 
+      type: String, 
+      unique: true
     },
     publicKey: {
       type: String,

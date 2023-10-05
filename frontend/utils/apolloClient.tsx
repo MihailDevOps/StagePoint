@@ -29,6 +29,7 @@ function createApolloClient() {
   }
   const errorLink = onError(({ graphQLErrors, networkError }) => {
     if (graphQLErrors) {
+      console.log(graphQLErrors)
       graphQLErrors.forEach(({ extensions, message, locations, path }) => {
         if (extensions?.code) {
           switch (extensions.code) {
@@ -44,6 +45,7 @@ function createApolloClient() {
         console.log(
           `[GraphQL error]: Message: ${message}, Location: ${locations}, Path: ${path}`
         );
+        
         // todo: add exclusion first, like email validation on sign in
         // toast.error(message);
       });

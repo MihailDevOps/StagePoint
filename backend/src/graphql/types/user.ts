@@ -6,14 +6,14 @@ import { Field, ID, ObjectType } from 'type-graphql';
 
 @ObjectType()
 export class User {
-  @Field(() => ID)
+  @Field(() => ID , { nullable: true })
   _id: string;
 
   @Field(() => String, { nullable: true })
   name?: string;
 
   @Field(() => String, { nullable: true })
-  lastname?: string;
+  lastName?: string;
 
   @Field(() => String, { nullable: true })
   email?: string;
@@ -23,4 +23,10 @@ export class User {
 
   @Field(() => String, { nullable: true })
   country?: string;
+
+  @Field(() => String, { nullable: true })
+  telegram?: string;
+
+  @Field(() => String, { nullable: true })
+  whatsUp?: string;
 }
