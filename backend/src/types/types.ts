@@ -14,5 +14,14 @@ export interface IUser {
     updateNonce(): string;
 }
 
+export interface INotificationConfig {
+    user: IUser | Types.ObjectId
+    telegram: boolean;
+    whatsUp: boolean;
+}
+
 export type IUserDocument = IUser & Document
 export type IUserModel = Model<IUserDocument>
+
+export type INotificationConfigDocument = INotificationConfig & Document
+export type INotificationConfigModel = Model<INotificationConfigDocument>

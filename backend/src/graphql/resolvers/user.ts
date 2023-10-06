@@ -2,6 +2,7 @@ import "reflect-metadata";
 import { Field, ID, ObjectType, Query, Resolver, Args, ArgsType, Mutation } from "type-graphql";
 import { UserModel } from "../../mongodb/models/usersModel";
 import { User } from "../types/user";
+import { NotificationConfigModel } from "../../mongodb/models/notificationsModel";
 
 @ArgsType()
 class GetUser {
@@ -9,6 +10,18 @@ class GetUser {
   id: string;
 }
 
+@ArgsType()
+class UpdateNotifConfigArgs{
+  @Field(() => ID)
+  userId?: string;
+
+  @Field(() => Boolean, {nullable: true})
+  telegram?: boolean;
+
+  @Field(() => Boolean, {nullable: true})
+  whatsUp?: boolean;
+
+}
 
 @ArgsType()
 class UpdateUser {
@@ -43,10 +56,10 @@ export class UserResolver {
   async user(
     @Args() { id }: GetUser
   ) {
-    console.log(id)
-    const user = await UserModel.findOne({ _id: id })
-    console.log(user)
-    return user
+    const user = await UserModel.findOne({ _id: id }).lean();
+    const notificationConfig = await NotificationConfigModel.findOne({ user: id } ).lean();
+    console.log(notificationConfig)
+    return {...user, notificationConfig }
   }
 
   @Mutation(() =>  User)
@@ -65,5 +78,34 @@ export class UserResolver {
     })
     console.log(user)
     return user
+  }
+
+  @Mutation(() =>  User)
+  async updateNotificationConfig(
+    @Args() { userId, telegram, whatsUp }: UpdateNotifConfigArgs
+  ) {
+    const user = await UserModel.findOne({ _id: userId }).lean();
+    const updateData: Record<string, boolean> = {};
+    console.log(typeof whatsUp !== 'undefined')
+    console.log(!!user.whatsUp)
+    console.log(typeof telegram !== 'undefined' && !!user.telegram)
+    if (typeof telegram !== 'undefined' && !!user.telegram) {
+      updateData.telegram = telegram;
+    }
+
+    if (typeof whatsUp !== 'undefined' && !!user.whatsUp) {
+      updateData.whatsUp = whatsUp;
+    }
+    console.log(updateData)
+    const notificationConfig = await NotificationConfigModel.findOneAndUpdate({ user: userId }, 
+      {
+        $set: updateData,
+      },
+      {
+        upsert: true,
+        new: true
+      }
+    )
+    return notificationConfig
   }
 }

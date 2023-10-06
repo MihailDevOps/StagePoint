@@ -8,7 +8,8 @@ const UserSchema = new Schema<IUserDocument>(
     lastName: { type: String},
     email: { 
       type: String, 
-      unique: true
+      unique: true,
+      sparse: true
     },
     phone: {
       type: String,
@@ -21,11 +22,13 @@ const UserSchema = new Schema<IUserDocument>(
     },
     telegram: { 
       type: String, 
-      unique: true
+      unique: true,
+      sparse: true
     },
     whatsUp: { 
       type: String, 
-      unique: true
+      unique: true,
+      sparse: true
     },
     publicKey: {
       type: String,

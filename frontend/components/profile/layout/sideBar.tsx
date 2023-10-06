@@ -56,7 +56,7 @@ export default function SideBar(
         },
     ]
     return (
-        <div className="h-screen w-52 bg-[#111827] relative">
+        <div className="h-screen sticky top-0 left-0  w-52 bg-[#111827]">
             <Link href='/' >
                 <img
                     src="/images/WhiteHeader.svg"

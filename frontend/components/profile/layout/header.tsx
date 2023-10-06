@@ -1,5 +1,6 @@
 import React from "react"
 import { IconBell, IconLogout } from '@tabler/icons-react';
+import { signOut } from 'next-auth/react';
 export default function Header(
     {activeLink}: {activeLink:string}
 ) {
@@ -15,7 +16,10 @@ export default function Header(
                 <div className="rounded-full bg-red-400 h-4 w-4"></div>
                 <p className="text-white">0x13BF...6DFD</p>
             </div>
-            <IconLogout/>
+            <IconLogout 
+                className="cursor-pointer"
+                onClick={()=>signOut()}
+            />
         </div>
     </header>
   )

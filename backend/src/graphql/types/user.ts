@@ -3,6 +3,17 @@
  */
 
 import { Field, ID, ObjectType } from 'type-graphql';
+@ObjectType()
+export class NotificationConfig {
+  @Field(() => ID)
+  userId: string;
+
+  @Field(() => Boolean)
+  telegram?: string;
+
+  @Field(() => Boolean)
+  whatsUp?: string;
+}
 
 @ObjectType()
 export class User {
@@ -29,4 +40,7 @@ export class User {
 
   @Field(() => String, { nullable: true })
   whatsUp?: string;
+  
+  @Field(() => NotificationConfig, { nullable: true })
+  notificationConfig: NotificationConfig
 }

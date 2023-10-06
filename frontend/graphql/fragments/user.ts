@@ -12,3 +12,12 @@ export const USER_FRAGMENT = gql`
     whatsUp
   }
 `;
+
+export const USER_NOTIF_CONFIG_FRAGMENT = gql`
+  fragment UserFragment on User {
+    notificationConfig {
+      telegram
+      whatsUp
+    }
+  }
+`;

@@ -3,10 +3,10 @@ import AppLayout from "../components/profile/layout/appLayout"
 import { IconInfoCircle } from '@tabler/icons-react';
 import { useMutation, useQuery } from "@apollo/client";
 import { USER_QUERY } from "../graphql/queries/user";
-import { UPDATE_USER_MUTATION } from "../graphql/mutations/user";
+import { UPDATE_USER_MUTATION, UPDATE_USER_NOTIF_CONFIG_MUTATION } from "../graphql/mutations/user";
 import { useSession } from 'next-auth/react';
 import { toast } from "react-toastify";
-import { Backdrop, CircularProgress } from "@mui/material";
+import { Backdrop, CircularProgress, Switch  } from "@mui/material";
 import PhoneInput from 'react-phone-input-2'
 import { CountryDropdown } from 'react-country-region-selector';
 import 'react-phone-input-2/lib/style.css'
@@ -27,16 +27,23 @@ export default function Profile() {
 
   const [phone, setPhone] = useState<string>();
   const [country, setCountry] = useState<string>();
+
   const [telegram, setTelegram] = useState<string>();
+  const [telegramNotification, setTelegramNotification] = useState<boolean>();
+
   const [whatsUp, setWhatsUp] = useState<string>();
+  const [whatsUpNotification, setWhatsUpNotification] = useState<boolean>();
   const { data, loading, error } = useQuery(USER_QUERY, {
     fetchPolicy: 'cache-and-network',
     nextFetchPolicy: 'cache-first',
     variables: { id: userId },
     skip: !userId
   });
+
   const [updateUser, {loading: updateLoading} ] = useMutation(UPDATE_USER_MUTATION)
+  const [updateNotificationConfig] = useMutation(UPDATE_USER_NOTIF_CONFIG_MUTATION)
   async function updateProfile(){
+    if(nameError || emailError || lastNameError) return toast.error(nameError || emailError || lastNameError)
     await updateUser({
       variables: {
         id: userId,
@@ -51,6 +58,18 @@ export default function Profile() {
       onCompleted: () =>{toast.success('Updated')},
       onError: () =>{toast.error('Something went wrong')}
     })
+    await updateNotificationConfig({
+      variables: {
+          userId: userId,
+          telegram: !!telegram ? telegramNotification : undefined,
+          whatsUp: !!whatsUp ? whatsUpNotification : undefined,
+      },
+      onCompleted: () => {
+      },
+      onError: (err) =>{
+        console.log(err)
+      }
+    })
   }
   useEffect(() => {
     setName(data?.user?.name || '', )
@@ -60,12 +79,13 @@ export default function Profile() {
     setCountry(data?.user?.country || '')
     setTelegram(data?.user?.telegram || '')
     setWhatsUp(data?.user?.whatsUp || '')
+    setTelegramNotification(data?.user?.notificationConfig?.telegram || undefined)
+    setWhatsUpNotification(data?.user?.notificationConfig?.whatsUp || undefined)
   }, [data])
 
   function onNameChange(e: ChangeEvent<HTMLInputElement>){
     if(e.currentTarget.value.length<2){
       setNameError('Name must be at least 2 characters')
-      toast.error('Name must be at least 2 characters')
     }else{
       setNameError('')
     }
@@ -75,7 +95,6 @@ export default function Profile() {
   function onLastNameChange(e: ChangeEvent<HTMLInputElement>){
     if(e.currentTarget.value.length<2){
       setLastNameError('LastName must be at least 2 characters')
-      toast.error('LastName must be at least 2 characters')
     }else{
       setLastNameError('')
     }
@@ -86,13 +105,15 @@ export default function Profile() {
     const re = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
     if (!re.test(String(e.currentTarget.value).toLowerCase())) {
       setEmailError('Input valid mail')
-      toast.error('Invalid email')
       if (!e.currentTarget.value) {
         setEmailError('Input valid mail');
       }
     } else setEmailError('');
     setEmail(e.currentTarget.value);
   }
+  const label = { inputProps: { 'aria-label': 'Switch demo' } };
+
+  console.log(data)
   return (
     <AppLayout>
         <Backdrop
@@ -149,23 +170,42 @@ export default function Profile() {
               onChange={(val) => setCountry(val)} 
             />
           </div>
-          <div className="w-1/3 bg-white p-4 rounded-3xl text-gray-900">
-            <h1 className="font-medium text-xl leading-8 mb-2 text-black">Contact</h1>
-            <p className="leadng-6 font-normal mb-1">Telegram</p>
-            <input 
-              className="w-full bg-gray-50 rounded-md p-2 px-4 mb-3"
-              placeholder="@Ivanov1488"
-              value={telegram}
-              onChange={(e) => setTelegram(e.target.value)}
-            />
-            <p className="leadng-6 font-normal mb-1">WhatsUp</p>
-            <input 
-              className="w-full bg-gray-50 rounded-md p-2 px-4 mb-3"
-              placeholder="@Ivanov1488"
-              value={whatsUp}
-              onChange={(e) => setWhatsUp(e.target.value)}
-            />
+          <div className="w-1/3 text-gray-900 flex flex-col gap-4">
+            <div className={`${(telegram||whatsUp)?'h-[50%]':'h-full'} w-full  bg-white p-4 rounded-3xl`}>
+              <h1 className="font-medium text-xl leading-8 mb-2 text-black">Contact</h1>
+              <p className="leadng-6 font-normal mb-1">Telegram</p>
+              <input 
+                className="w-full bg-gray-50 rounded-md p-2 px-4 mb-3"
+                placeholder="@Ivanov1488"
+                value={telegram}
+                onChange={(e) => setTelegram(e.target.value)}
+              />
+              <p className="leadng-6 font-normal mb-1">WhatsUp</p>
+              <input 
+                className="w-full bg-gray-50 rounded-md p-2 px-4 mb-3"
+                placeholder="@Ivanov1488"
+                value={whatsUp}
+                onChange={(e) => setWhatsUp(e.target.value)}
+              />
+            </div>
+            {( telegram || whatsUp ) && <div className={`w-full h-[50%] bg-white p-4 rounded-3xl`}>
+              <h1 className="font-medium text-xl leading-8 mb-2 text-black items-center">Notifications</h1>
+              {
+                telegram && <div className="w-full flex justify-between my-2 mt-4">
+                  <p className="leading-6 font-normal mb-1">Telegram</p>
+                  <Switch {...label} checked={telegramNotification} onChange={() => setTelegramNotification(!telegramNotification)}/>
+                </div>
+              }
+              {
+                whatsUp && <div className="w-full flex justify-between items-center">
+                  <p className="leadng-6 font-normal mb-1">WhatsUp</p>
+                  <Switch {...label} checked={whatsUpNotification} onChange={() => setWhatsUpNotification(!whatsUpNotification)}/>
+                </div>
+              }
+              
+            </div>}
           </div>
+          
         </div>
 
         <button 
