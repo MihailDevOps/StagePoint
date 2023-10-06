@@ -3,10 +3,21 @@
 # !!!   DO NOT MODIFY THIS FILE BY YOURSELF   !!!
 # -----------------------------------------------
 
-type Query {
-  user: Subscription!
+type Mutation {
+  updateUser(country: String, email: String, id: ID!, lastName: String, name: String, phone: String, telegram: String, whatsUp: String): User!
 }
 
-type Subscription {
-  id: String!
+type Query {
+  user(id: ID!): User!
+}
+
+type User {
+  _id: ID
+  country: String
+  email: String
+  lastName: String
+  name: String
+  phone: String
+  telegram: String
+  whatsUp: String
 }
