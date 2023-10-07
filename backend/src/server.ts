@@ -17,14 +17,14 @@ app.use(json());
 // server.applyMiddleware({ app, path: '/graphql' });
 const port = 8000;
 const httpServer = createServer(app);
-const corsOptions = {
-  origin: 'http://localhost:3000',
-  methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
-  allowedHeaders: ['Content-Type', 'Authorization', 'Access-Control-Allow-Origin'],
-  credentials: true,
-}
+// const corsOptions = {
+//   origin: 'http://localhost:3000',
+//   methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
+//   allowedHeaders: ['Content-Type', 'Authorization', 'Access-Control-Allow-Origin'],
+//   credentials: true,
+// }
 
-app.use(cors(corsOptions));
+app.use(cors());
 
 const startServer = async () => {  
   const schema = await buildSchema({

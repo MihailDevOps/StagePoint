@@ -4,6 +4,7 @@ import { ApiError } from '../exceptions/ApiError';
 import { TokenService } from '../services/tokenService';
 import { AuthenticatedRequest,LoginWeb3ReqType,VerifWeb3ReqType } from '../types/reqTypes';
 import { UserService } from './../services/userService';
+import { UserModel } from '../mongodb/models/usersModel';
 class authControllerClass {
   async login(req: Request<{}, {}, LoginWeb3ReqType>, res: Response, next: NextFunction) {
     console.log(req.body)
@@ -11,17 +12,16 @@ class authControllerClass {
     if (!publicKey) {
       return next(ApiError.BadRequest(404, 'Provide publicKey'))
     }
-    const candidate = await UserService.getOne({ publicKey })
-    console.log(candidate)
+    const candidate = await UserModel.findOne({publicKey});
     if (!candidate) {
-      const newUser = await UserService.create({ publicKey })
-      const token = await TokenService.sign({ id: newUser._id })
+      const user = await UserService.create({ publicKey })
+      const token = await TokenService.sign({ id: user._id })
       return res.status(200).json({
         status: 'success',
         token,
         data: {
-          punlicKey: newUser.publicKey,
-          nonce: newUser.nonce
+          punlicKey: user.publicKey,
+          nonce: user.nonce
         }
       })
     }

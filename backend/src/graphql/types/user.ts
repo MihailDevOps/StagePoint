@@ -8,10 +8,10 @@ export class NotificationConfig {
   @Field(() => ID)
   userId: string;
 
-  @Field(() => Boolean)
+  @Field(() => Boolean, {defaultValue: false})
   telegram?: string;
 
-  @Field(() => Boolean)
+  @Field(() => Boolean, {defaultValue: false})
   whatsUp?: string;
 }
 
@@ -42,5 +42,5 @@ export class User {
   whatsUp?: string;
   
   @Field(() => NotificationConfig, { nullable: true })
-  notificationConfig: NotificationConfig
+  notificationConfig?: NotificationConfig
 }

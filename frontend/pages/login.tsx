@@ -26,7 +26,7 @@ export default function Login() {
             console.log(address)
             const callbackUrl = "/protected" //NEXT_PUBLIC_BACKEND_LINK
             const nonce = await axios.post(`${process.env.NEXT_PUBLIC_BACKEND_LINK}/api/users/login`, {
-                email: 'email',
+                email: undefined,
                 publicKey: address
             }, { withCredentials: true })
             //console.log(nonce)

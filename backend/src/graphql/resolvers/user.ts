@@ -67,14 +67,15 @@ export class UserResolver {
     @Args() { id, name, lastName, email, phone, country, telegram, whatsUp }: UpdateUser
   ) {
     console.log(id, name, lastName, email, phone, country, telegram, whatsUp)
-    const user = await UserModel.findOneAndUpdate({ _id: id }, {
-      name, 
+    const user = await UserModel.findOneAndUpdate({ _id: id }, { $set: {
+            name, 
       lastName, 
       email, 
       phone, 
       country, 
       telegram, 
       whatsUp
+    }
     })
     console.log(user)
     return user

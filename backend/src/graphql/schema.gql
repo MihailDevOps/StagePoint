@@ -4,7 +4,14 @@
 # -----------------------------------------------
 
 type Mutation {
+  updateNotificationConfig(telegram: Boolean, userId: ID!, whatsUp: Boolean): User!
   updateUser(country: String, email: String, id: ID!, lastName: String, name: String, phone: String, telegram: String, whatsUp: String): User!
+}
+
+type NotificationConfig {
+  telegram: Boolean
+  userId: ID!
+  whatsUp: Boolean
 }
 
 type Query {
@@ -17,6 +24,7 @@ type User {
   email: String
   lastName: String
   name: String
+  notificationConfig: NotificationConfig
   phone: String
   telegram: String
   whatsUp: String
