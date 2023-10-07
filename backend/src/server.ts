@@ -18,10 +18,10 @@ app.use(json());
 const port = 8000;
 const httpServer = createServer(app);
 const corsOptions = {
-  origin: 'http://46.21.157.234',
+  origin: 'http://46.21.157.234:300',
   methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
   allowedHeaders: ['Content-Type', 'Authorization', 'Access-Control-Allow-Origin'],
-  credentials: true,
+  credentials: false,
 }
 
 app.use(cors(corsOptions));
