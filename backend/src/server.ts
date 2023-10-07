@@ -24,7 +24,7 @@ const corsOptions = {
   credentials: true,
 }
 
-app.use(cors());
+app.use(cors(corsOptions));
 
 const startServer = async () => {  
   const schema = await buildSchema({
