@@ -1,5 +1,5 @@
 import React from "react"
-import AppLayout from "../components/profile/layout/appLayout"
+import AppLayout from "../components/UI/profile/layout/appLayout"
 import Table from '@mui/material/Table';
 import TableBody from '@mui/material/TableBody';
 import TableCell from '@mui/material/TableCell';
@@ -32,12 +32,12 @@ const rows = [
 const styles = {
   tableContainer: {
     borderRadius: '24px',
-    overflow: 'hidden', 
+    overflow: 'hidden',
     padding: '10px'
   },
-  status: (status:string)=>{
-    if(status === 'Ready'){
-      return{
+  status: (status: string) => {
+    if (status === 'Ready') {
+      return {
         backgroundColor: "#ECFDF5",
         borderRadius: '100px',
         width: "max-content",
@@ -52,33 +52,33 @@ const styles = {
   },
 };
 
-const getTokenIcon = (token:string) => {
-  if(token === 'USDT'){
-    return <img src= "/images/USDTIcon.svg" className="w-6 h-6 opacity-80"/>
+const getTokenIcon = (token: string) => {
+  if (token === 'USDT') {
+    return <img src="/images/USDTIcon.svg" className="w-6 h-6 opacity-80" />
   }
 }
 
 export default function Transactions() {
   const [value, selectValue] = React.useState('USDT');
   const handleChange = (event: SelectChangeEvent<string>) => {
-    selectValue(event.target.value);  
+    selectValue(event.target.value);
   };
   return (
     <AppLayout>
       <Paper sx={styles.tableContainer}>
         <FormControl size="medium" variant="outlined">
-            <InputLabel id="select-label">Token</InputLabel>
-              <Select
-                labelId="select-label"
-                id="select-demo"
-                value={value}
-                label="Token"
-                onChange={handleChange}
-              >
-              <MenuItem value={'USDT'}>USDT</MenuItem>
-              <MenuItem value={'Ether'}>Ether</MenuItem>
-              <MenuItem value={'UAH'}>UAH</MenuItem>
-            </Select>
+          <InputLabel id="select-label">Token</InputLabel>
+          <Select
+            labelId="select-label"
+            id="select-demo"
+            value={value}
+            label="Token"
+            onChange={handleChange}
+          >
+            <MenuItem value={'USDT'}>USDT</MenuItem>
+            <MenuItem value={'Ether'}>Ether</MenuItem>
+            <MenuItem value={'UAH'}>UAH</MenuItem>
+          </Select>
         </FormControl>
         <TableContainer  >
           <Table sx={{ minWidth: 650 }} aria-label="simple table">

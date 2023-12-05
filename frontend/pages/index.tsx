@@ -1,6 +1,6 @@
 import Image from 'next/image'
-import Layout from '@/components/landing/layout'
-import Steps from '@/components/landing/steps'
+import Layout from '@/components/UI/landing/layout'
+import Steps from '@/components/UI/landing/steps'
 export default function Home() {
 
   return (

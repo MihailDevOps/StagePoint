@@ -1,8 +1,8 @@
-import Layout from '@/components/landing/layout'
+import Layout from '@/components/UI/landing/layout'
 
 
-export default function PrivacyPolicy(){
-    return(
+export default function PrivacyPolicy() {
+    return (
         <Layout>
             <div className="text-black w-full flex flex-col lg:flex-row">
                 <div className='w-full lg:w-[40%] border-b lg:border-r border-black font-normal text-[56px] xl:text-[64px] leading-19 uppercase pt-16 lg:pb-14 px-4 sm:px-10 '>

@@ -1,4 +1,4 @@
-import Layout from "@/components/landing/layout"
+import Layout from "@/components/UI/landing/layout"
 import data from '../../utils/comand.json'
 import { useRouter } from "next/router"
 

@@ -1,7 +1,7 @@
-import Layout from "@/components/landing/layout";
+import Layout from "@/components/UI/landing/layout";
 
-export default function Reports(){
-    return(
+export default function Reports() {
+    return (
         <Layout>
             <div className="text-black px-4 sm:px-20 pt-12 pb-32 border-b border-black">
                 <p className="font-normal text-[64px] leading-19">FUND PERFORMANCE BY QUARTER</p>

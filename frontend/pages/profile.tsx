@@ -1,5 +1,5 @@
 import React, { ChangeEvent, useEffect, useState } from "react"
-import AppLayout from "../components/profile/layout/appLayout"
+import AppLayout from "../components/UI/profile/layout/appLayout"
 import { IconInfoCircle } from '@tabler/icons-react';
 import { useMutation, useQuery } from "@apollo/client";
 import { USER_QUERY } from "../graphql/queries/user";
@@ -12,8 +12,8 @@ import { CountryDropdown } from 'react-country-region-selector';
 import 'react-phone-input-2/lib/style.css'
 import ValidateInput from "../components/validationInput";
 export default function Profile() {
-  const { data: session } = useSession();
-  const userId = session?.userId;
+  // const { data: session } = useSession();
+  // const userId = session?.user;
 
   const [name, setName] = useState<string>('');
   const [nameError, setNameError] = useState<string>();
@@ -36,8 +36,8 @@ export default function Profile() {
   const { data, loading, error } = useQuery(USER_QUERY, {
     fetchPolicy: 'cache-and-network',
     nextFetchPolicy: 'cache-first',
-    variables: { id: userId },
-    skip: !userId
+    variables: { id: '' },
+    skip: true
   });
 
   const [updateUser, { loading: updateLoading }] = useMutation(UPDATE_USER_MUTATION)
@@ -46,7 +46,7 @@ export default function Profile() {
     if (nameError || emailError || lastNameError) return toast.error(nameError || emailError || lastNameError)
     await updateUser({
       variables: {
-        id: userId,
+        id: '',
         name,
         lastName,
         email,

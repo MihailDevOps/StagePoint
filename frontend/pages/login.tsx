@@ -1,73 +1,18 @@
 import React, { useEffect, useState } from "react";
 import { IconArrowNarrowLeft } from '@tabler/icons-react';
 import Link from "next/link";
-import { connect } from "http2";
-import { SiweMessage } from "siwe"
-import { signIn, useSession, getCsrfToken } from "next-auth/react"
-import { useAccount, useConnect, useNetwork, useSignMessage } from "wagmi"
-import { InjectedConnector } from 'wagmi/connectors/injected'
+import { useAccount } from "@/components/Hooks";
 import { useRouter } from "next/router";
 import { toast } from "react-toastify";
-import axios from "axios";
-export default function Login() {
-    const [loading, setLoading] = useState<boolean>(false);
-    const { signMessageAsync } = useSignMessage()
-    const { chain } = useNetwork()
-    const { address, isConnected } = useAccount()
 
-    const router = useRouter()
-    const { data: session, status } = useSession()
-    const { connect } = useConnect({
-        connector: new InjectedConnector(),
-    });
-    async function handleLogin() {
-        setLoading(true)
-        try {
-            console.log(address)
-            const callbackUrl = "/protected" //NEXT_PUBLIC_BACKEND_LINK
-            const nonce = await axios.post(`${process.env.NEXT_PUBLIC_BACKEND_LINK}/api/users/login`, {
-                email: undefined,
-                publicKey: address
-            }, { withCredentials: true })
-            //console.log(nonce)
-            const message = new SiweMessage({
-                domain: window.location.host,
-                address: address,
-                statement: "Sign in with Ethereum to the app.",
-                uri: window.location.origin,
-                version: "1",
-                chainId: chain?.id,
-                nonce: nonce.data.nonce,
-            })
-            const signature = await signMessageAsync({
-                message: message.prepareMessage(),
-            })
-            const res = await signIn("eth", {
-                message: JSON.stringify(message),
-                redirect: false,
-                signature,
-                callbackUrl,
-                address,
-            })
-            console.log(res)
-            if (res?.ok) {
-                setLoading(false)
-                toast.success('Авторизирован веб3')
-            }
-            if (res?.error) {
-                return toast.error('Неизвестная ошибка')
-            }
-            return router.push('/profile')
-        } catch (error) {
-            console.log(error)
-        }
+export default function Login() {
+    const { account } = useAccount();
+    const router = useRouter();
+
+    if (account.data) {
+        router.push('/profile')
     }
-    useEffect(() => {
-        console.log(isConnected);
-        if (isConnected && !session) {
-            handleLogin()
-        }
-    }, [isConnected])
+
     return (
         <div className="w-full flex h-screen font-istok-web">
             <div className="w-1/2 p-20 bg-[#111827] flex flex-col justify-between items-start">
@@ -95,10 +40,13 @@ export default function Login() {
                     className="flex rounded-md w-full justify-center gap-1.5 font-normal text-base leading-5 text-yellow-900 bg-yellow-100 border border-inherit border-yellow-300 border-opacity-70 py-4 mt-16 mb-4"
                     onClick={(e) => {
                         e.preventDefault()
-                        if (!isConnected) {
-                            connect()
+                        if (!account.data && account.isInstalled) {
+                            account.connect();
+                            router.push('/profile');
+                        } else if (account.data) {
+                            router.push('/profile')
                         } else {
-                            handleLogin()
+                            toast.error('Wallet error')
                         }
                     }}
                 >
@@ -112,10 +60,13 @@ export default function Login() {
                     className="flex rounded-md w-full justify-center gap-1.5 font-normal text-base leading-5 text-blue-900 bg-blue-50 border border-inherit border-blue-100 border-opacity-70 py-4 mb-8"
                     onClick={(e) => {
                         e.preventDefault()
-                        if (!isConnected) {
-                            connect()
+                        if (!account.data && account.isInstalled) {
+                            account.connect();
+                            router.push('/profile');
+                        } else if (account.data) {
+                            router.push('/profile')
                         } else {
-                            handleLogin()
+                            toast.error('Wallet error')
                         }
                     }}
                 >

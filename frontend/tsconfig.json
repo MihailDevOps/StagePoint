@@ -1,5 +1,6 @@
 {
   "compilerOptions": {
+    "baseUrl": ".",
     "target": "es5",
     "lib": ["dom", "dom.iterable", "esnext"],
     "allowJs": true,
@@ -14,7 +15,14 @@
     "jsx": "preserve",
     "incremental": true,
     "paths": {
-      "@/*": ["./*"]
+      "@/*": ["./*"],
+      "@ui": ["components/UI"],
+      "@ui/*": ["components/UI/*"],
+      "@providers/*": ["components/Providers/*"],
+      "@providers": ["components/Providers"],
+      "@hooks/*": ["components/Hooks/*"],
+      "@hooks": ["components/Hooks"],
+      "@_types/*": ["types/*"]
     }
   },
   "include": [
