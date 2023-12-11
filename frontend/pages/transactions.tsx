@@ -11,6 +11,7 @@ import InputLabel from '@mui/material/InputLabel';
 import MenuItem from '@mui/material/MenuItem';
 import FormControl from '@mui/material/FormControl';
 import Select, { SelectChangeEvent } from '@mui/material/Select';
+import { useWeb3 } from "@/components/Providers";
 function createData(
   date: Date,
   amount: number,
@@ -63,6 +64,7 @@ export default function Transactions() {
   const handleChange = (event: SelectChangeEvent<string>) => {
     selectValue(event.target.value);
   };
+
   return (
     <AppLayout>
       <Paper sx={styles.tableContainer}>

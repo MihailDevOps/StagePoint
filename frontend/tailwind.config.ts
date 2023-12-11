@@ -9,7 +9,8 @@ module.exports = {
     extend: {
       fontFamily: {
         "istok-web": ["Istok Web", "sans-serif"],
-        'ibm': ['IBM Plex Sans Thai Looped'],
+        "ibm": ['IBM Plex Sans Thai Looped'],
+        "inter": ['Inter']
       },
       height: {
         

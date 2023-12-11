@@ -15,7 +15,7 @@ type NotificationConfig {
 }
 
 type Query {
-  user(id: ID!): User!
+  user(address: String!): User!
 }
 
 type User {

@@ -11,9 +11,12 @@ import PhoneInput from 'react-phone-input-2'
 import { CountryDropdown } from 'react-country-region-selector';
 import 'react-phone-input-2/lib/style.css'
 import ValidateInput from "../components/validationInput";
+import { useAccount } from "@/components/Hooks";
 export default function Profile() {
   // const { data: session } = useSession();
   // const userId = session?.user;
+
+  const { account } = useAccount();
 
   const [name, setName] = useState<string>('');
   const [nameError, setNameError] = useState<string>();
@@ -33,31 +36,31 @@ export default function Profile() {
 
   const [whatsUp, setWhatsUp] = useState<string>();
   const [whatsUpNotification, setWhatsUpNotification] = useState<boolean>();
-  const { data, loading, error } = useQuery(USER_QUERY, {
-    fetchPolicy: 'cache-and-network',
-    nextFetchPolicy: 'cache-first',
-    variables: { id: '' },
-    skip: true
-  });
+  // const { data, loading } = useQuery(USER_QUERY, {
+  //   fetchPolicy: 'cache-and-network',
+  //   nextFetchPolicy: 'cache-first',
+  //   variables: { address: account.data },
+  //   skip: tru
+  // });
 
-  const [updateUser, { loading: updateLoading }] = useMutation(UPDATE_USER_MUTATION)
-  const [updateNotificationConfig] = useMutation(UPDATE_USER_NOTIF_CONFIG_MUTATION)
+  // const [updateUser, { loading: updateLoading }] = useMutation(UPDATE_USER_MUTATION)
+  // const [updateNotificationConfig] = useMutation(UPDATE_USER_NOTIF_CONFIG_MUTATION)
   async function updateProfile() {
     if (nameError || emailError || lastNameError) return toast.error(nameError || emailError || lastNameError)
-    await updateUser({
-      variables: {
-        id: '',
-        name,
-        lastName,
-        email,
-        phone,
-        country,
-        telegram,
-        whatsUp
-      },
-      onCompleted: () => { toast.success('Updated') },
-      onError: () => { toast.error('Something went wrong') }
-    })
+    // await updateUser({
+    //   variables: {
+    //     id: '',
+    //     name,
+    //     lastName,
+    //     email,
+    //     phone,
+    //     country,
+    //     telegram,
+    //     whatsUp
+    //   },
+    //   onCompleted: () => { toast.success('Updated') },
+    //   onError: () => { toast.error('Something went wrong') }
+    // })
     // await updateNotificationConfig({
     //   variables: {
     //     userId: userId,
@@ -71,17 +74,17 @@ export default function Profile() {
     //   }
     // })
   }
-  useEffect(() => {
-    setName(data?.user?.name || '',)
-    setLastName(data?.user?.lastName || '')
-    setEmail(data?.user?.email || '')
-    setPhone(data?.user?.phone || '')
-    setCountry(data?.user?.country || '')
-    setTelegram(data?.user?.telegram || '')
-    setWhatsUp(data?.user?.whatsUp || '')
-    setTelegramNotification(data?.user?.notificationConfig?.telegram || undefined)
-    setWhatsUpNotification(data?.user?.notificationConfig?.whatsUp || undefined)
-  }, [data])
+  // useEffect(() => {
+  //   setName(data?.user?.name || '',)
+  //   setLastName(data?.user?.lastName || '')
+  //   setEmail(data?.user?.email || '')
+  //   setPhone(data?.user?.phone || '')
+  //   setCountry(data?.user?.country || '')
+  //   setTelegram(data?.user?.telegram || '')
+  //   setWhatsUp(data?.user?.whatsUp || '')
+  //   setTelegramNotification(data?.user?.notificationConfig?.telegram || undefined)
+  //   setWhatsUpNotification(data?.user?.notificationConfig?.whatsUp || undefined)
+  // }, [data])
 
   function onNameChange(e: ChangeEvent<HTMLInputElement>) {
     if (e.currentTarget.value.length < 2) {
@@ -113,12 +116,11 @@ export default function Profile() {
   }
   const label = { inputProps: { 'aria-label': 'Switch demo' } };
 
-  console.log(data)
   return (
     <AppLayout>
       <Backdrop
         sx={{ color: '#fff', zIndex: (theme) => theme.zIndex.drawer + 1 }}
-        open={updateLoading || loading}
+        open={account.isLoading}
       >
         <CircularProgress color="inherit" />
       </Backdrop>

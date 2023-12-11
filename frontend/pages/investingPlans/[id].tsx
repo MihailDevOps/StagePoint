@@ -32,7 +32,7 @@ export default function Plan() {
             await trans?.wait()
             toast.success("Success!")
         } catch (e: any) {
-            console.log(e.message)
+            toast.error(e.message)
         }
     }
     return (
@@ -42,21 +42,19 @@ export default function Plan() {
                     {
                         nftsData.map((nft, index) => <Link href={`/investingPlans/${index}`} className={`${index === numId ? "bg-black text-white" : "bg-white text-black"} rounded-xl p-3 px-5`}>{nft.name.slice(0, 1)}</Link>)
                     }
-                    {/* <Link href={`/ investingPlans / 0`} className="bg-black text-white rounded-xl p-3 px-5">A</Link>
-                    <div className="bg-white text-black rounded-xl p-3 px-5">A</div>
-                    <div className="bg-white text-black rounded-xl p-3 px-5">B</div> */}
                 </div>
-                <div className="bg-white rounded-2xl p-20 flex justify-between w-full">
+                <div className="bg-white rounded-2xl p-20 flex w-full">
                     <img src={nft.image} className="max-w-[20rem] rounded-xl" />
-                    <div className="flex flex-col justify-between">
-                        <p className="text-gray-900 font-medium text-2xl leading-7">{nft.name}</p>
-                        <div className="flex justify-between items-end mt-32">
+                    <div className="flex flex-col justify-between ml-16">
+                        <p className="text-gray-900 font-medium text-2xl leading-7">Stagepoint {nft.name} Plan</p>
+                        <p className="font-inter text-base text-gray-700">{nft.description}</p>
+                        <div className="flex-col items-end mt-32">
                             <p className="font-normal text-gray-300 text-xl leading-6">Price:</p>
-                            <p className="font-semibold text-gray-700 leading-8 text-3xl ml-1">{nft.price} ETH</p>
+                            <p className="font-semibold text-gray-700 leading-8 text-3xl">{nft.price} ETH</p>
                         </div>
                         <button
                             onClick={mintToken}
-                            className="py-1.5 text-white text-center bg-[#0050F6] rounded-xl"
+                            className="py-1.5 text-white text-center text-xl font-medium bg-[#0050F6] rounded-xl w-1/3"
                         >
                             Buy
                         </button>

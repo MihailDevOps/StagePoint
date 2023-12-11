@@ -1,6 +1,7 @@
 'use client'
 import { CryptoHookFactory } from "@_types/hook";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
+import { toast } from "react-toastify";
 import useSWR from "swr";
 
 // 
@@ -23,7 +24,6 @@ export const hookFactory: AccountHookFactory = ({ provider, ethereum, isLoading 
             if (!account) {
                 throw "Cannot retrieve account! Please, connect to web3 wallet."
             }
-            console.log(account)
             return account
         },
         {
@@ -46,8 +46,6 @@ export const hookFactory: AccountHookFactory = ({ provider, ethereum, isLoading 
         } else if (accounts[0] !== data) {
             mutate(accounts[0]);
         }
-        console.log(args),
-            alert("changed!")
     }
 
     const connect = async () => {

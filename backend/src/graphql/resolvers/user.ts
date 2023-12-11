@@ -6,8 +6,8 @@ import { NotificationConfigModel } from "../../mongodb/models/notificationsModel
 
 @ArgsType()
 class GetUser {
-  @Field(() => ID)
-  id: string;
+  @Field(() => String)
+  address: string;
 }
 
 @ArgsType()
@@ -54,10 +54,10 @@ class UpdateUser {
 export class UserResolver {
   @Query(() =>  User)
   async user(
-    @Args() { id }: GetUser
+    @Args() { address }: GetUser
   ) {
-    const user = await UserModel.findOne({ _id: id }).lean();
-    const notificationConfig = await NotificationConfigModel.findOne({ user: id } ).lean();
+    const user = await UserModel.findOne({ address: address }).lean();
+    const notificationConfig = await NotificationConfigModel.findOne({ user: user._id } ).lean();
     console.log(notificationConfig)
     return {...user, notificationConfig }
   }

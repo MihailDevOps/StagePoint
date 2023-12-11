@@ -13,6 +13,7 @@ import { useApollo } from "../utils/apolloClient"
 import { ToastContainer } from "react-toastify"
 import 'react-toastify/dist/ReactToastify.css';
 import { Web3Provider } from '@/components/Providers'
+import AccountLocker from '@/components/Providers/account'
 
 
 // export const { chains, provider } = configureChains(
@@ -26,14 +27,12 @@ import { Web3Provider } from '@/components/Providers'
 // })
 
 export default function App({ Component, pageProps }: AppProps<{}>) {
-  const apolloClient = useApollo(pageProps);
 
   return (
-    <ApolloProvider client={apolloClient}>
-      {/* <SessionProvider session={pageProps.session} refetchInterval={0}> */}
-      <Web3Provider>
+    <Web3Provider>
+      <AccountLocker>
         <Component {...pageProps} />
-      </Web3Provider>
+      </AccountLocker>
       <ToastContainer
         position="top-right"
         autoClose={3000}
@@ -44,8 +43,7 @@ export default function App({ Component, pageProps }: AppProps<{}>) {
         closeOnClick
         pauseOnHover
       />
-      {/* </SessionProvider> */}
-    </ApolloProvider>
+    </Web3Provider >
   )
 }
 
