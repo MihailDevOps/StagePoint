@@ -23,7 +23,7 @@ export default function Home() {
         </div>
       </div>
 
-      <div className='text-black px-4 sm:px-20 border-b border-black mt-12 pb-4'>
+      {/* <div className='text-black px-4 sm:px-20 border-b border-black mt-12 pb-4'>
         <div className='bg-black text-white py-1.5 px-5 font-bold text-sm leading-[23px] w-max rounded-full'>
           OUR EXPERTS
         </div>
@@ -94,7 +94,7 @@ export default function Home() {
             </div>
           </div>
         </div>
-      </div>
+      </div> */}
 
       <div className="text-black px-4 sm:px-20 pt-12 pb-4 border-b border-black bg-[#F9FAFB]">
         <div className='bg-black text-white py-1.5 px-5 font-bold text-sm leading-[23px] w-max rounded-full'>
