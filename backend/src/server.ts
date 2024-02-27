@@ -1,21 +1,20 @@
 import express, { json } from 'express';
-import { ApolloServer } from 'apollo-server-express';
 import { createServer } from 'http';
 import compression from 'compression';
 import cors from 'cors';
-import Database from './mongodb/database';
 import "reflect-metadata";
-import { buildSchema } from 'type-graphql';
-import { UserResolver } from './graphql/resolvers/user';
 import cookieParser from 'cookie-parser';
-import userRouter from './routes/userRouter'
+import supportRouter from './routes/supportRouter';
+import formidable  from 'express-formidable';
+import bodyParser from 'body-parser';
 const app = express();
-Database.connectToDatabase();
 app.use(compression());
+
 app.use(cookieParser());
 app.use(json());
-// server.applyMiddleware({ app, path: '/graphql' });
+app.use(formidable())
 const port = 8000;
+app.use
 const httpServer = createServer(app);
 const corsOptions = {
   origin: 'http://localhost:3000',
@@ -27,33 +26,9 @@ const corsOptions = {
 app.use(cors(corsOptions));
 
 const startServer = async () => {  
-  const schema = await buildSchema({
-    resolvers: [UserResolver],
-    emitSchemaFile: {
-      path: __dirname + '/graphql/schema.gql',
-      commentDescriptions: true
-    },
-    validate: false
-  });
-
-  const apollo = new ApolloServer({
-        schema,
-        introspection: true,
-      });
-    await apollo.start();
-    apollo.applyMiddleware({
-      app,
-      path: '/graphql',
-      cors: {
-        origin: ['http://localhost', 'https://studio.apollographql.com'],
-        methods: 'GET, POST',
-        optionsSuccessStatus: 204,
-        credentials: true
-      },
-  });
   httpServer.listen({ port }, () => { console.log(`🚀 Server ready at http://localhost:${port}/`) })
 }
 
-app.use('/api/users', userRouter)
 
+app.use('/api/support', supportRouter)
 startServer();
