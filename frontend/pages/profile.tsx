@@ -12,6 +12,7 @@ import { CountryDropdown } from 'react-country-region-selector';
 import 'react-phone-input-2/lib/style.css'
 import ValidateInput from "../components/validationInput";
 import { useAccount } from "@/components/Hooks";
+import { MailValidation } from "@/utils/validators";
 export default function Profile() {
   // const { data: session } = useSession();
   // const userId = session?.user;
@@ -104,16 +105,11 @@ export default function Profile() {
     setLastName(e.currentTarget.value)
   }
 
-  function onMailChange(e: ChangeEvent<HTMLInputElement>) {
-    const re = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
-    if (!re.test(String(e.currentTarget.value).toLowerCase())) {
-      setEmailError('Input valid mail')
-      if (!e.currentTarget.value) {
-        setEmailError('Input valid mail');
-      }
-    } else setEmailError('');
+  const onMailChange = (e: ChangeEvent<HTMLInputElement>) => {
     setEmail(e.currentTarget.value);
-  }
+    setEmailError(MailValidation(e.currentTarget.value))
+    setEmail(e.currentTarget.value);
+  };
   const label = { inputProps: { 'aria-label': 'Switch demo' } };
 
   return (

@@ -1,17 +1,8 @@
-import { IUser } from "./types";
+import { File } from 'buffer';
 import { Request } from 'express';
-export interface RegistrationReqType {
+export interface SupportMailReq {
   email: string;
-  password: string;
-}
-
-export interface LoginWeb3ReqType {
-  publicKey: string;
-}
-export interface VerifWeb3ReqType {
-  message: string;
-  signature: string;
-}
-export interface AuthenticatedRequest extends Request {
-  user: IUser;
+  title: string;
+  description: string;
+  screenshots: File[];
 }
