@@ -18,8 +18,7 @@ interface ISenderParams {
 
 dotenv.config()
 
-const { EMAIL_HOST, EMAIL_HOST_PASSWORD, EMAIL_HOST_USER, EMAIL_PORT } = process.env
-const supportMail = "testmailsmtpserver2@gmail.com"
+const { EMAIL_HOST, EMAIL_HOST_PASSWORD, EMAIL_HOST_USER, EMAIL_PORT, SUPPORT_EMAIL } = process.env
 
 
 async function saveAttachments(files) {
@@ -70,9 +69,10 @@ class MailService {
   }
 
   async send(sender, title, description, files) {
+    try {
     const mailOptions = {
       from: sender,
-      to: supportMail,
+      to: SUPPORT_EMAIL,
       subject: title,
       text: title,
       html: ` 
@@ -82,8 +82,8 @@ class MailService {
                   `,
       attachments: []
     }
-    console.log(files)
-    if(files.length > 0) {
+
+    if(files?.length > 0) {
       const attachments = await saveAttachments(files)  
       mailOptions.attachments = attachments
     } 
@@ -94,6 +94,9 @@ class MailService {
     } catch (e) {
       return e
     }
+  }
+  catch(e) {
+    console.log(e)  }
   }
 
 }
