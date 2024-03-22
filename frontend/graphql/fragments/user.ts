@@ -9,7 +9,7 @@ export const USER_FRAGMENT = gql`
     phone
     country
     telegram
-    whatsUp
+    whatsApp
   }
 `;
 
@@ -17,7 +17,7 @@ export const USER_NOTIF_CONFIG_FRAGMENT = gql`
   fragment UserFragment on User {
     notificationConfig {
       telegram
-      whatsUp
+      whatsApp
     }
   }
 `;

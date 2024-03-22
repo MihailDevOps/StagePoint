@@ -7,7 +7,7 @@ export const USER_QUERY = gql`
       ...UserFragment
       notificationConfig {
         telegram
-        whatsUp
+        whatsApp
       }
     }
   }

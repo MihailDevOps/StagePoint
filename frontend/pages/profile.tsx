@@ -35,8 +35,8 @@ export default function Profile() {
   const [telegram, setTelegram] = useState<string>();
   const [telegramNotification, setTelegramNotification] = useState<boolean>();
 
-  const [whatsUp, setWhatsUp] = useState<string>();
-  const [whatsUpNotification, setWhatsUpNotification] = useState<boolean>();
+  const [whatsApp, setWhatsApp] = useState<string>();
+  const [whatsAppNotification, setWhatsAppNotification] = useState<boolean>();
   // const { data, loading } = useQuery(USER_QUERY, {
   //   fetchPolicy: 'cache-and-network',
   //   nextFetchPolicy: 'cache-first',
@@ -57,7 +57,7 @@ export default function Profile() {
     //     phone,
     //     country,
     //     telegram,
-    //     whatsUp
+    //     whatsApp
     //   },
     //   onCompleted: () => { toast.success('Updated') },
     //   onError: () => { toast.error('Something went wrong') }
@@ -66,7 +66,7 @@ export default function Profile() {
     //   variables: {
     //     userId: userId,
     //     telegram: !!telegram ? telegramNotification : undefined,
-    //     whatsUp: !!whatsUp ? whatsUpNotification : undefined,
+    //     whatsApp: !!whatsApp ? whatsAppNotification : undefined,
     //   },
     //   onCompleted: () => {
     //   },
@@ -82,9 +82,9 @@ export default function Profile() {
   //   setPhone(data?.user?.phone || '')
   //   setCountry(data?.user?.country || '')
   //   setTelegram(data?.user?.telegram || '')
-  //   setWhatsUp(data?.user?.whatsUp || '')
+  //   setWhatsApp(data?.user?.whatsApp || '')
   //   setTelegramNotification(data?.user?.notificationConfig?.telegram || undefined)
-  //   setWhatsUpNotification(data?.user?.notificationConfig?.whatsUp || undefined)
+  //   setWhatsAppNotification(data?.user?.notificationConfig?.whatsApp || undefined)
   // }, [data])
 
   function onNameChange(e: ChangeEvent<HTMLInputElement>) {
@@ -169,7 +169,7 @@ export default function Profile() {
           />
         </div>
         <div className="w-1/3 text-gray-900 flex flex-col gap-4">
-          <div className={`${(telegram || whatsUp) ? 'h-[50%]' : 'h-full'} w-full  bg-white p-4 rounded-3xl`}>
+          <div className={`${(telegram || whatsApp) ? 'h-[50%]' : 'h-full'} w-full  bg-white p-4 rounded-3xl`}>
             <h1 className="font-medium text-xl leading-8 mb-2 text-black">Contact</h1>
             <p className="leadng-6 font-normal mb-1">Telegram</p>
             <input
@@ -178,15 +178,15 @@ export default function Profile() {
               value={telegram}
               onChange={(e) => setTelegram(e.target.value)}
             />
-            <p className="leadng-6 font-normal mb-1">WhatsUp</p>
+            <p className="leadng-6 font-normal mb-1">WhatsApp</p>
             <input
               className="w-full bg-gray-50 rounded-md p-2 px-4 mb-3"
               placeholder="@Ivanov1488"
-              value={whatsUp}
-              onChange={(e) => setWhatsUp(e.target.value)}
+              value={whatsApp}
+              onChange={(e) => setWhatsApp(e.target.value)}
             />
           </div>
-          {(telegram || whatsUp) && <div className={`w-full h-[50%] bg-white p-4 rounded-3xl`}>
+          {(telegram || whatsApp) && <div className={`w-full h-[50%] bg-white p-4 rounded-3xl`}>
             <h1 className="font-medium text-xl leading-8 mb-2 text-black items-center">Notifications</h1>
             {
               telegram && <div className="w-full flex justify-between my-2 mt-4">
@@ -195,9 +195,9 @@ export default function Profile() {
               </div>
             }
             {
-              whatsUp && <div className="w-full flex justify-between items-center">
-                <p className="leadng-6 font-normal mb-1">WhatsUp</p>
-                <Switch {...label} checked={whatsUpNotification} onChange={() => setWhatsUpNotification(!whatsUpNotification)} />
+              whatsApp && <div className="w-full flex justify-between items-center">
+                <p className="leadng-6 font-normal mb-1">WhatsApp</p>
+                <Switch {...label} checked={whatsAppNotification} onChange={() => setWhatsAppNotification(!whatsAppNotification)} />
               </div>
             }
 
