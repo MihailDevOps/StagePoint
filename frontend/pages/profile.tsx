@@ -174,14 +174,14 @@ export default function Profile() {
             <p className="leadng-6 font-normal mb-1">Telegram</p>
             <input
               className="w-full bg-gray-50 rounded-md p-2 px-4 mb-3"
-              placeholder="@Ivanov1488"
+              placeholder="@username"
               value={telegram}
               onChange={(e) => setTelegram(e.target.value)}
             />
             <p className="leadng-6 font-normal mb-1">WhatsApp</p>
             <input
               className="w-full bg-gray-50 rounded-md p-2 px-4 mb-3"
-              placeholder="@Ivanov1488"
+              placeholder="@username"
               value={whatsApp}
               onChange={(e) => setWhatsApp(e.target.value)}
             />
