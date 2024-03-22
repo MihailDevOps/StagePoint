@@ -43,7 +43,7 @@ export default function Help() {
     images.forEach((image, index) => {
       formData.append(`${index}`, image);
     });
-    const response = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_LINK}api/support/sendMessage`, {
+    const response = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_LINK}/api/support/sendMessage`, {
       method: "POST",
       body: formData
     })
