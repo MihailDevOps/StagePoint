@@ -7,6 +7,9 @@ import cookieParser from 'cookie-parser';
 import supportRouter from './routes/supportRouter';
 import formidable  from 'express-formidable';
 import bodyParser from 'body-parser';
+import dotenv from 'dotenv'
+
+dotenv.config()
 const app = express();
 app.use(compression());
 
@@ -17,7 +20,7 @@ const port = 8000;
 app.use
 const httpServer = createServer(app);
 const corsOptions = {
-  origin: 'http://localhost:3000',
+  origin: process.env.ORIGIN,
   methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
   // allowedHeaders: ['Content-Type', 'Authorization', 'Access-Control-Allow-Origin'],
   credentials: true,
@@ -26,7 +29,7 @@ const corsOptions = {
 app.use(cors(corsOptions));
 
 const startServer = async () => {  
-  httpServer.listen({ port }, () => { console.log(`🚀 Server ready at http://localhost:${port}/`) })
+  httpServer.listen({ port }, () => { console.log(`🚀 Server ready at ${port} port`) })
 }
 
 
