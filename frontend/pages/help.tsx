@@ -21,10 +21,10 @@ export default function Help() {
     if (files && files.length) {
       for (let i = 0; i < files.length; i++) {
         addFile(files[i]);
-    }
+      }
     }
   };
-  
+
   const onMailChange = (e: ChangeEvent<HTMLInputElement>) => {
     setEmail(e.currentTarget.value);
     setEmailError(MailValidation(e.currentTarget.value))
@@ -32,7 +32,7 @@ export default function Help() {
   };
 
 
-  const handleSubmit = async(event: FormEvent<HTMLFormElement> ) =>{
+  const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     if (emailError || titleError || descriptionError) return toast.error(emailError || titleError || descriptionError)
     const formData = new FormData();
@@ -43,18 +43,18 @@ export default function Help() {
     images.forEach((image, index) => {
       formData.append(`${index}`, image);
     });
-    const response = await fetch('http://localhost:8000/api/support/sendMessage',{
+    const response = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_LINK}api/support/sendMessage`, {
       method: "POST",
-      body: formData 
+      body: formData
     })
-    if(response.status === 200) {
+    if (response.status === 200) {
       toast.success('ticket created')
       setEmail('')
       setTitle('')
       setDescription('')
       setImages([])
     }
-    if(response.status === 500){
+    if (response.status === 500) {
       toast.error('something went wrong')
     }
   }
@@ -101,22 +101,22 @@ export default function Help() {
         <div className="flex w-full h-[5vw] gap-5 my-5">
           <div className="flex items-center justify-center gap-[2vw] overflow-hidden">
             {images.map((image, index) => <img src={URL.createObjectURL(image)} alt="Uploaded" className="object-cover w-full h-full rounded-xl" />
-          
+
             )}
-           
+
           </div>
           <div className="flex items-center justify-center  w-1/3">
           </div>
         </div>
         <div className="flex items-center justify-between">
-          <label 
+          <label
             className="flex items-center gap-3 border-2 border-[#0050F6] text-xl font-medium text-[#0050F6] rounded-xl py-3 px-16 cursor-pointer"
           >
             <IconPaperclip />
             <span>Attach file</span>
-            <input type="file" className="hidden" onChange={handleImageChange}/>
+            <input type="file" className="hidden" onChange={handleImageChange} />
           </label>
-          <button className="rounded-xl py-3 px-16 bg-[#0050F6] text-white text-xl font-medium" type ="submit" disabled = {!email || !description || !title}>
+          <button className="rounded-xl py-3 px-16 bg-[#0050F6] text-white text-xl font-medium" type="submit" disabled={!email || !description || !title}>
             Send
           </button>
         </div>
