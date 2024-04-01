@@ -5,7 +5,7 @@ import { ApiError } from '../exceptions/ApiError';
 
 class supportControllerClass {
     async sendMessage(req, res: Response, next: NextFunction) {
-        const { email, title, description } = req.fields
+        const { email, title, description, address } = req.fields
         const filesArray = Object.values(req.files);
         if (!email || !title || !description){
             return res.status(500).json({ 
@@ -15,7 +15,7 @@ class supportControllerClass {
         console.log(req.body)
         return res.status(200).json({ 
             status: 'message sended',
-            data: await mailService.send(email, title, description, filesArray) 
+            data: await mailService.send(email, title, description, filesArray, address) 
         })
     }
 }

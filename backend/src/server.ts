@@ -8,14 +8,16 @@ import supportRouter from './routes/supportRouter';
 import formidable  from 'express-formidable';
 import bodyParser from 'body-parser';
 import dotenv from 'dotenv'
+import userRouter from './routes/userRouter';
+import dbInit from './db/init';
 
 dotenv.config()
 const app = express();
 app.use(compression());
 
 app.use(cookieParser());
-app.use(json());
-app.use(formidable())
+app.use(bodyParser.json());
+// app.use(formidable())
 const port = 8000;
 app.use
 const httpServer = createServer(app);
@@ -28,10 +30,12 @@ const corsOptions = {
 
 app.use(cors(corsOptions));
 
-const startServer = async () => {  
+const startServer = async () => {
+  dbInit()
   httpServer.listen({ port }, () => { console.log(`🚀 Server ready at ${port} port`) })
 }
 
 
-app.use('/api/support', supportRouter)
+app.use('/api/support', formidable() ,supportRouter)
+app.use('/user', userRouter)
 startServer();

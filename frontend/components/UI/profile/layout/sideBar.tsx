@@ -8,7 +8,7 @@ import {
     IconStatusChange,
     IconHelpHexagon,
     IconClipboardList,
-    IconInfoHexagon
+    IconInfoHexagon,
 } from '@tabler/icons-react';
 export default function SideBar(
     { activeLink }: { activeLink: string }

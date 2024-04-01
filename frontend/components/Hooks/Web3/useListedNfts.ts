@@ -16,7 +16,9 @@ export const hookFactory: ListedNftsHookFactory = ({contract}) => () => {
     contract ? "web3/useListedNfts" : null,
     async () => {
       const nfts = [] as Nft[];
-      const coreNfts = await contract!.getAllNftsOnSale();
+      // const coreNfts = await contract!.getAllNftsOnSale();
+      const coreNfts = [] as Nft[];
+
 
       for (let i = 0; i < coreNfts.length; i++) {
         const item = coreNfts[i];
@@ -26,7 +28,7 @@ export const hookFactory: ListedNftsHookFactory = ({contract}) => () => {
 
         nfts.push({
           price: parseFloat(ethers.utils.formatEther(item.price)),
-          tokenId: item.tokenId.toNumber(),
+          tokenId: item.tokenId,
           creator: item.creator,
           isListed: item.isListed,
           meta: meta
@@ -38,11 +40,11 @@ export const hookFactory: ListedNftsHookFactory = ({contract}) => () => {
   )
 
   const buyNft = async (tokenId: number, value: number) => {
-    try {
-      await contract?.buyNft(tokenId, {value: ethers.utils.parseEther(value.toString())});
-    }catch (e: any) {
-      console.log(e.message)
-    }
+    // try {
+    //   await contract?.buyNft(tokenId, {value: ethers.utils.parseEther(value.toString())});
+    // }catch (e: any) {
+    //   console.log(e.message)
+    // }
   }
   
   return {

@@ -6,6 +6,7 @@ import AppLayout from "@/components/UI/profile/layout/appLayout"
 
 export default function InvestingPlans() {
   const { nfts } = useOwnedNfts();
+  console.log(nfts)
   return (
     <AppLayout>
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
@@ -18,16 +19,24 @@ export default function InvestingPlans() {
               <div className="mx-6 mt-5 mb-4">
                 <p className="text-gray-900 font-medium text-2xl leading-7">{nft.meta.name}</p>
                 <div className="flex justify-between items-end">
-                  <p className="font-normal text-gray-300 text-xl leading-6">Price:</p>
-                  <p className="font-semibold text-gray-700 leading-8 text-3xl">{nft.price} ETH</p>
+                  <p className="font-normal text-gray-300 text-md leading-6">Amount:</p>
+                  <p className="font-semibold text-gray-700 leading-8 text-2xl">{nft.price} ETH</p>
+                </div>
+                <div className="flex justify-between items-end">
+                  <p className="font-normal text-gray-300 text-md leading-6">Locked period::</p>
+                  <p className="font-semibold text-gray-700 leading-8 text-md">30 days</p>
+                </div>
+                <div className="flex justify-between items-end">
+                  <p className="font-normal text-gray-300 text-md leading-6">Investment date:</p>
+                  <p className="font-semibold text-gray-700 leading-8 text-md">2024-04-01</p>
                 </div>
               </div>
-              {/* <Link
-                href={`/investingPlans/${index}`}
+              <Link
+                href={`/planInfo/${index}`}
                 className="py-1.5 text-white text-center bg-[#0050F6] rounded-xl my-5 mx-6 text-xl"
               >
                 View Details
-              </Link> */}
+              </Link>
             </div>
           )
         }

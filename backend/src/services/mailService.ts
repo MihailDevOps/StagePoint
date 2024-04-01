@@ -8,6 +8,7 @@ const fs = require('fs');
 const readFileAsync = promisify(fs.readFile);
 const writeFileAsync = promisify(fs.writeFile);
 import path from 'path';
+import User from '../db/models/Users';
 interface ISenderParams {
   sender: string;
   title: string;
@@ -36,14 +37,14 @@ async function saveAttachments(files) {
   return attachments;
 }
 
-async function clearSaveDirectory(){
+async function clearSaveDirectory() {
   try {
     const files = await fs.readdir('src/uploads');
-    const deleteFilePromises = files.map(file => 
-      fs.unlink(path.join('src/uploads', file))  
+    const deleteFilePromises = files.map(file =>
+      fs.unlink(path.join('src/uploads', file))
     )
     await Promise.all(deleteFilePromises);
-  }catch (err) {
+  } catch (err) {
     return err
   }
 }
@@ -68,39 +69,52 @@ class MailService {
     })
   }
 
-  async send(sender, title, description, files) {
-    try {
-    const mailOptions = {
-      from: sender,
-      to: SUPPORT_EMAIL,
-      subject: title,
-      text: title,
-      html: ` 
-                    ticket from ${sender}
-                    <br></br>
-                    ${description}
-                  `,
-      attachments: []
-    }
+  async send(sender, title, description, files, address) {
+    const account = await User.findOne({ where: { address } })
+    if (!!account) {
+      try {
 
-    if(files?.length > 0) {
-      const attachments = await saveAttachments(files)  
-      mailOptions.attachments = attachments
-    } 
-    try {
-      const info = await this.#transporter.sendMail(mailOptions)
-      await clearSaveDirectory()
-      return info
-    } catch (e) {
-      return e
+        const mailOptions = {
+          from: sender,
+          to: SUPPORT_EMAIL,
+          subject: title,
+          text: title,
+          html: ` 
+                              Ticket from ${sender}
+                              <br></br>
+                              Account: ${account.address}
+                              </br>
+                              Name: ${account.firstName}
+                              </br>
+                              Last Name: ${account.lastName}
+                              </br>
+                              Phone: ${account.phone}
+                              </br>
+                              Account email: ${account.email}
+                              <br></br>
+                              ${description}
+                            `,
+          attachments: []
+        }
+
+        if (files?.length > 0) {
+          const attachments = await saveAttachments(files)
+          mailOptions.attachments = attachments
+        }
+        try {
+          const info = await this.#transporter.sendMail(mailOptions)
+          await clearSaveDirectory()
+          return info
+        } catch (e) {
+          return e
+        }
+      }
+      catch (e) {
+        console.log(e)
+      }
     }
-  }
-  catch(e) {
-    console.log(e)  }
   }
 
 }
-
-
 
 export default new MailService()

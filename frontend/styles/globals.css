@@ -1,5 +1,7 @@
 @import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Thai+Looped:wght@500&family=Poppins:wght@100&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Thai+Looped:wght@500&family=Inter&family=Poppins:wght@100&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Rubik:ital,wght@0,300..900;1,300..900&display=swap')
+
 /* Указываем box sizing */
 *,
 *::before,
@@ -91,6 +93,29 @@ input {
   box-shadow: none;
 }
 
+.rectangle-triangle-container {
+  position: relative;
+  width: 0;
+  height: 0;
+  margin: 20px auto;
+}
+
+.rectangle-triangle {
+  width: 0;
+  height: 0;
+  border-left: 100px solid transparent;
+  border-right: 100px solid transparent;
+  border-bottom: 200px solid blue;
+  transition: border-bottom-width 0.5s; /* Анимация изменения высоты прямоугольного треугольника */
+}
+
+.MuiSlider-root {
+  padding: 0 !important;
+}
+
+.MuiSlider-markLabel {
+  top: 15px !important;
+}
 /* Удаляем все анимации и переходы для людей, которые предпочитай их не использовать */
 @media (prefers-reduced-motion: reduce) {
   * {

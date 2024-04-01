@@ -1,11 +1,16 @@
-import React, { ChangeEvent, FormEvent, useState } from "react"
+import React, { ChangeEvent, FormEvent, useMemo, useState } from "react"
 import AppLayout from "../components/UI/profile/layout/appLayout"
 import { IconInfoCircle, IconPaperclip } from '@tabler/icons-react';
 import { MailValidation } from "@/utils/validators";
 import { toast } from "react-toastify";
 import ValidateInput from "@/components/validationInput";
+import { Backdrop, CircularProgress } from "@mui/material";
+import { useAccount } from "@/components/Hooks";
+import axios from "axios";
 
 export default function Help() {
+  const { account } = useAccount();
+
   const [email, setEmail] = useState<string>('')
   const [emailError, setEmailError] = useState<string>('')
   const [title, setTitle] = useState<string>('')
@@ -13,6 +18,7 @@ export default function Help() {
   const [description, setDescription] = useState<string>('')
   const [descriptionError, setDescriptionError] = useState<string>('')
   const [images, setImages] = useState<File[] | []>([])
+  const [loading, setLoading] = useState<boolean>(false)
   const addFile = (newImg: File) => {
     setImages([...images, newImg])
   }
@@ -35,10 +41,12 @@ export default function Help() {
   const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     if (emailError || titleError || descriptionError) return toast.error(emailError || titleError || descriptionError)
+    setLoading(true)
     const formData = new FormData();
     formData.append('email', email);
     formData.append('title', title);
     formData.append('description', description);
+    formData.append('address', account.data || '');
 
     images.forEach((image, index) => {
       formData.append(`${index}`, image);
@@ -49,7 +57,6 @@ export default function Help() {
     })
     if (response.status === 200) {
       toast.success('ticket created')
-      setEmail('')
       setTitle('')
       setDescription('')
       setImages([])
@@ -57,9 +64,33 @@ export default function Help() {
     if (response.status === 500) {
       toast.error('something went wrong')
     }
+    setLoading(false)
   }
+
+  useMemo(async () => {
+    if (!!account.data && !email) {
+      try {
+        setLoading(true)
+        const response = await axios.get(`${process.env.NEXT_PUBLIC_BACKEND_LINK}/user/${account.data}`);
+        if (response.data) {
+          const { data } = response;
+          setEmail(data.email.trim())
+        }
+        setLoading(false)
+      } catch (e) {
+
+      }
+    }
+  }, [account.data])
+
   return (
     <AppLayout>
+      <Backdrop
+        sx={{ color: '#fff', zIndex: (theme) => theme.zIndex.drawer + 1 }}
+        open={loading}
+      >
+        <CircularProgress color="inherit" />
+      </Backdrop>
       <form className="bg-white px-[2vw] py-6 mx-[2vw] my-6 rounded-xl" onSubmit={handleSubmit}>
         <h1 className="text-2xl font-medium">Your inquiry</h1>
         <span className="text-gray-900">Email for receiving response</span>

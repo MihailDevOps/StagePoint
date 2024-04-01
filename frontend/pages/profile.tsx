@@ -1,11 +1,8 @@
-import React, { ChangeEvent, useEffect, useState } from "react"
+import React, { ChangeEvent, useEffect, useMemo, useState } from "react"
 import AppLayout from "../components/UI/profile/layout/appLayout"
 import { IconInfoCircle } from '@tabler/icons-react';
-import { useMutation, useQuery } from "@apollo/client";
-import { USER_QUERY } from "../graphql/queries/user";
-import { UPDATE_USER_MUTATION, UPDATE_USER_NOTIF_CONFIG_MUTATION } from "../graphql/mutations/user";
-import { useSession } from 'next-auth/react';
 import { toast } from "react-toastify";
+import axios from 'axios';
 import { Backdrop, CircularProgress, Switch } from "@mui/material";
 import PhoneInput from 'react-phone-input-2'
 import { CountryDropdown } from 'react-country-region-selector';
@@ -13,6 +10,7 @@ import 'react-phone-input-2/lib/style.css'
 import ValidateInput from "../components/validationInput";
 import { useAccount } from "@/components/Hooks";
 import { MailValidation } from "@/utils/validators";
+
 export default function Profile() {
   // const { data: session } = useSession();
   // const userId = session?.user;
@@ -37,6 +35,7 @@ export default function Profile() {
 
   const [whatsApp, setWhatsApp] = useState<string>();
   const [whatsAppNotification, setWhatsAppNotification] = useState<boolean>();
+  const [loading, setLoading] = useState(true)
   // const { data, loading } = useQuery(USER_QUERY, {
   //   fetchPolicy: 'cache-and-network',
   //   nextFetchPolicy: 'cache-first',
@@ -44,36 +43,54 @@ export default function Profile() {
   //   skip: tru
   // });
 
+  useMemo(async () => {
+    if (!!account.data && !name) {
+      try {
+        setLoading(true)
+        const response = await axios.get(`${process.env.NEXT_PUBLIC_BACKEND_LINK}/user/${account.data}`);
+        if (response.data) {
+          const { data } = response;
+          setEmail(data.email)
+          setName(data.firstName)
+          setLastName(data.lastName)
+          setPhone(data.phone)
+          setCountry(data.country)
+          setTelegram(data.telegram)
+          setWhatsApp(data.whatsApp)
+          setWhatsAppNotification(data.whatsAppNotifications || false)
+          setTelegramNotification(data.telegramNotifications || false)
+        }
+        setLoading(false)
+      } catch (e) {
+
+      }
+    }
+  }, [])
+
   // const [updateUser, { loading: updateLoading }] = useMutation(UPDATE_USER_MUTATION)
   // const [updateNotificationConfig] = useMutation(UPDATE_USER_NOTIF_CONFIG_MUTATION)
   async function updateProfile() {
     if (nameError || emailError || lastNameError) return toast.error(nameError || emailError || lastNameError)
-    // await updateUser({
-    //   variables: {
-    //     id: '',
-    //     name,
-    //     lastName,
-    //     email,
-    //     phone,
-    //     country,
-    //     telegram,
-    //     whatsApp
-    //   },
-    //   onCompleted: () => { toast.success('Updated') },
-    //   onError: () => { toast.error('Something went wrong') }
-    // })
-    // await updateNotificationConfig({
-    //   variables: {
-    //     userId: userId,
-    //     telegram: !!telegram ? telegramNotification : undefined,
-    //     whatsApp: !!whatsApp ? whatsAppNotification : undefined,
-    //   },
-    //   onCompleted: () => {
-    //   },
-    //   onError: (err) => {
-    //     console.log(err)
-    //   }
-    // })
+    setLoading(true)
+    await axios.post(`${process.env.NEXT_PUBLIC_BACKEND_LINK}/user`, {
+      address: account.data,
+      firstName: name,
+      lastName,
+      email,
+      phone,
+      country,
+      telegram,
+      whatsApp,
+      telegramNotifications: !!telegram ? telegramNotification : undefined,
+      whatsAppNotifications: !!whatsApp ? whatsAppNotification : undefined,
+    }).then(() => {
+      setLoading(false)
+      toast.success('Profile updated')
+    }).catch((e) => {
+      console.log(e)
+      toast.error(e.response.data.message)
+      setLoading(false)
+    })
   }
   // useEffect(() => {
   //   setName(data?.user?.name || '',)
@@ -112,11 +129,12 @@ export default function Profile() {
   };
   const label = { inputProps: { 'aria-label': 'Switch demo' } };
 
+
   return (
     <AppLayout>
       <Backdrop
         sx={{ color: '#fff', zIndex: (theme) => theme.zIndex.drawer + 1 }}
-        open={account.isLoading}
+        open={account.isLoading || loading}
       >
         <CircularProgress color="inherit" />
       </Backdrop>
@@ -207,7 +225,7 @@ export default function Profile() {
       </div>
 
       <button
-        className="text-white bg-[#0050F6] text-center rounded-xl w-full py-2"
+        className="text-white bg-[#0050F6] text-center rounded-xl w-full py-2 cursor-pointer"
         onClick={updateProfile}
       >
         Save

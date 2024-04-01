@@ -2,14 +2,10 @@ import { CryptoHookFactory } from "@_types/hook";
 import { useEffect } from "react";
 import useSWR from "swr";
 
-const NETWORKS: {[k:string]: string} = {
-    1: "Ethereum Main Network",
-    3: "Ropsten Test Network",
-    4: "Rinkeby Test Network",
-    5: "Goerli Test Network",
-    42: "Kovan Test Network",
-    56: "Binance Smart Chain",
-    1337: "Ganache",
+export const NETWORKS: {[k:string]: string} = {
+    1: process.env.NEXT_PUBLIC_ETH_NAME ||  "Ethereum Main Network",
+    137: process.env.NEXT_PUBLIC_POLYGON_NAME || "",
+    1337: "Ganache"
 }
 
 const targetId = process.env.NEXT_PUBLIC_TARGET_CHAIN_ID as string;
