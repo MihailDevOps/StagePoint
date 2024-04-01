@@ -3,12 +3,18 @@ import Link from "next/link"
 import { useListedNfts, useOwnedNfts } from "@/components/Hooks/Web3"
 import { ethers } from "ethers"
 import AppLayout from "@/components/UI/profile/layout/appLayout"
+import { Backdrop, CircularProgress } from "@mui/material"
 
 export default function InvestingPlans() {
   const { nfts } = useOwnedNfts();
-  console.log(nfts)
   return (
     <AppLayout>
+      <Backdrop
+        sx={{ color: '#fff', zIndex: (theme) => theme.zIndex.drawer + 1 }}
+        open={nfts.isLoading}
+      >
+        <CircularProgress color="inherit" />
+      </Backdrop>
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
         {
           nfts.data?.map((nft, index) =>

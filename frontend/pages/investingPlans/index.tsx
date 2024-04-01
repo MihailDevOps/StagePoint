@@ -2,10 +2,8 @@ import React, { useState } from "react"
 import AppLayout from "../../components/UI/profile/layout/appLayout"
 import Link from "next/link"
 import nftsData from '../../data/nfts.json'
-import { Skeleton } from "@mui/material"
 
 export default function InvestingPlans() {
-  const [imageReady, setImageReady] = useState<boolean>(false)
 
   return (
     <AppLayout>
@@ -14,10 +12,7 @@ export default function InvestingPlans() {
           nftsData?.map((nft, index) =>
             <div className="bg-white rounded-2xl flex flex-col m-2">
               <div className="bg-gray-100 rounded-2xl max-w-[20rem] mx-auto mt-2">
-                {
-                  !imageReady && <Skeleton variant="rectangular" width="20rem" height="25rem" className="rounded-2xl" />
-                }
-                <img src={nft.image} className={`w-[20rem] h-[25rem] rounded-2xl`} onLoad={() => setImageReady(true)} />
+                <img src={nft.image} className={`w-[20rem] h-[25rem] rounded-2xl`} />
               </div>
               <div className="mx-6 mt-5">
                 <p className="text-gray-900 font-medium text-2xl leading-7">{nft.name}</p>
