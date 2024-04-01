@@ -32,7 +32,7 @@ export default function InvestingPlans() {
                 </div>
               </div>
               <Link
-                href={`/planInfo/${index}`}
+                href={`/status/${index}`}
                 className="py-1.5 text-white text-center bg-[#0050F6] rounded-xl my-5 mx-6 text-xl"
               >
                 View Details
