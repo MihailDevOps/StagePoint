@@ -71,24 +71,6 @@ contract NftMarket is ERC721URIStorage, Ownable {
     return _ownedTokens[owner][index];
   }
 
-  function getAllNftsOnSale() public view returns (NFTItem[] memory) {
-    uint allItemsCount = totalSupply();
-    uint currentIndex = 0;
-    NFTItem[] memory items = new NFTItem[](_listedItems.current());
-
-    for (uint i = 0; i < allItemsCount; i ++) {
-      uint tokenId = tokenByIndex((i));
-      NFTItem storage item = _idToNftItem[tokenId];
-
-      if (item.isListed == true) {
-        items[currentIndex] = item;
-        currentIndex += 1;
-      }
-    }
-
-    return items;
-  }
-
   function getOwnedNfts() public view returns (NFTItem[] memory) {
     uint ownedItemsCount = ERC721.balanceOf(msg.sender);
     NFTItem[] memory items = new NFTItem[](ownedItemsCount);
@@ -122,30 +104,6 @@ contract NftMarket is ERC721URIStorage, Ownable {
     return newTokenId;
   }
 
-  function buyNft(
-    uint tokenId
-  ) public payable {
-    uint price = _idToNftItem[tokenId].price;
-    address owner = ownerOf(tokenId);
-
-    require(msg.sender != owner, "You already own this NFT");
-    require(msg.value == price, "Please submit the asking price");
-    _idToNftItem[tokenId].isListed = false;
-    _listedItems.decrement();
-
-    _transfer(owner, msg.sender, tokenId);
-    payable(owner).transfer(msg.value);
-  }
-
-  function placeNftOnSale(uint tokenId, uint newPrice) public payable {
-    require(ERC721.ownerOf(tokenId) == msg.sender, "You are not owner of this nft");
-    require(_idToNftItem[tokenId].isListed == false, "Item is already on sale");
-    require(msg.value == listingPrice, "Price must be equal to listing price");
-
-    _idToNftItem[tokenId].isListed = true;
-    _idToNftItem[tokenId].price = newPrice;
-    _listedItems.increment();
-  }
 
   function _createNftItem(uint tokenId, uint price) private {
     require(price > 0, "Price must be at least 1wei");
@@ -160,8 +118,8 @@ contract NftMarket is ERC721URIStorage, Ownable {
     emit NFTItemCreated(tokenId, price, msg.sender, true);
   }
 
-  function _beforeTokenTransfer(address from, address to, uint tokenId) internal virtual override {
-    super._beforeTokenTransfer(from, to, tokenId);
+  function _beforeTokenTransfer(address from, address to, uint tokenId, uint256 batchSize) internal virtual override {
+    super._beforeTokenTransfer(from, to, tokenId, batchSize);
 
     if (from == address(0)) {
       _addTokenToAllTokensEnumeration(tokenId);
