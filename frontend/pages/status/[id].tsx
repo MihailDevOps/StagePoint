@@ -107,7 +107,6 @@ export default function Plan() {
                     <div className="flex flex-col justify-between ml-16">
                         <p className="text-gray-900 font-medium text-2xl leading-7">Stagepoint {nft.name} Plan</p>
                         <p className="font-inter text-base text-gray-700">{nft.description}</p>
-                        <p className="font-inter text-base text-gray-70 opacity-70 mt-2">Investment period:</p>
                         <div className="flex mt-4">
                             <div className="w-1/2">
                                 <div className="w-48 h-48 rounded-full bg-black m-auto text-white text-center flex">
