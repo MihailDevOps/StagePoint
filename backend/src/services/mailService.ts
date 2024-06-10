@@ -8,7 +8,7 @@ const fs = require('fs');
 const readFileAsync = promisify(fs.readFile);
 const writeFileAsync = promisify(fs.writeFile);
 import path from 'path';
-import User from '../db/models/Users';
+import User from '../db/models/User';
 interface ISenderParams {
   sender: string;
   title: string;

@@ -1,8 +1,8 @@
 import Router from "express";
-import { getUser, updateUser } from "../controllers/userController";
+import { getUser, login, updateUser } from "../controllers/userController";
 const userRouter = Router();
 userRouter.get('/:address', getUser)
-// userRouter.post('', createUser)
+userRouter.post("/login", login)
 userRouter.post('', updateUser)
 
 export default userRouter

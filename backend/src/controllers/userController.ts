@@ -1,9 +1,29 @@
 import { Client } from 'pg'
 import * as dotenv from 'dotenv';
-import User from '../db/models/Users';
+import { User } from '../db/models';
+import * as jwt from "jsonwebtoken";
 dotenv.config();
 
 
+const login = async (req, res) => {
+    try {
+        const { address } = req.body;
+        if (!address) {
+            res.status(500).json({ message: "Incorrect Request" })
+        }
+    
+        let user = await User.findOne({where: {address}})
+    
+        if (!user) {
+            user = await User.create({address})
+        }
+        const token = jwt.sign({address}, process.env.JWT_SECRET);
+        res.status(200).json(token)
+    } catch (e) {
+        return res.status(404).json({'message': e.message})
+    }
+
+}
 
 const getUser = async (req, res, next) => {
     try {
@@ -11,9 +31,6 @@ const getUser = async (req, res, next) => {
         if (!address) {
             res.status(500).json({ message: "Incorrect Request" })
         }
-        const select =
-            `SELECT * FROM users WHERE address=$1`;
-        // const values = [address, firstName, lastName, email, phone, country, telegram, whatsApp, telegramNotifications, whatsAppNotifications]
     
         const user = await User.findOne({where: {address}})
     
@@ -45,5 +62,6 @@ const updateUser = async (req, res, next) => {
 
 export {
     getUser,
-    updateUser
+    updateUser,
+    login
 }
