@@ -26,7 +26,6 @@ const options = {
   description: "USDC Transfers 100k",
   tag: "usdcTransfers100k",
   includeContractLogs: true,
-  abi: ABI,
   webhookUrl: "http://38.180.4.128:8000//blockchain-webhook"
 };
 
