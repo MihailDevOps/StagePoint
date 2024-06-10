@@ -17,7 +17,7 @@ import planRouter from './routes/planRouter';
 import { default as Moralis } from "moralis"
 import Chains from "@moralisweb3/common-evm-utils";
 const EvmChain = Chains.EvmChain;
-const ABI = require("./contract/SPFNft.json");
+const ABI = require("../contract/SPFNft.json");
 dotenv.config();
 
 
