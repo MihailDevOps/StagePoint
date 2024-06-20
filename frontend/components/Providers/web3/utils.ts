@@ -2,8 +2,6 @@ import { Web3Hook, setupHook } from '@/components/Hooks/Web3/setupHooks';
 import { Web3Deps } from '@_types/hook';
 import { MetaMaskInpageProvider } from '@metamask/providers';
 import { Contract, ethers, providers } from 'ethers';
-import keys from '../../../public/contracts/contracts/contract-address-polygon_mumbai.json'
-import { useNetwork } from '@/components/Hooks';
 import { NETWORKS } from '@/data/networks';
 declare global {
     interface Window {
