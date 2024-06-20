@@ -215,7 +215,7 @@ export default function Users() {
                                             <TableCell align="left">USDT {row.price}</TableCell>
                                             <TableCell align="left">{new Date(row.startDate).toLocaleDateString("en-US")}</TableCell>
                                             <TableCell align="left">
-                                                <Image src={row.chain ? NETWORKS[row.chain].logo_src as string : "images/eth.svg"} alt="currency logo" width={24} height={24} />
+                                                <Image src={row.chain ? NETWORKS[row.chain].logo_src as string : "/images/eth.svg"} alt="currency logo" width={24} height={24} />
                                             </TableCell>
                                         </TableRow>
                                     ))}

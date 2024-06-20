@@ -29,7 +29,7 @@ export const NETWORKS: {[k:string]: {name: string, chainId?: string, rpcUrl?: st
         },
         usdtAddress: "0x76a5A3a1eC8AA32d7Fc7BD7D4Cd9c779a59Ef881",
         contractAddress: "0xfA898de6CcE1715a14F579c316C6cfd7F869655B",
-        logo_src: "images/logo/polygon.svg"
+        logo_src: "/images/logo/polygon.svg"
     },
     // 59141: {
     //     name: "Sepolia",
@@ -52,6 +52,6 @@ export const NETWORKS: {[k:string]: {name: string, chainId?: string, rpcUrl?: st
         },
         usdtAddress: "0x76a5A3a1eC8AA32d7Fc7BD7D4Cd9c779a59Ef881",
         contractAddress: "0xfA898de6CcE1715a14F579c316C6cfd7F869655B",
-        logo_src: "images/logo/eth.svg"
+        logo_src: "/images/logo/eth.svg"
     },
 }

@@ -47,11 +47,11 @@ export default function Home() {
         <div className="text-gray-600 text-sm font-normal font-onest leading-3">Available for blockchain networks</div>
         <div className="justify-start items-start gap-[50px] inline-flex">
           <div className="justify-center items-center gap-2.5 flex">
-            <img className="w-5 h-5" src="images/logo/eth.svg" />
+            <img className="w-5 h-5" src="/images/logo/eth.svg" />
             <div className="text-gray-600 text-sm font-normal font-onest leading-3">Ethereum</div>
           </div>
           <div className="justify-center items-center gap-2.5 flex">
-            <img className="w-5 h-5" src="images/logo/polygon.svg" />
+            <img className="w-5 h-5" src="/images/logo/polygon.svg" />
             <div className="text-gray-600 text-sm font-normal font-onest leading-3">Polygon</div>
           </div>
         </div>
@@ -97,7 +97,7 @@ export default function Home() {
             </div>
           </div>
         </div>
-        <img className="w-4/12 rounded-2xl" src="images/landing/about-company.jpeg" />
+        <img className="w-4/12 rounded-2xl" src="/images/landing/about-company.jpeg" />
       </div>
 
       <div className="text-black text-4xl font-medium font-onest mt-28">Our Guarantee</div>
