@@ -11,7 +11,9 @@ module.exports = {
         "istok-web": ["Istok Web", "sans-serif"],
         "ibm": ['IBM Plex Sans Thai Looped'],
         "inter": ['Inter'],
-        "Rubik": ["Rubik", "sans-serif"]
+        "Rubik": ["Rubik", "sans-serif"],
+        "roboto": ["Roboto"],
+        "onest": ["Onest"]
       },
       height: {
         

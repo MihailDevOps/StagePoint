@@ -1,7 +1,6 @@
 
 import { CryptoHookFactory } from "@_types/hook";
 import { Nft } from "@_types/nft";
-import { ethers } from "ethers";
 import useSWR from "swr";
 
 type UseOwnedNftsResponse = {}
@@ -23,10 +22,19 @@ export const hookFactory: OwnedNftsHookFactory = ({contract}) => () => {
         const meta = await metaRes.json();
 
         nfts.push({
-          price: parseFloat(ethers.utils.formatEther(item.price)),
+          price: item.price.toNumber(),
           tokenId: item.tokenId.toNumber(),
           creator: item.creator,
+          startDate: new Date(item.startDate.toNumber()),
+          endDate: new Date(item.endDate.toNumber()),
+          depositTerm: item.depositTerm.toNumber(),
+          depositInterest: item.depositInterest.toNumber(),
+          interest: item.interest as "monthly" | "compound",
           isListed: item.isListed,
+          rewardsClaimed: item.rewardsClaimed.toNumber(),
+          payOff: item.payOff.toNumber(),
+          rewardsAvailable: item.rewardsAvailable.toNumber(),
+          rewardProfit: item.rewardProfit.toNumber(),
           meta: meta
         })
       }

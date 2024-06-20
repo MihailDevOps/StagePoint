@@ -77,8 +77,8 @@ export default function Help() {
           setEmail(data.email.trim())
         }
         setLoading(false)
-      } catch (e) {
-
+      } catch (e: any) {
+        toast.error(e.message)
       }
     }
   }, [account.data])

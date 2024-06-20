@@ -10,7 +10,7 @@ export default function Overview() {
                     <p className="font-bold text-4xl leading-15 ">
                         Invest in a stable cryptocurrency fund from anywhere in the world.
                     </p>
-                    <Link href="/investingPlans">
+                    <Link href="/nft-plans">
                         <button className="bg-blue-500  flex rounded-xl gap-3 py-3 px-[72px] mt-2">
                             Get started
                             <IconArrowNarrowRight />

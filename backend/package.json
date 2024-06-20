@@ -29,6 +29,7 @@
   },
   "dependencies": {
     "@moralisweb3/common-evm-utils": "^2.26.3",
+    "bignumber.js": "^9.1.2",
     "body-parser": "^1.20.2",
     "compression": "^1.7.4",
     "cookie-parser": "^1.4.6",

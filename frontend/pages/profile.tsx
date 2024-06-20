@@ -44,7 +44,7 @@ export default function Profile() {
   // });
 
   useMemo(async () => {
-    if (!!account.data && !name) {
+    if (!!account.data) {
       try {
         setLoading(true)
         const response = await axios.get(`${process.env.NEXT_PUBLIC_BACKEND_LINK}/user/${account.data}`);
@@ -65,7 +65,7 @@ export default function Profile() {
 
       }
     }
-  }, [])
+  }, [account.data])
 
   // const [updateUser, { loading: updateLoading }] = useMutation(UPDATE_USER_MUTATION)
   // const [updateNotificationConfig] = useMutation(UPDATE_USER_NOTIF_CONFIG_MUTATION)
@@ -134,7 +134,7 @@ export default function Profile() {
     <AppLayout>
       <Backdrop
         sx={{ color: '#fff', zIndex: (theme) => theme.zIndex.drawer + 1 }}
-        open={account.isLoading || loading}
+        open={loading}
       >
         <CircularProgress color="inherit" />
       </Backdrop>

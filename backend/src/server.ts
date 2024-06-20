@@ -15,30 +15,62 @@ import dbInit from './db/init';
 import { verifyToken } from './middleware/jwtMiddleware';
 import planRouter from './routes/planRouter';
 import { default as Moralis } from "moralis"
+import { Streams } from 'moralis/streams'
 import Chains from "@moralisweb3/common-evm-utils";
+import * as ABI from '../contract/SPFNft.json';
+import transactionRouter from './routes/transactionRouter';
 const EvmChain = Chains.EvmChain;
-const ABI = require("../contract/SPFNft.json");
+
+// const ABI = require("../contract/SPFNft.json");
 dotenv.config();
 
 
 const options = {
-  chains: [EvmChain.SEPOLIA],
-  description: "USDC Transfers 100k",
-  tag: "usdcTransfers100k",
+  chains: [EvmChain.SEPOLIA, EvmChain.POLYGON_AMOY],
+  description: "Transactions History",
+  tag: "Transactions",
   includeContractLogs: true,
-  webhookUrl: "http://38.180.4.128:8000/blockchain-webhook"
+  webhookUrl: `${process.env.PUBLIC_LINK}/transactions/blockchain-webhook`,
+  abi: ABI.abi,
+  topic0: [
+    "Transaction(uint256,string,uint256,address,uint256)"
+  ]
 };
 
-Moralis.start({
-  apiKey: process.env.MORALIS_KEY ,
-}).then(async () => {
-  const stream = await Moralis.Streams.add(options);
-  const { id } = stream.toJSON();
-  await Moralis.Streams.addAddress({
-      id: id,
-      address: ["0xDe1112a0960B9619da7F91D51fB571cdefE48B5E"]
-  })
-});
+try {
+  Moralis.start({
+    apiKey: process.env.MORALIS_KEY ,
+  }).then(async () => {
+    try {
+    const stream = await Moralis.Streams.add(options);
+    const { id } = stream.toJSON();
+    await Moralis.Streams.addAddress({
+        id: id,
+        address: ["0xF8b1d4d0A2Dd9Dd53200A4C6783a69c15E3a25F4"]
+    }).then(async() => {
+      // try {
+      //   const stream = await Moralis.Streams.add({
+      //     ...options,
+      //     topic0: ["NFTItemCreated(uint256,uint256,address,uint256,uint256,uint256,uint256,string,uint256,uint256,uint256,uint256)"],
+      //     webhookUrl: "https://4674-46-219-205-194.ngrok-free.app/plan"
+      //   });
+      //   const { id } = stream.toJSON();
+      //   await Moralis.Streams.addAddress({
+      //       id: id,
+      //       address: ["0xF8b1d4d0A2Dd9Dd53200A4C6783a69c15E3a25F4"]
+      //   })
+      // } catch(e) {
+      //   console.error(e.message)
+      // }
+    })
+  } catch(e) {
+    console.error(e.message)
+  }
+  }); 
+}
+catch (e) {
+  console.error(e.message)
+}
 
 const app = express();
 app.use(compression());
@@ -66,9 +98,7 @@ const startServer = async () => {
 app.use('/api/support', verifyToken, formidable() , supportRouter)
 app.use('/user', userRouter)
 app.use('/plan', planRouter)
-app.use('/admin', adminRouter)
-app.post('/blockchain-webhook', (req, res) => {
-  console.log(req.body);
-  res.status(200).end();
-})
+app.use('/admin', adminRouter);
+app.use('/transactions', transactionRouter);
 startServer();
+

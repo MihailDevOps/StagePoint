@@ -5,8 +5,10 @@ import { NftMarketContract } from "./nftMarketContract";
 
 export type Web3Deps = {
     provider: providers.Web3Provider;
-    contract: NftMarketContract;
+    contract?: NftMarketContract;
+    usdtContract?: any;
     ethereum: MetaMaskInpageProvider;
+    network: any,
     isLoading: boolean;
 }
 

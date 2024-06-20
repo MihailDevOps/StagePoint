@@ -9,8 +9,9 @@ export default function Layout(
   return (
     <div className="font-ibm text-black">
       <Header />
-      <div className="h-px mb-[92.5px]"></div>
-      {children}
+      <div className="mx-auto max-w-[1000px]">
+        {children}
+      </div>
       <Footer />
     </div>
   )

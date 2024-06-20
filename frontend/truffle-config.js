@@ -6,20 +6,20 @@ module.exports = {
   networks: {
     development: {
      host: "127.0.0.1",     // Localhost (default: none)
-     port: 9545,            // Standard Ethereum port (default: none)
+     port: 7545,            // Standard Ethereum port (default: none)
      network_id: "*",       // Any network (default: none)
     },
-    sepolia: {
-      provider: function () {
-        return new HDWalletProvider(mnemonic, 'https://wild-maximum-wind.ethereum-sepolia.quiknode.pro/12497e6874c137f4eb46dc28f7e574c54f51925a')
-      },
-      network_id: 4868603,
-      gas: 4000000, // Adjust the gas limit as per your requirements
-      gasPrice: 10000000000, // Set the gas price to an appropriate value
-      confirmations: 2, // Set the number of confirmations needed for a transaction
-      timeoutBlocks: 200, // Set the timeout for transactions
-      skipDryRun: true // Skip the dry run option
-    }
+    // sepolia: {
+    //   provider: function () {
+    //     return new HDWalletProvider(mnemonic, 'https://wild-maximum-wind.ethereum-sepolia.quiknode.pro/12497e6874c137f4eb46dc28f7e574c54f51925a')
+    //   },
+    //   network_id: 4868603,
+    //   gas: 4000000, // Adjust the gas limit as per your requirements
+    //   gasPrice: 10000000000, // Set the gas price to an appropriate value
+    //   confirmations: 2, // Set the number of confirmations needed for a transaction
+    //   timeoutBlocks: 200, // Set the timeout for transactions
+    //   skipDryRun: true // Skip the dry run option
+    // }
   },
   compilers: {
     solc: {

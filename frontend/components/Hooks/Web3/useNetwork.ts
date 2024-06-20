@@ -3,8 +3,10 @@ import { useEffect } from "react";
 import useSWR from "swr";
 
 export const NETWORKS: {[k:string]: string} = {
-    1: process.env.NEXT_PUBLIC_ETH_NAME ||  "Ethereum Main Network",
-    137: process.env.NEXT_PUBLIC_POLYGON_NAME || "",
+    // 1: process.env.NEXT_PUBLIC_ETH_NAME ||  "Ethereum Main Network",
+    // 137: process.env.NEXT_PUBLIC_POLYGON_NAME || "",
+    80002: process.env.NEXT_PUBLIC_POLYGON_NAME || "Amoy",
+    // 59141: process.env.NEXT_PUBLIC_ETH_NAME || "Sepolia",
     1337: "Ganache"
 }
 
@@ -26,14 +28,14 @@ export const hookFactory: NetworkHookFactory= ({provider, isLoading}) => () => {
         provider ? "web3/useNetwork" : null,
         async () => {
             const chainId = (await provider!.getNetwork()).chainId;
-            if(!chainId) {
+            if(!chainId && !NETWORKS[chainId]) {
                 throw "Cannot retrieve network. Please, refresh browser or connect to other one."
             }
 
             return NETWORKS[chainId]
         },
         {
-            revalidateOnFocus: false
+            revalidateOnFocus: true
         }
     )
 
@@ -43,6 +45,6 @@ export const hookFactory: NetworkHookFactory= ({provider, isLoading}) => () => {
         isValidating,
         isLoading: isLoading || isValidating,
         targetNetwork,
-        isSupported: data === targetNetwork
+        isSupported: !!data
     };
 }

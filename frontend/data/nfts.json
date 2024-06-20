@@ -1,23 +1,65 @@
 [
     {
         "description": "Based on our management and investment team's extensive experience in real estate and specialty investments, we maintain an analytical and dynamic approach to our investments. We leverage our cross-platform experience, relationships, and technology to identify and execute investments with attractive risk and return profiles.",
-        "image": "https://jade-cheap-toad-19.mypinata.cloud/ipfs/QmNPaP2k1zDLykuXQedsLqfg6e7VPAbQWb7MRkTsg3Pt8r",
-        "name": "A-Class",
+        "image": "https://copper-worthy-panda-200.mypinata.cloud/ipfs/QmNPaP2k1zDLykuXQedsLqfg6e7VPAbQWb7MRkTsg3Pt8r",
+        "name": "E-Class",
         "price": "0.05",
-        "data": "https://jade-cheap-toad-19.mypinata.cloud/ipfs/QmR5Rj16NVakCbh23nQhfzCKW6MAxFjkvrGrixU5H39MrQ"
+        "rangeStart": 5000,
+        "rangeEnd": 10000,
+        "data": "https://copper-worthy-panda-200.mypinata.cloud/ipfs/QmWMBJK7XxDuLU8wJVycff9qo5Ra77MvBjoMJFBRWWX64B"
     },
     {
         "description": "Based on our management and investment team's extensive experience in real estate and specialty investments, we maintain an analytical and dynamic approach to our investments. We leverage our cross-platform experience, relationships, and technology to identify and execute investments with attractive risk and return profiles.",
-        "image": "https://jade-cheap-toad-19.mypinata.cloud/ipfs/QmQ8gHa66GWUdRBWvLffjZY46WE42SHoRA7VYkYyqvUhE4",
-        "name": "B-Class",
+        "image": "https://copper-worthy-panda-200.mypinata.cloud/ipfs/QmQ8gHa66GWUdRBWvLffjZY46WE42SHoRA7VYkYyqvUhE4",
+        "name": "D-Class",
         "price": "0.23",
-        "data": "https://jade-cheap-toad-19.mypinata.cloud/ipfs/QmR5Rj16NVakCbh23nQhfzCKW6MAxFjkvrGrixU5H39MrQ"
+        "rangeStart": 10000,
+        "rangeEnd": 20000,
+        "data": "https://copper-worthy-panda-200.mypinata.cloud/ipfs/QmdFBcj3j72rEE1jm2VE5UScDNWmbofxmsLTfMFzkbVHPq"
     },
     {
         "description": "Based on our management and investment team's extensive experience in real estate and specialty investments, we maintain an analytical and dynamic approach to our investments. We leverage our cross-platform experience, relationships, and technology to identify and execute investments with attractive risk and return profiles.",
-        "image": "https://jade-cheap-toad-19.mypinata.cloud/ipfs/QmUttzLAN4f8GmZptbiAzThUbGVzMKBSSTfW8wTs97hH2n",
+        "image": "https://copper-worthy-panda-200.mypinata.cloud/ipfs/QmUttzLAN4f8GmZptbiAzThUbGVzMKBSSTfW8wTs97hH2n",
+        "name": "C-Class",
+        "price": "0.45",
+        "rangeStart": 20000,
+        "rangeEnd": 30000,
+        "data": "https://copper-worthy-panda-200.mypinata.cloud/ipfs/QmSNroWCzc6oBG62DvEweQgwSuEHeTWn76Cvx6rZXeFZCC"
+    },
+    {
+        "description": "Based on our management and investment team's extensive experience in real estate and specialty investments, we maintain an analytical and dynamic approach to our investments. We leverage our cross-platform experience, relationships, and technology to identify and execute investments with attractive risk and return profiles.",
+        "image": "https://copper-worthy-panda-200.mypinata.cloud/ipfs/QmUttzLAN4f8GmZptbiAzThUbGVzMKBSSTfW8wTs97hH2n",
+        "name": "B-Class",
+        "price": "0.45",
+        "rangeStart": 30000,
+        "rangeEnd": 40000,
+        "data": "https://copper-worthy-panda-200.mypinata.cloud/ipfs/QmSNroWCzc6oBG62DvEweQgwSuEHeTWn76Cvx6rZXeFZCC"
+    },
+    {
+        "description": "Based on our management and investment team's extensive experience in real estate and specialty investments, we maintain an analytical and dynamic approach to our investments. We leverage our cross-platform experience, relationships, and technology to identify and execute investments with attractive risk and return profiles.",
+        "image": "https://copper-worthy-panda-200.mypinata.cloud/ipfs/QmUttzLAN4f8GmZptbiAzThUbGVzMKBSSTfW8wTs97hH2n",
+        "name": "A-Class",
+        "price": "0.45",
+        "rangeStart": 40000,
+        "rangeEnd": 60000,
+        "data": "https://copper-worthy-panda-200.mypinata.cloud/ipfs/QmSNroWCzc6oBG62DvEweQgwSuEHeTWn76Cvx6rZXeFZCC"
+    },
+    {
+        "description": "Based on our management and investment team's extensive experience in real estate and specialty investments, we maintain an analytical and dynamic approach to our investments. We leverage our cross-platform experience, relationships, and technology to identify and execute investments with attractive risk and return profiles.",
+        "image": "https://copper-worthy-panda-200.mypinata.cloud/ipfs/QmUttzLAN4f8GmZptbiAzThUbGVzMKBSSTfW8wTs97hH2n",
         "name": "S-Class",
         "price": "0.45",
-        "data": "https://jade-cheap-toad-19.mypinata.cloud/ipfs/QmQYjpHPFy1Aidktk1bnt78rTEB8oCSXCkRg75P85iBwb9"
+        "rangeStart": 60000,
+        "rangeEnd": 80000,
+        "data": "https://copper-worthy-panda-200.mypinata.cloud/ipfs/QmSNroWCzc6oBG62DvEweQgwSuEHeTWn76Cvx6rZXeFZCC"
+    },
+    {
+        "description": "Based on our management and investment team's extensive experience in real estate and specialty investments, we maintain an analytical and dynamic approach to our investments. We leverage our cross-platform experience, relationships, and technology to identify and execute investments with attractive risk and return profiles.",
+        "image": "https://copper-worthy-panda-200.mypinata.cloud/ipfs/QmUttzLAN4f8GmZptbiAzThUbGVzMKBSSTfW8wTs97hH2n",
+        "name": "EX-Class",
+        "price": "0.45",
+        "rangeStart": 80000,
+        "rangeEnd": 100000,
+        "data": "https://copper-worthy-panda-200.mypinata.cloud/ipfs/QmSNroWCzc6oBG62DvEweQgwSuEHeTWn76Cvx6rZXeFZCC"
     }
 ]

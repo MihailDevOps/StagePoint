@@ -23,7 +23,18 @@ export type NftCore = {
     tokenId: number;
     price: number;
     creator: string;
+    startDate: Date;
+    endDate: Date;
+    depositTerm: number;
+    depositInterest: number;
+    interest: "monthly" | "compound";
+    rewardsClaimed: number;
+    payOff: number;
     isListed: boolean;
+    rewardsAvailable: number;
+    rewardProfit: number;
+    network?: string;
+    chain?: number;
 };
 
 export type Nft = {

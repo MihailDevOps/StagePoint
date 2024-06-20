@@ -1,12 +1,13 @@
-import React from "react";
+import React, { useEffect, useRef, useState } from "react";
 
-import { IconBell, IconLogout, IconRefresh, IconZoomReplace } from '@tabler/icons-react';
-import { signOut } from 'next-auth/react';
+import { IconBell, IconLogout, IconRefresh, IconUser, IconZoomReplace } from '@tabler/icons-react';
 import { useAccount, useNetwork } from "@hooks";
 import { toast } from "react-toastify";
 import { useRouter } from "next/router";
 import { useWeb3 } from "@/components/Providers";
 import { NETWORKS } from "@/data/networks";
+import { Select, ListItem, MenuItem, Popper, Grow, Paper, ClickAwayListener, MenuList } from "@mui/material";
+import Image from "next/image";
 
 
 export default function Header(
@@ -14,71 +15,49 @@ export default function Header(
 ) {
     const { account } = useAccount();
     const { network } = useNetwork();
+    const [networkData, setNetworkData] = useState<any>();
+    const [notificationsOpened, setNotificationsOpened] = useState(false)
+    const anchorRef = useRef(null);
+    const router = useRouter();
 
-    const changeNetwork = async () => {
-        if (window.ethereum) {
-            console.log(network.data)
-            const newNetworkData = network.data !== process.env.NEXT_PUBLIC_POLYGON_NAME ? NETWORKS[137] : NETWORKS[1]
-            console.log(newNetworkData.nativeCurrency)
-            try {
-                // check if the chain to connect to is installed
-                await window.ethereum.request({
-                    method: 'wallet_switchEthereumChain',
-                    params: [{ chainId: newNetworkData.chainId }], // chainId must be in hexadecimal numbers
-                });
-            } catch (error: any) {
-                // This error code indicates that the chain has not been added to MetaMask
-                // if it is not, then install it into the user MetaMask
-                if (error.code === 4902 || error.code === 32602) {
-                    try {
-                        await window.ethereum.request({
-                            method: 'wallet_addEthereumChain',
-                            params: [
-                                {
-                                    chainId: newNetworkData.chainId,
-                                    rpcUrls: [newNetworkData.rpcUrl],
-                                    chainName: [newNetworkData.name],
-                                    nativeCurrency: {
-                                        name: newNetworkData.nativeCurrency?.name,
-                                        symbol: newNetworkData.nativeCurrency?.symbol
-                                    },
-                                },
-                            ],
-                        });
-                    } catch (addError: any) {
-                        toast.error(addError.message);
-                    }
-                }
-                toast.error(error.message);
-            }
-        } else {
-            // if no window.ethereum then MetaMask is not installed
-            toast.error('MetaMask is not installed. Please consider installing it: https://metamask.io/download.html');
-        }
+    const emitNetworkChange = (e: any) => {
+        account.changeNetwork(e.target.value)
+        setNetworkData(NETWORKS[e.target.value])
     }
+
+    useEffect(() => {
+        const net = network.data === process.env.NEXT_PUBLIC_POLYGON_NAME ? NETWORKS[80002] : NETWORKS[1337]
+        setNetworkData(net)
+    }, [network])
 
     return (
         <header className="h-14 flex flex-row w-full justify-between items-center p-4 pt-6 bg-white text-black">
             <div className="flex flex-col">
-                <p className="font-medium text-3xl leading-8 ">{activeLink.charAt(0).toUpperCase() + activeLink.slice(1)}</p>
-                <p className="font-normal text-xs leading-4 text-[#5A5A5A]">Lorem Ipsum</p>
+                <p className="font-medium text-3xl leading-8 capitalize">{activeLink.replace("-", " ")}</p>
             </div>
             <div className="flex flex-row justify-between items-center gap-4">
-                <div className="inline-flex p-2 justify-between items-center gap-2.5 rounded-lg cursor-pointer" onClick={changeNetwork}>
-                    <IconRefresh />
-                    <p className="text-black mt-1">Change network</p>
-                </div>
-                <IconBell />
+                {
+                    networkData && <Select sx={{ boxShadow: 'none', '.MuiOutlinedInput-notchedOutline': { border: 0 } }} value={networkData.chainId} renderValue={() => <Image src={networkData.logo_src || ''} alt="currency logo" width={24} height={24} />} onChange={emitNetworkChange}>
+                        {Object.keys(NETWORKS).map((net) => {
+                            const data = NETWORKS[net];
+                            return <MenuItem value={data.chainId}>
+                                <Image src={data.logo_src || ''} alt="currency logo" width={24} height={24} />
+                                <p className="ml-2">{NETWORKS[net].name}</p>
+                            </MenuItem>
+                        })}
+                    </Select>
+                }
+                <IconBell ref={anchorRef} onClick={() => setNotificationsOpened(!notificationsOpened)} className="cursor-pointer" />
                 {
                     account.data && <div className="bg-black inline-flex p-2 justify-between items-center gap-2.5 rounded-lg">
                         <div className="rounded-full bg-green-400 h-4 w-4"></div>
                         <p className="text-white mt-1">{account.data.slice(0, 6)}....{account.data.slice(-4)}</p>
                     </div>
                 }
-                {/* <IconLogout
+                <IconLogout
                     className="cursor-pointer"
-                    onClick={() => signOut()}
-                /> */}
+                    onClick={() => { localStorage.removeItem('jwt'); router.push('/login'); }}
+                />
             </div>
         </header >
     )

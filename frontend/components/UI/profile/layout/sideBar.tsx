@@ -26,8 +26,8 @@ export default function SideBar(
         },
         {
             icon: <IconTimeline />,
-            text: "Investing Plans",
-            link: 'investingPlans'
+            text: "Nft Plans",
+            link: 'nft-plans'
         },
         {
             icon: <IconFileReport />,

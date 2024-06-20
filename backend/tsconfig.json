@@ -5,6 +5,7 @@
     "target": "es2017",
     "lib": [ "es2017", "esnext.asynciterable" ],
     "isolatedModules": false,
+    "resolveJsonModule": true,
     "noEmit": false,
     "emitDecoratorMetadata": true,
     "experimentalDecorators": true,

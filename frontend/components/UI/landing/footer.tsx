@@ -4,7 +4,7 @@ export default function Footer() {
     const router = useRouter();
     console.log(router.asPath)
     return (
-        <footer className='fixed z-50 w-full font-montserrat backdrop-blur bg-[#141318] h-[269px]'>
+        <footer className='fixed z-50 w-full font-montserrat backdrop-blur bg-black h-[269px]'>
             <div className="flex flex-row items-center justify-between px-20 pt-14 pb-5">
                 <div className="flex flex-col gap-10">
                     <img

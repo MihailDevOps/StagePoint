@@ -58,18 +58,26 @@ export type NftMarketContractEvents =
   | 'Approval'
   | 'ApprovalForAll'
   | 'BatchMetadataUpdate'
+  | 'Deposit'
+  | 'LogRes'
   | 'MetadataUpdate'
   | 'NFTItemCreated'
   | 'OwnershipTransferred'
-  | 'Transfer';
+  | 'ProfitClaimed'
+  | 'Transfer'
+  | 'Withdrawal';
 export interface NftMarketContractEventsContext {
   Approval(...parameters: any): EventFilter;
   ApprovalForAll(...parameters: any): EventFilter;
   BatchMetadataUpdate(...parameters: any): EventFilter;
+  Deposit(...parameters: any): EventFilter;
+  LogRes(...parameters: any): EventFilter;
   MetadataUpdate(...parameters: any): EventFilter;
   NFTItemCreated(...parameters: any): EventFilter;
   OwnershipTransferred(...parameters: any): EventFilter;
+  ProfitClaimed(...parameters: any): EventFilter;
   Transfer(...parameters: any): EventFilter;
+  Withdrawal(...parameters: any): EventFilter;
 }
 export type NftMarketContractMethodNames =
   | 'new'
@@ -90,6 +98,7 @@ export type NftMarketContractMethodNames =
   | 'tokenURI'
   | 'transferFrom'
   | 'transferOwnership'
+  | 'usdtToken'
   | 'setListingPrice'
   | 'getNftItem'
   | 'listedItemsCount'
@@ -98,8 +107,15 @@ export type NftMarketContractMethodNames =
   | 'tokenByIndex'
   | 'tokenOfOwnerByIndex'
   | 'getOwnedNfts'
+  | 'getAllNfts'
+  | 'Time_call'
   | 'burnToken'
-  | 'mintToken';
+  | 'mintToken'
+  | 'approveDeposit'
+  | 'deposit'
+  | 'withdraw'
+  | 'claim'
+  | 'getUSDTBalance';
 export interface ApprovalEventEmittedResponse {
   owner: string;
   approved: string;
@@ -114,6 +130,13 @@ export interface BatchMetadataUpdateEventEmittedResponse {
   _fromTokenId: BigNumberish;
   _toTokenId: BigNumberish;
 }
+export interface DepositEventEmittedResponse {
+  _from: string;
+  _value: BigNumberish;
+}
+export interface LogResEventEmittedResponse {
+  result: BigNumberish;
+}
 export interface MetadataUpdateEventEmittedResponse {
   _tokenId: BigNumberish;
 }
@@ -121,16 +144,31 @@ export interface NFTItemCreatedEventEmittedResponse {
   tokenId: BigNumberish;
   price: BigNumberish;
   creator: string;
-  isListed: boolean;
+  startDate: BigNumberish;
+  endDate: BigNumberish;
+  depositTerm: BigNumberish;
+  depositInterest: BigNumberish;
+  interest: string;
+  rewardsClaimed: BigNumberish;
+  payOff: BigNumberish;
+  rewardsAvailable: BigNumberish;
+  rewardProfit: BigNumberish;
 }
 export interface OwnershipTransferredEventEmittedResponse {
   previousOwner: string;
   newOwner: string;
 }
+export interface ProfitClaimedEventEmittedResponse {
+  profit: BigNumberish;
+}
 export interface TransferEventEmittedResponse {
   from: string;
   to: string;
   tokenId: BigNumberish;
+}
+export interface WithdrawalEventEmittedResponse {
+  _to: string;
+  _value: BigNumberish;
 }
 export interface NftitemResponse {
   tokenId: BigNumber;
@@ -139,8 +177,26 @@ export interface NftitemResponse {
   1: BigNumber;
   creator: string;
   2: string;
+  startDate: BigNumber;
+  3: BigNumber;
+  endDate: BigNumber;
+  4: BigNumber;
+  depositTerm: BigNumber;
+  5: BigNumber;
+  depositInterest: BigNumber;
+  6: BigNumber;
+  interest: string;
+  7: string;
+  rewardsClaimed: BigNumber;
+  8: BigNumber;
+  payOff: BigNumber;
+  9: BigNumber;
+  rewardsAvailable: BigNumber;
+  10: BigNumber;
+  rewardProfit: BigNumber;
+  11: BigNumber;
   isListed: boolean;
-  3: boolean;
+  12: boolean;
 }
 export interface NftMarketContract {
   /**
@@ -341,6 +397,13 @@ export interface NftMarketContract {
   ): Promise<ContractTransaction>;
   /**
    * Payable: false
+   * Constant: true
+   * StateMutability: view
+   * Type: function
+   */
+  usdtToken(overrides?: ContractCallOverrides): Promise<string>;
+  /**
+   * Payable: false
    * Constant: false
    * StateMutability: nonpayable
    * Type: function
@@ -419,6 +482,20 @@ export interface NftMarketContract {
   getOwnedNfts(overrides?: ContractCallOverrides): Promise<NftitemResponse[]>;
   /**
    * Payable: false
+   * Constant: true
+   * StateMutability: view
+   * Type: function
+   */
+  getAllNfts(overrides?: ContractCallOverrides): Promise<NftitemResponse[]>;
+  /**
+   * Payable: false
+   * Constant: true
+   * StateMutability: view
+   * Type: function
+   */
+  Time_call(overrides?: ContractCallOverrides): Promise<BigNumber>;
+  /**
+   * Payable: false
    * Constant: false
    * StateMutability: nonpayable
    * Type: function
@@ -435,10 +512,73 @@ export interface NftMarketContract {
    * Type: function
    * @param tokenURI Type: string, Indexed: false
    * @param price Type: uint256, Indexed: false
+   * @param startDate Type: uint256, Indexed: false
+   * @param endDate Type: uint256, Indexed: false
+   * @param depositTerm Type: uint256, Indexed: false
+   * @param depositInterest Type: uint256, Indexed: false
+   * @param interest Type: string, Indexed: false
+   * @param payOff Type: uint256, Indexed: false
    */
   mintToken(
     tokenURI: string,
     price: BigNumberish,
+    startDate: BigNumberish,
+    endDate: BigNumberish,
+    depositTerm: BigNumberish,
+    depositInterest: BigNumberish,
+    interest: string,
+    payOff: BigNumberish,
     overrides?: ContractTransactionOverrides
   ): Promise<ContractTransaction>;
+  /**
+   * Payable: false
+   * Constant: false
+   * StateMutability: nonpayable
+   * Type: function
+   * @param amount Type: uint256, Indexed: false
+   */
+  approveDeposit(
+    amount: BigNumberish,
+    overrides?: ContractTransactionOverrides
+  ): Promise<ContractTransaction>;
+  /**
+   * Payable: true
+   * Constant: false
+   * StateMutability: payable
+   * Type: function
+   * @param amount Type: uint256, Indexed: false
+   */
+  deposit(
+    amount: BigNumberish,
+    overrides?: ContractTransactionOverrides
+  ): Promise<ContractTransaction>;
+  /**
+   * Payable: true
+   * Constant: false
+   * StateMutability: payable
+   * Type: function
+   * @param _amount Type: uint256, Indexed: false
+   */
+  withdraw(
+    _amount: BigNumberish,
+    overrides?: ContractTransactionOverrides
+  ): Promise<ContractTransaction>;
+  /**
+   * Payable: true
+   * Constant: false
+   * StateMutability: payable
+   * Type: function
+   * @param tokenId Type: uint256, Indexed: false
+   */
+  claim(
+    tokenId: BigNumberish,
+    overrides?: ContractTransactionOverrides
+  ): Promise<ContractTransaction>;
+  /**
+   * Payable: false
+   * Constant: true
+   * StateMutability: view
+   * Type: function
+   */
+  getUSDTBalance(overrides?: ContractCallOverrides): Promise<BigNumber>;
 }
