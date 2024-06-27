@@ -77,10 +77,11 @@ export const hookFactory: AccountHookFactory = ({ provider, ethereum, isLoading 
                                 {
                                     chainId: newNetworkData.chainId,
                                     rpcUrls: [newNetworkData.rpcUrl],
-                                    chainName: [newNetworkData.name],
+                                    chainName: newNetworkData.name,
                                     nativeCurrency: {
                                         name: newNetworkData.nativeCurrency?.name,
-                                        symbol: newNetworkData.nativeCurrency?.symbol
+                                        symbol: newNetworkData.nativeCurrency?.symbol,
+                                        decimals: 18
                                     },
                                 },
                             ],

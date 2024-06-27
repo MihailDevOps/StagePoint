@@ -9,7 +9,7 @@ const login = async (req, res) => {
     try {
         const { address } = req.body;
         if (!address) {
-            res.status(500).json({ message: "Incorrect Request" })
+            return res.status(500).json({ message: "Incorrect Request" })
         }
     
         let user = await User.findOne({where: {address}})
@@ -18,7 +18,7 @@ const login = async (req, res) => {
             user = await User.create({address})
         }
         const token = jwt.sign({address}, process.env.JWT_SECRET);
-        res.status(200).json(token)
+        return res.status(200).json(token)
     } catch (e) {
         return res.status(404).json({'message': e.message})
     }
