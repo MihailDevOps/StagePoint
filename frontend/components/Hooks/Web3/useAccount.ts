@@ -65,7 +65,7 @@ export const hookFactory: AccountHookFactory = ({ provider, ethereum, isLoading 
                     method: 'wallet_switchEthereumChain',
                     params: [{ chainId: newNetworkData.chainId }], // chainId must be in hexadecimal numbers
                 });
-                connect()
+                connect();
             } catch (error: any) {
                 // This error code indicates that the chain has not been added to MetaMask
                 // if it is not, then install it into the user MetaMask
@@ -91,7 +91,6 @@ export const hookFactory: AccountHookFactory = ({ provider, ethereum, isLoading 
                         toast.error(addError.message);
                     }
                 }
-                toast.error(error.message);
             }
         } else {
             // if no window.ethereum then MetaMask is not installed
