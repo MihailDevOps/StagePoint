@@ -29,7 +29,7 @@ export const NETWORKS: {[k:string]: {name: string, chainId?: string, rpcUrl?: st
         },
         type: "polygon",
         usdtAddress: "0x76a5A3a1eC8AA32d7Fc7BD7D4Cd9c779a59Ef881",
-        contractAddress: "0xfA898de6CcE1715a14F579c316C6cfd7F869655B",
+        contractAddress: "0xC8C2FD7cB1EF6c9aB35B2Bf5cD594523A10C2C1C",
         logo_src: "/images/logo/polygon.svg"
     },
     // 59141: {
@@ -53,7 +53,7 @@ export const NETWORKS: {[k:string]: {name: string, chainId?: string, rpcUrl?: st
         },
         type: "eth",
         usdtAddress: "0x76a5A3a1eC8AA32d7Fc7BD7D4Cd9c779a59Ef881",
-        contractAddress: "0xfA898de6CcE1715a14F579c316C6cfd7F869655B",
+        contractAddress: "0xC8C2FD7cB1EF6c9aB35B2Bf5cD594523A10C2C1C",
         logo_src: "/images/logo/eth.svg"
     },
 }
