@@ -2,15 +2,10 @@ import React, { useEffect, useMemo, useState } from "react"
 import AdminLayout from "@/components/UI/admin/layout/adminLayout"
 
 import { Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Paper, FormControl, InputLabel, Select, MenuItem, Backdrop, CircularProgress, Tabs, Tab } from '@mui/material';
-import { IconArrowNarrowRight } from "@tabler/icons-react";
-import ValidateInput from "@/components/validationInput";
 import axios from "axios";
-import { User } from "@/types/user";
-import { Alchemy, Network } from "alchemy-sdk";
 import { BarChart } from "@mui/x-charts";
 import { useWeb3 } from "@/components/Providers";
-import { Nft, NftCore } from "@/types/nft";
-import { BigNumber, ethers } from "ethers";
+import { Nft } from "@/types/nft";
 import { ContractActionModal } from "@/components/UI/admin/ContractActionModal";
 import { toast } from "react-toastify";
 import { NETWORKS } from "@/data/networks";
@@ -46,15 +41,6 @@ export default function Users() {
         setNfts(nftsData as Nft[]);
         let dataset: any = [];
 
-        // let dataset = [
-        //     { day: 'Monday', value: 0 },
-        //     { day: 'Tuesday', value: 0 },
-        //     { day: 'Wednesday', value: 0 },
-        //     { day: 'Thursday', value: 0 },
-        //     { day: 'Friday', value: 0 },
-        //     { day: 'Saturday', value: 0 },
-        //     { day: 'Sunday', value: 0 },
-        // ]
         let endDate = new Date();
         let startDate = new Date();
         startDate.setDate(endDate.getDate() - userRevenueView.value);
@@ -75,10 +61,13 @@ export default function Users() {
 
         let total = 0;
         for (const nft of nftsData) {
+            console.log(dataset)
             const date = userRevenueView.value > 60 ? startDate.getMonth() : new Date(nft.startDate).toLocaleDateString("en-US");
             const price = nft.price;
             const dayIndex = dataset.findIndex((i: any) => i.date === date)
-            dataset[dayIndex].value = dataset[dayIndex].value + price
+            if (!!dataset[dayIndex]) {
+                dataset[dayIndex].value = dataset[dayIndex].value + price
+            }
             total += price
         }
 

@@ -66,7 +66,6 @@ export default function Plan() {
     const { contract, usdtContract } = useWeb3();
     const router = useRouter()
     const { id } = router.query;
-    const numId = parseInt(id as string)
     const [nft, setNft] = useState<any>()
     const [investmentAmount, setInvestmentAmount] = useState<number>(0);
     const [dataLoading, setDataLoading] = useState(true);
@@ -80,7 +79,7 @@ export default function Plan() {
     const [selectedPeriod, setSelectedPeriod] = useState(periods[0])
 
     useEffect(() => {
-        const nftData = nftsData.find((item, index) => index === numId);
+        const nftData = nftsData.find((item, index) => item.slug === id);
         setNft(nftData);
         setInvestmentAmount(nftData?.rangeStart || 0)
         setInvestmentAmountError("")
@@ -208,7 +207,7 @@ export default function Plan() {
             <div className="flex gap-6 ">
                 <div className="flex flex-col gap-6">
                     {
-                        nftsData.map((nft, index) => <Link href={`/nft-plans/${index}`} className={`${index === numId ? "bg-black text-white" : "bg-white text-black"} rounded-xl p-3 px-5`}>{nft?.name.slice(0, 1)}</Link>)
+                        nftsData.map((item, index) => item.network === nft?.network && <Link href={`/nft-plans/${item.slug}`} className={`${item.slug === id ? "bg-black text-white" : "bg-white text-black"} rounded-xl p-3 px-5 text-center`}>{item?.name.split('-')[0]}</Link>)
                     }
                 </div>
                 <div className="bg-white rounded-2xl p-20 flex w-full">

@@ -1,4 +1,4 @@
-export const NETWORKS: {[k:string]: {name: string, chainId?: string, rpcUrl?: string, nativeCurrency? : {name?: string, symbol?: string, decimals?: number}, usdtAddress: string, contractAddress: string, logo_src?: string}} = {
+export const NETWORKS: {[k:string]: {name: string, chainId?: string, rpcUrl?: string, nativeCurrency? : {name?: string, symbol?: string, decimals?: number}, type: string, usdtAddress: string, contractAddress: string, logo_src?: string}} = {
     // 1: {
     //     name: "Ethereum Main Network",
     //     chainId: process.env.NEXT_PUBLIC_ETH_CHAIN_ID,
@@ -27,6 +27,7 @@ export const NETWORKS: {[k:string]: {name: string, chainId?: string, rpcUrl?: st
             name: process.env.NEXT_PUBLIC_POLYGON_CURRENCY_NAME,
             symbol: process.env.NEXT_PUBLIC_POLYGON_CURRENCY_SYMBOL
         },
+        type: "polygon",
         usdtAddress: "0x76a5A3a1eC8AA32d7Fc7BD7D4Cd9c779a59Ef881",
         contractAddress: "0xfA898de6CcE1715a14F579c316C6cfd7F869655B",
         logo_src: "/images/logo/polygon.svg"
@@ -50,6 +51,7 @@ export const NETWORKS: {[k:string]: {name: string, chainId?: string, rpcUrl?: st
             symbol: process.env.NEXT_PUBLIC_GANACHE_CURRENCY_SYMBOL,
             decimals: 18
         },
+        type: "eth",
         usdtAddress: "0x76a5A3a1eC8AA32d7Fc7BD7D4Cd9c779a59Ef881",
         contractAddress: "0xfA898de6CcE1715a14F579c316C6cfd7F869655B",
         logo_src: "/images/logo/eth.svg"

@@ -90,11 +90,11 @@ export default function Home() {
           <div className="text-center text-black text-4xl font-medium font-onest">About Company</div>
           <div className="flex-col justify-start items-end gap-10 flex">
             <div className="text-gray-600 text-base font-normal font-onest leading-[29px]">Welcome to SPC Europa, your trusted partner in the digital world. SPC Europa is an officially registered cryptocompany based in the Czech Republic. Our mission is to develop and provide NFTs for sale to the public. In addition, we offer NFT staking with stable interest accrual.<br />With SPC Europa, you have the flexibility to set your own price for purchasing unique NFTs issued by us. You can build your own collection of unique NFTs. Furthermore, you could stake them with guaranteed interest accrual. We are committed to innovation and adhere to the highest standards, ensuring that every transaction you make is both secure and profitable.</div>
-            <div className="px-5 py-2.5 bg-blue-600 rounded-3xl flex-col justify-center items-center flex">
+            <Link className="px-5 py-2.5 bg-blue-600 rounded-3xl flex-col justify-center items-center flex" href="/about-company">
               <div className="justify-center items-center gap-2 inline-flex">
                 <div className="text-white text-base font-medium font-onest tracking-wide">Read more</div>
               </div>
-            </div>
+            </Link>
           </div>
         </div>
         <img className="w-4/12 rounded-2xl" src="/images/landing/about-company.jpeg" />
@@ -104,11 +104,11 @@ export default function Home() {
 
       <div className="flex justify-between mt-5">
         <div className="text-gray-600 text-base font-normal font-onest leading-relaxed">Our obligations performance towards you are fully guaranteed by Stage Point capital LLC.</div>
-        <div className="px-5 py-2.5 bg-blue-600 rounded-3xl flex-col justify-center items-center inline-flex">
+        <Link className="px-5 py-2.5 bg-blue-600 rounded-3xl flex-col justify-center items-center inline-flex" href="/guarantor-info">
           <div className="justify-center items-center gap-2 inline-flex">
             <div className="text-white text-base font-medium font-onest tracking-wide">Learn more</div>
           </div>
-        </div>
+        </Link>
       </div>
 
       <div className="text-black text-4xl font-medium font-onest mt-28">Advantages</div>

@@ -49,8 +49,8 @@ export default function Login() {
             </Backdrop>
             <div className="w-1/2 p-20 bg-[#111827] flex flex-col justify-between items-start">
                 <img
-                    src='/images/WhiteHeader.svg'
-                    className="w-68 h-9"
+                    src='/images/logo/SPF-LogoLight.png'
+                    className=""
                 />
                 <div>
                     <p className="font-bold text-[40px] leading-12 mt-4">Some explanation text</p>

@@ -1,37 +1,63 @@
 import React, { useEffect, useState } from "react"
 import AdminLayout from "@/components/UI/admin/layout/adminLayout"
 
-import { Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Paper, FormControl, InputLabel, Select, MenuItem } from '@mui/material';
+import { Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Paper, FormControl, InputLabel, Select, MenuItem, Pagination, Backdrop, CircularProgress, TextField } from '@mui/material';
 import { IconArrowNarrowRight, IconX } from "@tabler/icons-react";
 import ValidateInput from "@/components/validationInput";
 import axios from "axios";
 import { User } from "@/types/user";
+import { useDebounce } from "use-debounce";
 
 
 export default function Users() {
     const [selectedStatus, setSelectedStatus] = useState<'active' | 'disabled' | 'blocked' | 'all' | string>("all");
     const [users, setUsers] = useState<User[]>([]);
-    const [selectedUser, setSelectedUser] = useState<User | undefined>()
+    const [selectedUser, setSelectedUser] = useState<User | undefined>();
+    const [paging, setPaging] = useState<{ page: number, totalItems: number }>({ page: 1, totalItems: 0 });
+    const [loading, setLoading] = useState<boolean>(false);
+    const [searchValue, setSearchValue] = useState<string>("");
+    const [debouncedSearchValue] = useDebounce(searchValue, 600);
 
     async function loadUsers() {
+        setLoading(true);
         try {
-            const { data } = await axios.get(`${process.env.NEXT_PUBLIC_BACKEND_LINK}/admin/users`);
+            const { data } = await axios.post(`${process.env.NEXT_PUBLIC_BACKEND_LINK}/admin/users`, {
+                page: paging.page,
+                searchValue: debouncedSearchValue
+            });
             if (!!data.users) {
                 setUsers(data.users)
+                setPaging({ ...paging, totalItems: data.totalItems | 0 })
             }
         }
         catch (e) {
         }
+        setLoading(false);
     }
 
     useEffect(() => {
         loadUsers()
-    }, [])
+    }, [paging.page, debouncedSearchValue])
 
     return (
         <AdminLayout>
+            <Backdrop
+                sx={{ color: '#fff', zIndex: (theme) => theme.zIndex.drawer + 1 }}
+                open={loading}
+            >
+                <CircularProgress color="inherit" />
+            </Backdrop>
             <div className="flex flex-row">
                 <Paper className={`rounded-xl ${selectedUser ? 'w-8/12' : 'w-full'}`}>
+                    <TextField
+                        value={searchValue}
+                        onChange={(e) => { setPaging({ ...paging, page: 1 }); setSearchValue(e.target.value) }}
+                        id="outlined-basic"
+                        label="Search"
+                        placeholder="Name, email, etc"
+                        variant="outlined"
+                        className="mt-8 ml-8"
+                    />
                     <FormControl size="medium" variant="outlined" className="mt-8 ml-8 min-w-28">
                         <InputLabel id="select-label">Status</InputLabel>
                         <Select
@@ -75,6 +101,9 @@ export default function Users() {
                             </TableBody>
                         </Table>
                     </TableContainer>
+                    <div className="w-full flex">
+                        <Pagination count={Math.ceil(paging.totalItems / 10)} page={paging.page} onChange={(e, value) => setPaging({ ...paging, page: value })} className="mx-auto my-4" />
+                    </div>
                 </Paper>
                 <div className={`${!!selectedUser ? 'w-4/12' : 'hidden'} rounded-xl flex flex-col`}>
                     <Paper className="rounded-xl ml-4 py-6 px-9 flex flex-col">

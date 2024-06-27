@@ -9,7 +9,10 @@ export type NftType = {
     name: string;
     description: string;
     image: string;
-    attributes: NftAttribute[];
+    attributes?: NftAttribute[];
+    rangeStart: number;
+    rangeEnd: number;
+    slug?: string;
 }
 
 export type NftMeta = {

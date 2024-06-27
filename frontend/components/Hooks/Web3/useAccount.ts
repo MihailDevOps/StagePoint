@@ -102,7 +102,7 @@ export const hookFactory: AccountHookFactory = ({ provider, ethereum, isLoading 
         try {
             const chainId = (await provider!.getNetwork()).chainId;
             if (!NETWORKS[chainId]) {
-                return await changeNetwork(process.env.NEXT_PUBLIC_ETH_CHAIN_ID)
+                return await changeNetwork(process.env.NEXT_PUBLIC_POLYGON_CHAIN_ID)
             }
             const acc = await ethereum?.request({ method: "eth_requestAccounts", params: [
                 {

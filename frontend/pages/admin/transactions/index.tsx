@@ -1,32 +1,45 @@
 import React, { useEffect, useState } from "react"
 import AdminLayout from "@/components/UI/admin/layout/adminLayout"
 
-import { Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Paper, FormControl, InputLabel, Select, MenuItem } from '@mui/material';
+import { Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Paper, FormControl, InputLabel, Select, MenuItem, Pagination, Backdrop, CircularProgress, TextField } from '@mui/material';
 import axios from "axios";
 import { User } from "@/types/user";
 import { Transaction } from "@/types/transaction";
 import { toast } from "react-toastify";
 import ValidateInput from "@/components/validationInput";
-import { IconX } from "@tabler/icons-react";
+import { IconSearch, IconX } from "@tabler/icons-react";
+import { useDebounce } from "use-debounce";
 
 
 export default function Transactions() {
     const [selectedStatus, setSelectedStatus] = useState<'active' | 'disabled' | 'blocked' | 'all' | string>("all");
     const [transactions, setTransactions] = useState<Transaction[]>([]);
-    const [selectedUser, setSelectedUser] = useState<User | undefined>()
+    const [selectedUser, setSelectedUser] = useState<User | undefined>();
+    const [paging, setPaging] = useState<{ page: number, totalItems: number }>({ page: 1, totalItems: 0 });
+    const [loading, setLoading] = useState<boolean>(false);
+    const [searchValue, setSearchValue] = useState<string>("");
+    const [debouncedSearchValue] = useDebounce(searchValue, 600);
 
     async function loadTransactions() {
+        setLoading(true);
         try {
-            const { data } = await axios.get(`${process.env.NEXT_PUBLIC_BACKEND_LINK}/transactions`);
+            const { data } = await axios.post(`${process.env.NEXT_PUBLIC_BACKEND_LINK}/transactions`, {
+                page: paging.page,
+                type: selectedStatus !== "all" ? selectedStatus : undefined,
+                searchValue: debouncedSearchValue
+            });
             if (!!data) {
-                setTransactions(data)
+                setTransactions(data.transactions);
+                setPaging({ ...paging, totalItems: data.totalItems | 0 })
             }
         }
         catch (e) {
         }
+        setLoading(false);
     }
 
     async function loadUser(address: string) {
+        setLoading(true);
         try {
             const { data } = await axios.get(`${process.env.NEXT_PUBLIC_BACKEND_LINK}/user/${address}`);
             if (!!data) {
@@ -35,6 +48,7 @@ export default function Transactions() {
         }
         catch (e) {
         }
+        setLoading(false);
     }
 
     const styles = {
@@ -92,27 +106,41 @@ export default function Transactions() {
 
     useEffect(() => {
         loadTransactions()
-    }, [])
-
-
+    }, [paging.page, selectedStatus, debouncedSearchValue])
 
     return (
         <AdminLayout>
+            <Backdrop
+                sx={{ color: '#fff', zIndex: (theme) => theme.zIndex.drawer + 1 }}
+                open={loading}
+            >
+                <CircularProgress color="inherit" />
+            </Backdrop>
             <div className="flex flex-row">
                 <Paper className={`rounded-xl ${selectedUser ? 'w-8/12' : 'w-full'}`}>
+                    <TextField
+                        value={searchValue}
+                        onChange={(e) => { setPaging({ ...paging, page: 1 }); setSearchValue(e.target.value) }}
+                        id="outlined-basic"
+                        label="Search"
+                        placeholder="Name, email, etc"
+                        variant="outlined"
+                        className="mt-8 ml-8"
+                    />
                     <FormControl size="medium" variant="outlined" className="mt-8 ml-8 min-w-28">
-                        <InputLabel id="select-label">Status</InputLabel>
+                        <InputLabel id="select-label">Action</InputLabel>
                         <Select
                             labelId="select-label"
                             id="select-status"
                             label="Status"
                             value={selectedStatus}
                             placeholder="Select status"
-                            onChange={(e) => setSelectedStatus(e.target.value)}
+                            onChange={(e) => { setPaging({ ...paging, page: 1 }); setSelectedStatus(e.target.value) }}
                         >
-                            <MenuItem value="active">Completed</MenuItem>
-                            <MenuItem value="disabled">Failed</MenuItem>
-                            <MenuItem value="blocked">In progress</MenuItem>
+                            <MenuItem value="Deposit">Deposit</MenuItem>
+                            <MenuItem value="Reward claim">Reward claim</MenuItem>
+                            <MenuItem value="Contract deposit">Contract deposit</MenuItem>
+                            <MenuItem value="Contract withdraw">Contract withdraw</MenuItem>
                             <MenuItem value="all">All</MenuItem>
                         </Select>
                     </FormControl>
@@ -130,7 +158,7 @@ export default function Transactions() {
                                 </TableRow>
                             </TableHead>
                             <TableBody>
-                                {transactions.map((row, index) => (
+                                {transactions?.map((row, index) => (
                                     <TableRow
                                         key={index}
                                         sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
@@ -149,9 +177,9 @@ export default function Transactions() {
                             </TableBody>
                         </Table>
                     </TableContainer>
-                    {/* <Paper className="rounded-xl ml-4 mt-4 py-6 px-9">
-                        <div>User info</div>
-                    </Paper> */}
+                    <div className="w-full flex">
+                        <Pagination count={Math.ceil(paging.totalItems / 10)} page={paging.page} onChange={(e, value) => setPaging({ ...paging, page: value })} className="mx-auto my-4" />
+                    </div>
                 </Paper>
 
                 <div className={`${!!selectedUser ? 'w-4/12' : 'hidden'} rounded-xl flex flex-col`}>

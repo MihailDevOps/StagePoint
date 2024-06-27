@@ -5,11 +5,12 @@ export default function Footer() {
     console.log(router.asPath)
     return (
         <footer className='fixed z-50 w-full font-montserrat backdrop-blur bg-black h-[269px]'>
-            <div className="flex flex-row items-center justify-between px-20 pt-14 pb-5">
+            <div className="flex flex-row items-center justify-between px-20 pt-14">
                 <div className="flex flex-col gap-10">
                     <img
-                        src="/images/FooterLogo.svg"
+                        src="/images/logo/SPF-LogoLight.png"
                         alt="Logo"
+                        className="w-40"
                     />
                     <div className="flex uppercase flex-row items-center gap-6 font-normal text-base text-white leading-[26.4px]">
                         <Link href='/about-us' className={`${router.asPath === '/about-us' ? 'border-b border-white' : ''}`}>about us</Link>

@@ -9,7 +9,8 @@ dotenv.config();
 
 const getAllUsers = async (req, res) => {
     try {
-        const users = await User.findAll({where: {
+        const { page, searchValue } = req.body;
+        let filterOptions: any = {
             address: {
                 [Op.ne]: null
             },
@@ -19,8 +20,35 @@ const getAllUsers = async (req, res) => {
             lastName: {
                 [Op.ne]: null
             },
-        }})
-        res.status(200).json({users: users})
+        };
+        if (!!searchValue) {
+            filterOptions = {
+                ...filterOptions,
+                [Op.or]: [
+                    {firstName: {
+                        [Op.iLike]: "%" + searchValue + "%"
+                    }},
+                    {lastName: {
+                        [Op.iLike]: "%" + searchValue + "%"
+                    }},
+                    {address: {
+                        [Op.iLike]: "%" + searchValue + "%"
+                    }},
+                    {email: {
+                        [Op.iLike]: "%" + searchValue + "%"
+                    }}
+                ]
+            }
+        }
+        const limit = 10;
+        const users = await User.findAll({
+        where: filterOptions, 
+        order: [['updatedAt', 'DESC']],
+        limit: limit,
+        offset: limit * page - 10
+        })
+        const totalItems = await User.count({where: filterOptions})
+        res.status(200).json({users: users, totalItems})
     } catch (e) {
         return res.status(500).json({'message': e.message})
     }

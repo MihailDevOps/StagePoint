@@ -16,8 +16,8 @@ export default function AccountLocker({ children }: AccountLockerProps) {
 
     const root = [
         '/',
-        '/reports',
-        '/strategy',
+        '/about-company',
+        '/guarantor-info',
         '/privacy-policy'
     ];
 

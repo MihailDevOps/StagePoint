@@ -44,7 +44,7 @@ export default function Web3Provider({ children }: Web3ProviderProps) {
                 if (chainId) {
                     const networkData = NETWORKS[chainId]
                     if (!!networkData) {
-                        const contract = await loadContract("SPFNft", provider, NETWORKS[chainId].name);
+                        const contract = await loadContract("SPFNftPolygon", provider, NETWORKS[chainId].name);
 
                         const signer = provider.getSigner();
                         const signedContract = contract.connect(signer);

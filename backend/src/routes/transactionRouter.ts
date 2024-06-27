@@ -3,6 +3,6 @@ import { createTransaction, getAll, getUserTransactions } from "../controllers/t
 const transactionRouter = Router();
 
 transactionRouter.post('/blockchain-webhook', createTransaction)
-transactionRouter.get('', getAll)
-transactionRouter.get('/:address', getUserTransactions)
+transactionRouter.post('/', getAll)
+transactionRouter.post('/:address', getUserTransactions)
 export default transactionRouter;

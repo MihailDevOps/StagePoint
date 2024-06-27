@@ -28,7 +28,7 @@ export default function Header(
     useEffect(() => {
         const net = network.data === process.env.NEXT_PUBLIC_POLYGON_NAME ? NETWORKS[80002] : NETWORKS[1337]
         setNetworkData(net)
-    }, [network])
+    }, [network.data, network.targetNetwork])
 
     return (
         <header className="h-14 flex flex-row w-full justify-between items-center p-4 pt-6 bg-white text-black">
