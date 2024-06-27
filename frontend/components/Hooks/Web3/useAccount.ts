@@ -65,7 +65,7 @@ export const hookFactory: AccountHookFactory = ({ provider, ethereum, isLoading 
                     method: 'wallet_switchEthereumChain',
                     params: [{ chainId: newNetworkData.chainId }], // chainId must be in hexadecimal numbers
                 });
-                connect();
+                return await connect();
             } catch (error: any) {
                 // This error code indicates that the chain has not been added to MetaMask
                 // if it is not, then install it into the user MetaMask
@@ -86,15 +86,15 @@ export const hookFactory: AccountHookFactory = ({ provider, ethereum, isLoading 
                                 },
                             ],
                         });
-                        connect()
+                        return await connect();
                     } catch (addError: any) {
-                        toast.error(addError.message);
+                        return toast.error(addError.message);
                     }
                 }
             }
         } else {
             // if no window.ethereum then MetaMask is not installed
-            toast.error('MetaMask is not installed. Please consider installing it: https://metamask.io/download.html');
+            return toast.error('MetaMask is not installed. Please consider installing it: https://metamask.io/download.html');
         }
     }
 
@@ -102,7 +102,7 @@ export const hookFactory: AccountHookFactory = ({ provider, ethereum, isLoading 
         try {
             const chainId = (await provider!.getNetwork()).chainId;
             if (!NETWORKS[chainId]) {
-                return await changeNetwork(process.env.NEXT_PUBLIC_POLYGON_CHAIN_ID)
+                await changeNetwork(process.env.NEXT_PUBLIC_POLYGON_CHAIN_ID)
             }
             const acc = await ethereum?.request({ method: "eth_requestAccounts", params: [
                 {

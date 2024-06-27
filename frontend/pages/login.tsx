@@ -18,12 +18,14 @@ export default function Login() {
             e.preventDefault()
             if ((!account.data && account.isInstalled) || (account.data && !localStorage.getItem('jwt'))) {
                 const address = await account.connect();
-                const { data: token } = await axios.post(`${process.env.NEXT_PUBLIC_BACKEND_LINK}/user/login`, { address });
-                if (!!token) {
-                    localStorage.setItem('jwt', token);
-                    router.push('/profile');
-                } else {
-                    throw new Error("Login failed\nPlease try again")
+                if (!!(address as unknown as string)) {
+                    const { data: token } = await axios.post(`${process.env.NEXT_PUBLIC_BACKEND_LINK}/user/login`, { address });
+                    if (!!token) {
+                        localStorage.setItem('jwt', token);
+                        router.push('/profile');
+                    } else {
+                        throw new Error("Login failed\nPlease try again")
+                    }
                 }
             } else if (account.data && !!localStorage.getItem('jwt')) {
                 router.push('/profile')
