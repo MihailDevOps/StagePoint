@@ -85,7 +85,7 @@ export default function GuarantorInfo() {
                 </div>
                 <div className="col-span-2 bg-blue-50 rounded-3xl flex-col justify-start items-center gap-4 inline-flex py-14 hover:scale-110 transition ease-in-out duration-500">
                     <div className="flex-col justify-center items-center flex">
-                        <CircularProgress className="absolute text-blue-600" value={63} variant="determinate" size={70} />
+                        <CircularProgress className="absolute text-blue-600" value={98} variant="determinate" size={70} />
                         <div className="flex-col justify-start items-end flex">
                             <div className="text-2xl font-normal font-onest leading-[52.50px] tracking-tight">98%</div>
                         </div>
