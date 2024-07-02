@@ -1,6 +1,7 @@
 import Layout from "@/components/UI/landing/layout";
 import { CircularProgress } from "@mui/material";
 import { IconArrowDownLeft, IconArrowRight, IconArrowUpRight, IconMeteor, IconTrendingUp } from "@tabler/icons-react";
+import Link from "next/link";
 
 export default function GuarantorInfo() {
 
@@ -100,16 +101,16 @@ export default function GuarantorInfo() {
             <div className="h-10 items-center flex justify-between">
                 <div className="text-gray-600 text-base font-normal font-onest leading-relaxed">Our obligations performance towards you are fully guaranteed by Stage Point capital LLC.</div>
                 <div className="inline-flex">
-                    <div className="px-5 py-2.5 bg-blue-600 rounded-3xl flex-col justify-center items-center inline-flex cursor-pointer hover:scale-110 transition ease-in-out duration-500">
+                    <Link href={process.env.NEXT_PUBLIC_GUARANTEE_LINK || ""} target="__blank" className="px-5 py-2.5 bg-blue-600 rounded-3xl flex-col justify-center items-center inline-flex cursor-pointer hover:scale-110 transition ease-in-out duration-500">
                         <div className="justify-center items-center gap-2 inline-flex">
                             <div className="text-white text-base font-medium font-onest tracking-wide">View More</div>
                         </div>
-                    </div>
-                    <div className="cp-2 bg-blue-600 rounded-3xl justify-center items-center gap-2.5 flex w-10 h-10 cursor-pointer hover:scale-110 transition ease-in-out duration-500">
+                    </Link>
+                    <Link target="__blank" href={process.env.NEXT_PUBLIC_GUARANTEE_LINK || ""} className="cp-2 bg-blue-600 rounded-3xl justify-center items-center gap-2.5 flex w-10 h-10 cursor-pointer hover:scale-110 transition ease-in-out duration-500">
                         <div className="rotate-180">
                             <IconArrowDownLeft size={32} color="white" />
                         </div>
-                    </div>
+                    </Link>
                 </div>
             </div>
             <div className="text-right text-black text-4xl font-medium font-onest mt-36">Public Dew Diligence</div>
