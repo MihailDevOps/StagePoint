@@ -67,12 +67,12 @@ export default function Header() {
         </Link>
       </div>
       <div className="w-52 justify-center items-center flex">
-        <Link className="px-5 py-2.5 bg-blue-600 rounded-3xl flex-col justify-center items-center inline-flex" href="/login">
+        <Link className="px-5 py-2.5 bg-blue-600 rounded-3xl flex-col justify-center items-center inline-flex hover:scale-110 transition ease-in-out duration-500" href="/login">
           <div className="justify-center items-center gap-2 inline-flex">
             <div className="text-white text-base font-medium  tracking-wide">Connect Wallet</div>
           </div>
         </Link>
-        <Link className="p-2 bg-blue-600 rounded-3xl justify-center items-center gap-2.5 flex" href="/login">
+        <Link className="p-2 bg-blue-600 rounded-3xl justify-center items-center gap-2.5 flex hover:scale-110 transition ease-in-out duration-500" href="/login">
           <div className="w-6 h-6 rotate-180">
             <IconArrowDownLeft size={24} color="white" />
           </div>

@@ -1,6 +1,6 @@
 import React, { ChangeEvent, useEffect, useState } from "react"
 import AppLayout from "../components/UI/profile/layout/appLayout"
-import TogleQuestion from "../components/UI/profile/togleQuestion"
+import ToggleQuestion from "../components/UI/profile/toggleQuestion"
 import data from '../data/faq.json'
 import Layout from "@/components/UI/landing/layout"
 import { IconArrowRight, IconMail, IconX } from "@tabler/icons-react"
@@ -112,8 +112,8 @@ export default function Faq() {
         )}
       </div>
       <div className="flex flex-col gap-2 max-w-[700px] mx-auto mt-12">
-        {questions.map((section, index) => <TogleQuestion
-          opened={index === 0}
+        {questions.map((section, index) => <ToggleQuestion
+          opened={section.opened}
           index={index + 1}
           question={section.question}
           answer={section.answer}

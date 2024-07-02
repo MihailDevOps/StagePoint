@@ -1,14 +1,18 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { IconArrowDown, IconArrowUp, IconChevronDown, IconChevronUp } from '@tabler/icons-react';
 interface Props {
-    opened: boolean;
+    opened?: boolean;
     index: number;
     question: string;
     answer: string;
 }
-export default function TogleQuestion({ opened, index, question, answer }: Props) {
-    const [open, setOpen] = useState<boolean>(opened);
+export default function ToggleQuestion({ opened, index, question, answer }: Props) {
+    const [open, setOpen] = useState<boolean>(opened || false);
+
+    useEffect(() => {
+        setOpen(opened || false);
+    }, [question])
     return (
         <div className="justify-start items-start gap-10 inline-flex w-full">
             <div className="text-black text-xl font-normal font-onest leading-relaxed">{index}.</div>

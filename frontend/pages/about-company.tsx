@@ -60,38 +60,38 @@ export default function AboutCompany() {
                 <div className="justify-start items-center gap-10 flex">
                     <div className="justify-center items-center flex space-x-4">
                         <div className="inline-flex">
-                            <div className="px-5 py-2.5 rounded-3xl border border-blue-600 flex-col justify-center items-center inline-flex bg-blue-600">
+                            <div className="px-5 py-2.5 rounded-3xl border border-blue-600 flex-col justify-center items-center inline-flex bg-blue-600 hover:bg-white hover:text-blue-600 text-white transition ease-in-out duration-500 cursor-pointer">
                                 <div className="justify-center items-center gap-2 inline-flex">
-                                    <div className="text-white text-base font-medium font-onest tracking-wide">Email</div>
+                                    <div className="text-base font-medium font-onest tracking-wide">Email</div>
                                 </div>
                             </div>
-                            <div className="p-2 rounded-3xl border border-blue-600 justify-center items-center gap-2.5 flex bg-blue-600">
-                                <div className="w-6 h-6 relative">
-                                    <IconMail className='text-white' />
+                            <div className="w-12 h-12 p-2 rounded-3xl border border-blue-600 justify-center items-center gap-2.5 flex bg-blue-600 hover:bg-white hover:text-blue-600 text-white transition ease-in-out duration-500 cursor-pointer">
+                                <div className="relative">
+                                    <IconMail />
                                 </div>
                             </div>
                         </div>
                         <div className="inline-flex">
-                            <div className="px-5 py-2.5 rounded-3xl border border-blue-600 flex-col justify-center items-center inline-flex">
+                            <div className="px-5 py-2.5 rounded-3xl border border-blue-600 flex-col justify-center items-center inline-flex hover:bg-blue-600 hover:text-white text-blue-600 transition ease-in-out duration-500 cursor-pointer">
                                 <div className="justify-center items-center gap-2 inline-flex">
-                                    <div className="text-blue-600 text-base font-medium font-onest tracking-wide">Telephone</div>
+                                    <div className="text-base font-medium font-onest tracking-wide">Telephone</div>
                                 </div>
                             </div>
-                            <div className="p-2 rounded-3xl border border-blue-600 justify-center items-center gap-2.5 flex">
-                                <div className="w-6 h-6 relative">
-                                    <IconPhone className='text-blue-600' />
+                            <div className="w-12 h-12 p-2 rounded-3xl border border-blue-600 justify-center items-center gap-2.5 flex hover:bg-blue-600 hover:text-white text-blue-600 transition ease-in-out duration-500 cursor-pointer">
+                                <div className="relative">
+                                    <IconPhone />
                                 </div>
                             </div>
                         </div>
                         <div className="inline-flex">
-                            <div className="px-5 py-2.5 rounded-3xl border border-blue-600 flex-col justify-center items-center inline-flex">
+                            <div className="px-5 py-2.5 rounded-3xl border border-blue-600 flex-col justify-center items-center inline-flex hover:bg-blue-600 hover:text-white text-blue-600 transition ease-in-out duration-500 cursor-pointer">
                                 <div className="justify-center items-center gap-2 inline-flex">
-                                    <div className="text-blue-600 text-base font-medium font-onest tracking-wide">Telegram</div>
+                                    <div className="text-base font-medium font-onest tracking-wide">Telegram</div>
                                 </div>
                             </div>
-                            <div className="p-2 rounded-3xl border border-blue-600 justify-center items-center gap-2.5 flex">
-                                <div className="w-6 h-6 relative">
-                                    <IconBrandTelegram className='text-blue-600' />
+                            <div className="w-12 h-12 p-2 rounded-3xl border border-blue-600 justify-center items-center gap-2.5 flex hover:bg-blue-600 hover:text-white text-blue-600 transition ease-in-out duration-500 cursor-pointer">
+                                <div className="relative">
+                                    <IconBrandTelegram />
                                 </div>
                             </div>
                         </div>
