@@ -38,9 +38,9 @@ export default function SideBar(
         <div className="h-screen sticky top-0 left-0  w-52 bg-[#111827] pt-2">
             <Link href='/' className="">
                 <img
-                    src="/images/WhiteHeader.svg"
+                    src="/images/logo/SPF-LogoWhite.svg"
                     alt='logo'
-                    className="p-4"
+                    className="px-4 pt-2"
                 />
             </Link>
             <div className="pt-2">

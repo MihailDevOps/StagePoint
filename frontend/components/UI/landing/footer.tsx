@@ -2,7 +2,7 @@ import Link from "next/link";
 import { useRouter } from "next/router"
 export default function Footer() {
     const router = useRouter();
-    console.log(router.asPath)
+
     return (
         <footer className='fixed z-50 w-full font-montserrat backdrop-blur bg-black h-[269px]'>
             <div className="flex flex-row items-center justify-between px-20 pt-14">
@@ -13,10 +13,10 @@ export default function Footer() {
                         className="w-40"
                     />
                     <div className="flex uppercase flex-row items-center gap-6 font-normal text-base text-white leading-[26.4px]">
-                        <Link href='/about-us' className={`${router.asPath === '/about-us' ? 'border-b border-white' : ''}`}>about us</Link>
-                        <Link href='/reports' className={`${router.asPath === '/reports' ? 'border-b border-white' : ''}`}>reports</Link>
-                        <Link href='/strategy' className={`${router.asPath === '/strategy' ? 'border-b border-white' : ''}`}>strategy</Link>
-                        <Link href='/privacy-policy' className={`${router.asPath === '/privacy-policy' ? 'border-b border-white' : ''}`}>privacy policy</Link>
+                        <Link href='/about-company' className={`${router.asPath === '/about-us' ? 'border-b border-white' : ''}`}>About company</Link>
+                        <Link href='/guarantor-info' className={`${router.asPath === '/reports' ? 'border-b border-white' : ''}`}>Guarantor info</Link>
+                        <Link href='/faq' className={`${router.asPath === '/strategy' ? 'border-b border-white' : ''}`}>FAQ</Link>
+                        <Link href='/privacy-policy' className={`${router.asPath === '/privacy-policy' ? 'border-b border-white' : ''}`}>Privacy policy</Link>
                     </div>
                     <p className="font-normal text-base leading-[26.4px] text-[#808080]">2023 Synthesized Ltd | All rights reserved</p>
                 </div>

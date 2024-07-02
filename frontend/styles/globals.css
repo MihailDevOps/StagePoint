@@ -117,6 +117,26 @@ input {
 .MuiSlider-markLabel {
   top: 15px !important;
 }
+
+.active {
+  color: white;
+  background-color: #2563EB !important
+}
+
+.placeholder-main {
+  color: #2563EB !important;
+}
+
+.outline-none-important:after {
+  outline: none !important
+}
+
+.outline-none-important:focus {
+  opacity: 0.8;
+  outline: none !important
+}
+
+
 /* Удаляем все анимации и переходы для людей, которые предпочитай их не использовать */
 @media (prefers-reduced-motion: reduce) {
   * {
