@@ -60,7 +60,11 @@ export default function Header() {
             <div className="text-base font-medium tracking-wide">FAQ</div>
           </div>
         </Link>
-        <Link className="px-5 py-2.5 rounded-3xl flex-col justify-center items-center inline-flex transition ease-out duration-50 hover:bg-blue-600 hover:opacity-70 group" href={process.env.NEXT_PUBLIC_DOC_LINK || ""}>
+        <Link
+          className="px-5 py-2.5 rounded-3xl flex-col justify-center items-center inline-flex transition ease-out duration-50 hover:bg-blue-600 hover:opacity-70 group"
+          href={process.env.NEXT_PUBLIC_DOC_LINK || ""}
+          target="__black"
+        >
           <div className="justify-center items-center gap-2 inline-flex">
             <div className="text-gray-600 text-base font-medium tracking-wide group-hover:text-white">Docs</div>
           </div>
