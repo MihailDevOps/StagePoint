@@ -18,6 +18,7 @@ export default function AccountLocker({ children }: AccountLockerProps) {
         '/',
         '/about-company',
         '/guarantor-info',
+        '/faq',
         '/privacy-policy'
     ];
 
