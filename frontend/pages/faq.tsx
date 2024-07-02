@@ -123,7 +123,7 @@ export default function Faq() {
         <div className="flex-col justify-center items-start gap-5 inline-flex">
           <div className="w-[510px] text-black text-2xl font-medium font-onest leading-9">Still have quastions?</div>
           <div className="text-gray-600 text-base font-normal font-onest">Couldn't find the answer you were looking for?</div>
-          <div className="text-gray-600 text-base font-normal font-onest">If you have any additional questions, please email us at support@example.com.</div>
+          <div className="text-gray-600 text-base font-normal font-onest">If you have any additional questions, please email us at <a className="text-blue-600" href="mailto:support@example.com">support@example.com</a></div>
         </div>
         <div className="justify-start items-center gap-10 flex">
           <div className="justify-center items-center flex">

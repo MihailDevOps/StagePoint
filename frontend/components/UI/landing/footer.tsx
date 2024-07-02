@@ -39,7 +39,7 @@ export default function Footer() {
                             alt='twitter'
                         />
                     </div>
-                    <p>stagepointcapital@gmail.com</p>
+                    <a href="mailto:">support@example.com</a>
                     <p>3185 John F. Kennedy Blvd #2, Jersey City, NJ 07306, United States</p>
                 </div>
             </div>
