@@ -20,9 +20,9 @@ contract USDT is Ownable {
   string public constant symbol = "USDT";
   uint8  public decimals = 18;
 
-  constructor(address _to, uint256 _amount) {
+  constructor(uint256 _amount) {
     totalSupply_ = totalSupply_.add(_amount);
-    balances[_to] = balances[_to].add(_amount);
+    balances[msg.sender] = balances[msg.sender].add(_amount);
   }
 
   function totalSupply() public view returns (uint256) {

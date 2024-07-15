@@ -1,10 +1,10 @@
 import { IconArrowDownLeft } from "@tabler/icons-react";
 import Link from "next/link";
-import { useRouter } from "next/router"
+import { usePathname, useRouter } from "next/navigation";
 
 
 export default function Header() {
-  const router = useRouter();
+  const path = usePathname();
 
   return (
     <div className="flex pt-9 mx-auto justify-between max-w-6xl items-center">
@@ -17,7 +17,7 @@ export default function Header() {
       <div className="px-2 py-1 bg-gray-50 rounded-3xl shadow justify-start items-start gap-2 flex font-onest h-fit">
         <Link
           className={
-            `${router.asPath === '/' ?
+            `${path === '/' ?
               "bg-blue-600 text-white" :
               "text-gray-600 hover:bg-blue-600 hover:opacity-70 hover:text-white "} 
             px-5 py-2.5 rounded-3xl flex-col justify-center items-center inline-flex transition ease-out duration-500`}
@@ -29,7 +29,7 @@ export default function Header() {
         </Link>
         <Link
           className={
-            `${router.asPath === '/about-company' ?
+            `${path === '/about-company' ?
               "bg-blue-600 text-white" :
               "text-gray-600 hover:bg-blue-600 hover:opacity-70 hover:text-white"}
             px-5 py-2.5 rounded-3xl flex-col justify-center items-center inline-flex transition ease-out duration-500`}
@@ -40,7 +40,7 @@ export default function Header() {
           </div>
         </Link>
         <Link className={`
-          ${router.asPath === '/guarantor-info' ?
+          ${path === '/guarantor-info' ?
             "bg-blue-600 text-white" :
             "text-gray-600 hover:bg-blue-600 hover:opacity-70 hover:text-white"} 
           transition ease-out duration-500 px-5 py-2.5 rounded-3xl flex-col justify-center items-center inline-flex`}
@@ -50,7 +50,7 @@ export default function Header() {
           </div>
         </Link>
         <Link className={
-          `${router.asPath === '/faq' ?
+          `${path === '/faq' ?
             "bg-blue-600 text-white" :
             "text-gray-600 hover:bg-blue-600 hover:opacity-70 hover:text-white"}
            transition ease-out duration-500 px-5 py-2.5 rounded-3xl flex-col justify-center items-center inline-flex`}

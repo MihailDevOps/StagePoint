@@ -2,7 +2,11 @@
   "compilerOptions": {
     "baseUrl": ".",
     "target": "es5",
-    "lib": ["dom", "dom.iterable", "esnext"],
+    "lib": [
+      "dom",
+      "dom.iterable",
+      "esnext"
+    ],
     "allowJs": true,
     "skipLibCheck": true,
     "strict": true,
@@ -15,15 +19,37 @@
     "jsx": "preserve",
     "incremental": true,
     "paths": {
-      "@/*": ["./*"],
-      "@ui": ["components/UI"],
-      "@ui/*": ["components/UI/*"],
-      "@providers/*": ["components/Providers/*"],
-      "@providers": ["components/Providers"],
-      "@hooks/*": ["components/Hooks/*"],
-      "@hooks": ["components/Hooks"],
-      "@_types/*": ["types/*"]
-    }
+      "@/*": [
+        "./*"
+      ],
+      "@ui": [
+        "components/UI"
+      ],
+      "@ui/*": [
+        "components/UI/*"
+      ],
+      "@providers/*": [
+        "components/Providers/*"
+      ],
+      "@providers": [
+        "components/Providers"
+      ],
+      "@hooks/*": [
+        "components/Hooks/*"
+      ],
+      "@hooks": [
+        "components/Hooks"
+      ],
+      "@_types/*": [
+        "types/*"
+      ]
+    },
+    "forceConsistentCasingInFileNames": true,
+    "plugins": [
+      {
+        "name": "next"
+      }
+    ]
   },
   "include": [
     "process.d.ts",
@@ -32,9 +58,12 @@
     "**/*.ts",
     "**/*.tsx",
     "next-i18next.config.js",
-    "lib/sse/sse.js"
+    "lib/sse/sse.js",
+    ".next/types/**/*.ts"
   ],
-  "exclude": ["node_modules"],
+  "exclude": [
+    "node_modules"
+  ],
   "paths": {
     "@/*": [
       "./*"

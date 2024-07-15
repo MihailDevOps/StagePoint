@@ -1,7 +1,7 @@
-import { useAccount, useNetwork } from "@hooks";
-import { useRouter } from "next/router";
-import { createContext, useContext, useEffect, useMemo, useState } from "react";
-import { toast } from "react-toastify";
+"use client"
+import { usePathname, useRouter } from "next/navigation";
+import { useEffect } from "react";
+import { useAccount } from "wagmi";
 
 
 interface AccountLockerProps {
@@ -9,17 +9,18 @@ interface AccountLockerProps {
 }
 
 export default function AccountLocker({ children }: AccountLockerProps) {
-    const { account } = useAccount();
+    const { address, isConnected, isDisconnected } = useAccount();
 
     const router = useRouter();
-    const path = router.asPath;
+    const path = usePathname();
 
     const root = [
         '/',
         '/about-company',
         '/guarantor-info',
         '/faq',
-        '/privacy-policy'
+        '/privacy-policy',
+        '/login'
     ];
 
     const allowed = [
@@ -27,10 +28,10 @@ export default function AccountLocker({ children }: AccountLockerProps) {
     ]
 
     useEffect(() => {
-        if (((!account.data && !account.isLoading && !account.isValidating) || !!window && !localStorage.getItem('jwt')) && !root.includes(path) && !allowed.find((item) => path.includes(item))) {
+        if ((!address || !isConnected || isDisconnected || (!!window && !localStorage.getItem('jwt'))) && !root.includes(path) && !allowed.find((item) => path.includes(item))) {
             router.push('/login');
         }
-    }, [account, path])
+    }, [address, isConnected, isDisconnected])
 
     // useEffect(() => {
     //     if (typeof window !== 'undefined') {
