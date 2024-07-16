@@ -12,7 +12,7 @@ import { usePathname } from "next/navigation"
 import { periods } from "@/constants"
 import { simulateContract, waitForTransactionReceipt } from "wagmi/actions";
 import USDT from "public/contracts/USDT.json"
-import SPFNft from 'public/contracts/SPFNftPolygon.json'
+import SPFNft from 'public/contracts/SPFNft.json'
 import { config } from "@/config"
 import { useWriteContract } from "wagmi"
 

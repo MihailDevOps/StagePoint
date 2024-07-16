@@ -10,7 +10,7 @@ import { styled } from '@mui/material/styles';
 import { IconGift } from "@tabler/icons-react"
 import { ClaimModal } from "@/components/UI/profile/ClaimModal"
 import { Nft } from "@/types/nft"
-import SPFNft from 'public/contracts/SPFNftPolygon.json'
+import SPFNft from 'public/contracts/SPFNft.json'
 import { useAccount, useReadContract, useWriteContract } from "wagmi"
 import { usePathname, useRouter } from "next/navigation"
 import { readContract, simulateContract, waitForTransactionReceipt } from "wagmi/actions"

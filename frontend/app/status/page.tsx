@@ -5,7 +5,7 @@ import AppLayout from "@/components/UI/profile/layout/appLayout"
 import { Backdrop, CircularProgress, Paper } from "@mui/material"
 import { IconFileReport } from "@tabler/icons-react"
 import { useAccount, useReadContract } from "wagmi"
-import SPFNft from 'public/contracts/SPFNftPolygon.json'
+import SPFNft from 'public/contracts/SPFNft.json'
 import { Nft } from "@/types/nft"
 import { readContract } from "wagmi/actions"
 import { config } from "@/config"
