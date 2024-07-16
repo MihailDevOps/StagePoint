@@ -76,6 +76,10 @@ export default function Plan() {
         if ((readData as any)?.tokenId) updateNft();
     }, [readData])
 
+    useEffect(() => {
+        console.log(readError?.message)
+    }, [readError])
+
     const data = Array.from({ length: nftData?.depositTerm || 0 }, () => {
         return { value: nftData?.rewardProfit || 0, color: "#D1D5DB", label: "Waiting" }
     }).map((item, index) => {
