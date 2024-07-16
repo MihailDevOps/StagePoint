@@ -16,7 +16,7 @@ const chains = [polygonAmoy] as const
 const metadata = {
     name: 'Staking',
     description: 'AppKit Example',
-    url: 'https://1510-46-219-205-20.ngrok-free.app', // origin must match your domain & subdomain
+    url: process.env.NEXT_PUBLIC_URL as string, // origin must match your domain & subdomain
     icons: ['https://avatars.githubusercontent.com/u/37784886'],
 }
 
