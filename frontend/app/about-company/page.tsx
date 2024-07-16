@@ -48,7 +48,7 @@ export default function AboutCompany() {
                 <div className="justify-start items-start gap-5 inline-flex mt-12">
                     <div className="w-2/6 text-black text-lg font-normal font-onest leading-relaxed">Corporate Guarantee
                     </div>
-                    <div className="w-4/6 text-gray-600 text-base font-normal font-onest leading-relaxed">Our commitment to fulfilling our obligations to our clients is backed by a corporate guarantee from SF & FM PROPERTY LLC, incorporated under the law of USA, Florida, with the registration legal address at: 137 Golden Isles Drive, Ste. 403 Florida, Hallandale 33009, USA. Please follow the link [_______]
+                    <div className="w-4/6 text-gray-600 text-base font-normal font-onest leading-relaxed">Our commitment to fulfilling our obligations to our clients is backed by a corporate guarantee from SF & FM PROPERTY LLC, incorporated under the law of USA, Florida, with the registration legal address at: Florida, Hallandale 33009, USA. Please follow the link [_______]
                         <br /><br />For more details about the Guarantor, please follow this [link]</div>
                 </div>
             </div>
