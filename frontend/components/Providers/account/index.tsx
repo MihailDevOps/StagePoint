@@ -28,7 +28,10 @@ export default function AccountLocker({ children }: AccountLockerProps) {
     ]
 
     useEffect(() => {
-        if ((!address || !isConnected || isDisconnected || (!!window && !localStorage.getItem('jwt'))) && !root.includes(path) && !allowed.find((item) => path.includes(item))) {
+        // if ((!address || !isConnected || isDisconnected || (!!window && !localStorage.getItem('jwt'))) && !root.includes(path) && !allowed.find((item) => path.includes(item))) {
+        //     router.push('/login');
+        // }
+        if ((!address || !isConnected || isDisconnected) && !root.includes(path) && !allowed.find((item) => path.includes(item))) {
             router.push('/login');
         }
     }, [address, isConnected, isDisconnected])

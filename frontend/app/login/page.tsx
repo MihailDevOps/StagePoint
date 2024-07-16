@@ -19,13 +19,14 @@ export default function Login() {
         try {
             setLoading(true);
             if (!!address && !!isConnected) {
-                const { data: token } = await axios.post(`${process.env.NEXT_PUBLIC_BACKEND_LINK}/user/login`, { address });
-                if (!!token) {
-                    localStorage.setItem('jwt', token);
-                    router.push('/profile');
-                } else {
-                    throw new Error("Login failed\nPlease try again")
-                }
+                router.push('/profile');
+                // const { data: token } = await axios.post(`${process.env.NEXT_PUBLIC_BACKEND_LINK}/user/login`, { address });
+                // if (!!token) {
+                //     localStorage.setItem('jwt', token);
+                //     router.push('/profile');
+                // } else {
+                //     throw new Error("Login failed\nPlease try again")
+                // }
             } else {
                 toast.error('Wallet connection error\nPlease retry')
             }
