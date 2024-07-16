@@ -79,6 +79,7 @@ export default function Help() {
         }
         setLoading(false)
       } catch (e: any) {
+        setLoading(false);
         toast.error(e.message)
       }
     }

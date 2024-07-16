@@ -62,8 +62,9 @@ export default function Profile() {
           setTelegramNotification(data.telegramNotifications || false)
         }
         setLoading(false)
-      } catch (e) {
-
+      } catch (e: any) {
+        setLoading(false)
+        toast.error(e.message)
       }
     }
   }, [address])
@@ -88,7 +89,6 @@ export default function Profile() {
       setLoading(false)
       toast.success('Profile updated')
     }).catch((e) => {
-      console.log(e)
       toast.error(e.response.data.message)
       setLoading(false)
     })
