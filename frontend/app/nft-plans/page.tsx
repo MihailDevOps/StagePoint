@@ -10,7 +10,7 @@ export default function NFTPlans() {
     <AppLayout>
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4">
         {
-          nftsData?.map((nft, index) =>
+          nftsData.filter((el) => el.network === "polygon")?.map((nft, index) =>
             <div className="bg-white rounded-2xl flex flex-col m-2">
               <div className="rounded-2xl max-w-[20rem] mx-auto mt-2">
                 <img src={nft.image} />
