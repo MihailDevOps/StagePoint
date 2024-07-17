@@ -11,14 +11,18 @@ import { IconGift } from "@tabler/icons-react"
 import { ClaimModal } from "@/components/UI/profile/ClaimModal"
 import { Nft } from "@/types/nft"
 import SPFNft from 'public/contracts/SPFNft.json'
-import { useAccount, useReadContract, useWriteContract } from "wagmi"
+import { useAccount, useChains, useReadContract, useWriteContract } from "wagmi"
 import { usePathname, useRouter } from "next/navigation"
 import { readContract, simulateContract, waitForTransactionReceipt } from "wagmi/actions"
 import { config } from "@/config"
+import { checkNetworkIsSupported } from "@/utils/network"
+import { Chain } from "viem"
+import { web3Modal } from "@/context"
 
 
 export default function Plan() {
-    const { address } = useAccount();
+    const chains = useChains();
+    const { address, chainId } = useAccount();
     const { writeContractAsync, error } = useWriteContract();
     const router = useRouter();
     const path = usePathname();
@@ -72,13 +76,18 @@ export default function Plan() {
         setLoading(false)
     }
 
+
+    const openClaimModal = () => {
+        const isSupported = checkNetworkIsSupported(chains as [Chain], chainId as number);
+        if (!isSupported) {
+            return web3Modal.open({ view: "Networks" })
+        }
+        setModalOpened(true)
+    }
+
     useEffect(() => {
         if ((readData as any)?.tokenId) updateNft();
     }, [readData])
-
-    useEffect(() => {
-        console.log(readError?.message)
-    }, [readError])
 
     const data = Array.from({ length: nftData?.depositTerm || 0 }, () => {
         return { value: nftData?.rewardProfit || 0, color: "#D1D5DB", label: "Waiting" }
@@ -161,9 +170,6 @@ export default function Plan() {
         }
     }
 
-    useEffect(() => {
-        console.log(error?.message)
-    }, [error])
 
 
     return (
@@ -217,7 +223,10 @@ export default function Plan() {
                                             <p className="text-sm ml-2">Uncharged</p>
                                         </div>
                                     </div>
-                                    <button disabled={(nftData?.rewardsAvailable || 0) <= 0} className="flex bg-blue-100 h-9 w-32 mx-auto mt-4 text-blue-900 rounded-md cursor-pointer disabled:text-zinc-500 disabled:bg-zinc-300" onClick={() => setModalOpened(true)}>
+                                    <button
+                                        disabled={(nftData?.rewardsAvailable || 0) <= 0}
+                                        className="flex bg-blue-100 h-9 w-32 mx-auto mt-4 text-blue-900 rounded-md cursor-pointer disabled:text-zinc-500 disabled:bg-zinc-300"
+                                        onClick={openClaimModal}>
                                         <IconGift stroke={1} className="ml-2 my-auto" size={18} />
                                         <p className="font-ibm text-sm my-auto">Claim reward</p>
                                     </button>

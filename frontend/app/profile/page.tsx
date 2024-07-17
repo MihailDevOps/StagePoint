@@ -64,7 +64,7 @@ export default function Profile() {
         setLoading(false)
       } catch (e: any) {
         setLoading(false)
-        toast.error(e.message)
+        // toast.error(e.message)
       }
     }
   }, [address])

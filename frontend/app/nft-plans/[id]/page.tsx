@@ -14,9 +14,15 @@ import { simulateContract, waitForTransactionReceipt } from "wagmi/actions";
 import USDT from "public/contracts/USDT.json"
 import SPFNft from 'public/contracts/SPFNft.json'
 import { config } from "@/config"
-import { useWriteContract } from "wagmi"
+import { useAccount, useChains, useWriteContract } from "wagmi"
+import { checkNetworkIsSupported } from "@/utils/network"
+import { web3Modal } from "@/context"
+import { Chain } from "viem"
+import { NETWORKS } from "@/data/networks"
 
 export default function Plan() {
+    const chains = useChains();
+    const { chainId } = useAccount();
     const { writeContractAsync, error } = useWriteContract();
     const id = usePathname().split("/")[2];
     const [nft, setNft] = useState<any>()
@@ -94,7 +100,6 @@ export default function Plan() {
     const mintToken = async () => {
         try {
             setLoading(true)
-
             if (selectedPeriod && investmentAmount) {
                 await approveTokenTransfer();
             }
@@ -119,6 +124,14 @@ export default function Plan() {
         //     setInvestmentAmountError('Incorrect amount')
         //     setInvestmentAmount(nft?.rangeStart)
         // }
+    }
+
+    const openConfirmationModal = () => {
+        const isSupported = checkNetworkIsSupported(chains as [Chain], chainId as number);
+        if (!isSupported) {
+            return web3Modal.open({ view: "Networks" })
+        }
+        setModalOpened(true)
     }
 
     const MaterialUISwitch = styled(Switch)(({ theme }) => ({
@@ -171,7 +184,9 @@ export default function Plan() {
         setProfit(Number(prof))
     }, [investmentAmount, selectedPeriod, switchChecked])
 
-    if (!nft && !dataLoading) return
+    if (!nft && !dataLoading) return;
+
+
 
 
     return (
@@ -182,7 +197,7 @@ export default function Plan() {
             >
                 <CircularProgress color="inherit" />
             </Backdrop>
-            <InvestmentConfirmModal opened={modalOpened} close={() => setModalOpened(false)} confirm={mintToken} periodInfo={selectedPeriod} amount={investmentAmount} planName={nft?.name} />
+            <InvestmentConfirmModal opened={modalOpened} close={() => setModalOpened(false)} confirm={mintToken} periodInfo={selectedPeriod} amount={investmentAmount} planName={nft?.name} networkData={NETWORKS[chainId as number]} />
             <div className="flex gap-6 ">
                 <div className="flex flex-col gap-6">
                     {
@@ -230,7 +245,7 @@ export default function Plan() {
                             <ValidateInput className="w-1/2 p-2 mt-4 rounded-lg" value={investmentAmount} onChange={(e) => updateInvestmentAmount(e)} error={investmentAmountError} />
                             <button
                                 disabled={!!investmentAmountError}
-                                onClick={() => setModalOpened(true)}
+                                onClick={openConfirmationModal}
                                 className="py-1 text-white text-center text-lg font-medium bg-[#0050F6] rounded-xl w-1/2 disabled:bg-zinc-300 disabled:text-zinc-500"
                             >
                                 Buy

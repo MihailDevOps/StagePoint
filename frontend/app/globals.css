@@ -145,6 +145,10 @@ w3m-account-button {
   border-radius: 25px;
 }
 
+w3m-modal {
+  height: 100vh !important;
+}
+
 
 /* Удаляем все анимации и переходы для людей, которые предпочитай их не использовать */
 @media (prefers-reduced-motion: reduce) {

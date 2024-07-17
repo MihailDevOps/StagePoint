@@ -42,12 +42,14 @@ export default function SideBar(
         {
             icon: <IconHelpHexagon />,
             text: "FAQ",
-            link: 'faq'
+            link: 'faq',
+            target: "__blank"
         },
         {
             icon: <IconClipboardList />,
             text: "Policy",
-            link: 'privacy-policy'
+            link: 'privacy-policy',
+            target: "__blank"
         },
         {
             icon: <IconInfoHexagon />,
@@ -68,6 +70,7 @@ export default function SideBar(
                 {
                     menuItems.map((item, index) =>
                         <Link
+                            target={item.target}
                             className={`flex flex-row gap-2.5 text-white font-medium text-sm leading-4 m-2 p-2 items-center ${activeLink === item.link ? 'bg-[#2563EB] rounded-md' : ''} ${index === 0 ? 'my-6' : ''} ${index === 7 ? 'absolute bottom-0 w-[164px]' : ''}`}
                             href={`/${item.link}`}
                             key={index}

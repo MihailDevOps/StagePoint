@@ -11,7 +11,7 @@ import { useRouter } from "next/navigation";
 
 export default function Login() {
     const [loading, setLoading] = useState<boolean>(false);
-    const { address, isConnected, isConnecting, isReconnecting } = useAccount();
+    const { address, isConnected } = useAccount();
     const router = useRouter();
 
 
@@ -48,8 +48,8 @@ export default function Login() {
     return (
         <div className="w-full flex h-screen font-istok-web">
             <Backdrop
-                sx={{ color: '#fff', zIndex: (theme) => theme.zIndex.drawer + 1 }}
-                open={loading || isConnecting || isReconnecting}
+                sx={{ color: '#fff', zIndex: 10 }}
+                open={loading}
             >
                 <CircularProgress color="inherit" />
             </Backdrop>

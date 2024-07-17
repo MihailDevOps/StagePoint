@@ -1,7 +1,8 @@
 "use client"
+import { web3Modal } from "@/context";
 import { usePathname, useRouter } from "next/navigation";
 import { useEffect } from "react";
-import { useAccount } from "wagmi";
+import { useAccount, useChainId, useChains } from "wagmi";
 
 
 interface AccountLockerProps {
@@ -9,8 +10,11 @@ interface AccountLockerProps {
 }
 
 export default function AccountLocker({ children }: AccountLockerProps) {
-    const { address, isConnected, isDisconnected } = useAccount();
+    const { address, isConnected, isDisconnected, chainId } = useAccount();
+    const chains = useChains();
+    const chain = useChainId();
 
+    console.log(chain)
     const router = useRouter();
     const path = usePathname();
 

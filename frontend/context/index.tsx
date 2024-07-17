@@ -12,6 +12,7 @@ import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
 
 import { State, WagmiProvider } from 'wagmi'
 import AccountLocker from '@/components/Providers/account'
+import { polygonAmoy } from 'viem/chains'
 
 // Setup queryClient
 const queryClient = new QueryClient()
@@ -21,7 +22,8 @@ if (!projectId) throw new Error('Project ID is not defined')
 // Create modal
 export const web3Modal = createWeb3Modal({
     wagmiConfig: config,
-    projectId
+    projectId,
+    defaultChain: polygonAmoy
 })
 
 export default function Web3ModalProvider({

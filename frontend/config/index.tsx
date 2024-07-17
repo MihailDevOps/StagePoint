@@ -14,11 +14,18 @@ export const projectId = 'b1d2bd181e043a329289f50b8c1e2108'
 const chains = [polygonAmoy] as const
 
 const metadata = {
-    name: 'Staking',
-    description: 'AppKit Example',
+    name: 'Stage Point Capital',
+    description: 'Stage Point Capital NFT dApp',
     url: process.env.NEXT_PUBLIC_URL as string, // origin must match your domain & subdomain
     icons: ['https://avatars.githubusercontent.com/u/37784886'],
 }
+
+const provider = walletConnect({
+    metadata,
+    isNewChainsStale: false,
+    projectId,
+    showQrModal: false
+})
 
 
 export const config = defaultWagmiConfig({
@@ -30,7 +37,6 @@ export const config = defaultWagmiConfig({
         storage: cookieStorage
     }),
     connectors: [
-        walletConnect({ projectId, metadata, showQrModal: false }), // showQrModal must be false.
-        // Other connectors...
+        provider
     ],
 })
