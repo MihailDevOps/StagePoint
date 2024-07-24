@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { IconArrowDown, IconArrowUp, IconChevronDown, IconChevronUp } from '@tabler/icons-react';
-import { parseEther } from "ethers/lib/utils";
+
 interface Props {
     opened?: boolean;
     index: number;

@@ -46,7 +46,7 @@ try {
     const { id } = stream.toJSON();
     await Moralis.Streams.addAddress({
         id: id,
-        address: ["0xF8b1d4d0A2Dd9Dd53200A4C6783a69c15E3a25F4"]
+        address: ["0x1bA8781Ca57ce21Be27a0aE424097daC91C19175"]
     }).then(async() => {
       // try {
       //   const stream = await Moralis.Streams.add({
