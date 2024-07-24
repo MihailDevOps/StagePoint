@@ -118,15 +118,15 @@ const createTransaction = async (req, res, next) => {
         } 
         if (!transaction) {
             try {
-                const txDate = new Date(log.date.toNumber() * 1000);
-                    await Transaction.create({
-                        txId: txId,
-                        type: log.action || "deposit",
-                        user: log.user || log.creator,
-                        amount: log.amount?.toNumber() || log.price?.toNumber() || 0,
-                        date: txDate,
-                        tokenId: log.tokenId.toNumber() > 0 ? log.tokenId.toNumber() : null
-                    })
+                const txDate = log.date ? new Date(log.date.toNumber() * 1000) : new Date;
+                await Transaction.create({
+                    txId: txId,
+                    type: log.action || "Deposit",
+                    user: log.user || log.creator,
+                    amount: log.amount?.toNumber() || log.price?.toNumber() || 0,
+                    date: txDate,
+                    tokenId: log.tokenId.toNumber() > 0 ? log.tokenId.toNumber() : null
+                })
             } catch (e) {
                 console.log(e.stack)
             }
