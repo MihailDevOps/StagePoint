@@ -2,7 +2,7 @@ import * as dotenv from 'dotenv';
 import { Op } from 'sequelize';
 
 import User from '../db/models/User';
-import { PoolRecord } from '../db/models';
+import { ContractInfo, PoolRecord } from '../db/models';
 
 dotenv.config();
 
@@ -139,11 +139,57 @@ const deletePoolRecord = async (req, res) => {
     }
 }
 
+const getContractBalance = async (req, res) => {
+    try {
+        const { view } = req.params;
+        const viewID = Number(view);
+
+        let dataset: any = [];
+        
+        let endDate = new Date();
+        let startDate = new Date();
+        startDate.setDate(endDate.getDate() - viewID + 1);
+
+        const data = await ContractInfo.findAll({where: {
+            createdAt: {
+                [Op.between]: [startDate, endDate]
+            }
+        }});
+        
+        while (startDate <= endDate) {
+            const formattedDate = view > 60 ? `${startDate.getMonth() + 1}.${startDate.getFullYear()}` : startDate.toLocaleDateString().slice(0, 6)
+            const obj = {
+                date: view > 60 ? startDate.getMonth() : startDate.toLocaleDateString("en-US"),
+                value: 0,
+                formattedDate
+            }
+            if (dataset.findIndex((i: any) => i === obj) === -1) {
+                dataset.push(obj);
+            }
+            startDate.setDate(startDate.getDate() + 1);
+        };
+
+        for (const item of data) {
+            const date = view > 60 ? startDate.getMonth() : item.createdAt.toLocaleDateString("en-US");
+            const dayIndex = dataset.findIndex((i: any) => i.date === date);
+
+            if (!!dataset[dayIndex]) {
+                dataset[dayIndex].value = item.balance
+            }
+        }
+
+        res.status(200).json(dataset);
+    } catch (e: any) {
+        res.status(500).json({'message': e.message})
+    }
+}
+
 export {
     getAllUsers,
     getUser,
     getPoolRecords,
     createPoolRecords,
     updatePoolRecord,
-    deletePoolRecord
+    deletePoolRecord,
+    getContractBalance
 }

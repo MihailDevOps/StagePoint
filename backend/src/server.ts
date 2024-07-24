@@ -19,6 +19,9 @@ import { Streams } from 'moralis/streams'
 import Chains from "@moralisweb3/common-evm-utils";
 import * as ABI from '../contract/SPFNft.json';
 import transactionRouter from './routes/transactionRouter';
+import { ContractInfo } from './db/models';
+
+var cron = require('node-cron');
 const EvmChain = Chains.EvmChain;
 
 // const ABI = require("../contract/SPFNft.json");
@@ -33,7 +36,8 @@ const options = {
   webhookUrl: `${process.env.PUBLIC_LINK}/transactions/blockchain-webhook`,
   abi: ABI.abi,
   topic0: [
-    "Transaction(uint256,string,uint256,address,uint256)"
+    "Transaction(uint256,string,uint256,address,uint256)",
+    "NFTItemCreated(uint256,uint256,address,uint256,uint256,uint256,uint256,string,uint256,uint256,uint256,uint256)"
   ]
 };
 
@@ -42,27 +46,15 @@ try {
     apiKey: process.env.MORALIS_KEY ,
   }).then(async () => {
     try {
-    const stream = await Moralis.Streams.add(options);
-    const { id } = stream.toJSON();
-    await Moralis.Streams.addAddress({
-        id: id,
-        address: ["0x1bA8781Ca57ce21Be27a0aE424097daC91C19175"]
-    }).then(async() => {
-      // try {
-      //   const stream = await Moralis.Streams.add({
-      //     ...options,
-      //     topic0: ["NFTItemCreated(uint256,uint256,address,uint256,uint256,uint256,uint256,string,uint256,uint256,uint256,uint256)"],
-      //     webhookUrl: "https://4674-46-219-205-194.ngrok-free.app/plan"
-      //   });
-      //   const { id } = stream.toJSON();
-      //   await Moralis.Streams.addAddress({
-      //       id: id,
-      //       address: ["0xF8b1d4d0A2Dd9Dd53200A4C6783a69c15E3a25F4"]
-      //   })
-      // } catch(e) {
-      //   console.error(e.message)
-      // }
-    })
+      const response = await Moralis.Streams.getAll({limit: 1});
+      if (!response.result[0]?.webhookUrl || response.result[0].webhookUrl !== `${process.env.PUBLIC_LINK}/transactions/blockchain-webhook`) {
+        const stream = await Moralis.Streams.add(options);
+        const { id } = stream.toJSON();
+        await Moralis.Streams.addAddress({
+            id: id,
+            address: ["0x1bA8781Ca57ce21Be27a0aE424097daC91C19175"]
+        });
+      } 
   } catch(e) {
     console.error(e.message)
   }
@@ -100,5 +92,21 @@ app.use('/user', userRouter)
 app.use('/plan', planRouter)
 app.use('/admin', adminRouter);
 app.use('/transactions', transactionRouter);
-startServer();
 
+cron.schedule('30 23 * * *', async () => {
+  try {
+    const response = await Moralis.EvmApi.token.getWalletTokenBalances({
+      "chain": "0x13882",
+      "address": "0x1bA8781Ca57ce21Be27a0aE424097daC91C19175"
+    });
+    const decimals = Math.pow(10, 18);
+    const balance = response.toJSON()[0]?.balance as unknown as number / decimals;
+    if (balance) {
+      await ContractInfo.create({ balance })
+    }
+  } catch (e: any) {
+    console.log(`Cron Job error: ${e.message}`)
+  }
+});
+
+startServer();

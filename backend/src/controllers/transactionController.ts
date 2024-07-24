@@ -2,7 +2,7 @@ import * as dotenv from 'dotenv';
 import { default as Moralis } from "moralis"
 import { BigNumber } from 'bignumber.js';
 
-import { Transaction } from '../db/models';
+import { NFTPlan, Transaction } from '../db/models';
 import { Op } from 'sequelize';
 
 dotenv.config();
@@ -60,17 +60,62 @@ const getAll = async (req, res, next) => {
 
 const createTransaction = async (req, res, next) => {
     if (!!req.body.logs.length) {
+        interface transactionEvent {
+            action?: string,
+            user?: string,
+            amount?: BigNumber,
+            date?: BigNumber,
+            tokenId?: BigNumber,
+            price?: BigNumber,
+            creator?: string,
+            startDate?: BigNumber,
+            endDate?: BigNumber,
+            depositTerm?: BigNumber,
+            depositInterest?: BigNumber,
+            interest?: 'monthly' | 'compound',
+            rewardsClaimed?: BigNumber,
+            payOff?: BigNumber,
+            rewardsAvailable?: BigNumber,
+            rewardProfit?: BigNumber
+        }
         const txId = req.body.logs[0].transactionHash;
-        const transaction = await Transaction.findOne({where: {txId}})
-
-        if (!transaction) {
-            interface transactionEvent {
-                action: string,
-                user: string,
-                amount: BigNumber,
-                date: BigNumber,
-                tokenId: BigNumber
-            }
+        const log = Moralis.Streams.parsedLogs(req.body)[0] as transactionEvent;
+        const transaction = await Transaction.findOne({where: {txId}});
+        if (log.creator && log.price && log.tokenId) {
+            try {
+                const {
+                    tokenId,
+                    price,
+                    creator,
+                    startDate,
+                    endDate,
+                    depositTerm,
+                    depositInterest,
+                    interest,
+                    rewardsClaimed,
+                    payOff,
+                    rewardsAvailable,
+                    rewardProfit,
+                } = log;
+    
+                await NFTPlan.create({
+                    tokenId: tokenId.toNumber(),
+                    price: price.toNumber(),
+                    creator,
+                    startDate: new Date(startDate.toNumber()),
+                    endDate: new Date(endDate.toNumber()),
+                    depositTerm: depositTerm.toNumber(),
+                    depositInterest: depositInterest.toNumber(),
+                    interest: interest,
+                    rewardsClaimed: rewardsClaimed.toNumber(),
+                    payOff: payOff.toNumber(),
+                    rewardsAvailable: rewardsAvailable.toNumber(),
+                    rewardProfit: rewardProfit.toNumber(),
+                    network: "Polygon Amoy",
+                    chain: 80002
+                })
+            } catch {}
+        } else if (!transaction) {
             const log = Moralis.Streams.parsedLogs(req.body)[0] as transactionEvent;
             try {
                 const txDate = new Date(log.date.toNumber() * 1000);

@@ -39,6 +39,7 @@
     "http": "^0.0.1-security",
     "jsonwebtoken": "^9.0.2",
     "moralis": "^2.26.3",
+    "node-cron": "^3.0.3",
     "nodemailer": "^6.9.10",
     "pg": "^8.11.3",
     "pg-hstore": "^2.3.4",

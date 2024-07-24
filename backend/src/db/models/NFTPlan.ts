@@ -10,7 +10,7 @@ interface NFTPlanAttributes {
     endDate: Date;
     depositTerm: number;
     depositInterest: number;
-    interest: number;
+    interest: string;
     rewardsClaimed: number;
     payOff: number;
     rewardsAvailable: number;
@@ -32,7 +32,7 @@ class NFTPlan extends Model<NFTPlanAttributes, NFTPlanInput> implements NFTPlanA
     public endDate: Date;
     public depositTerm: number;
     public depositInterest: number;
-    public interest: number;
+    public interest: string;
     public rewardsClaimed: number;
     public payOff: number;
     public rewardsAvailable: number;
