@@ -6,8 +6,8 @@
   "scripts": {
     "start:dev": "nodemon \"./src/server.ts\"",
     "build:dev": "nodemon \"./src/server.ts\" --exec \"ts-node\" \"./src/server.ts\" -e ts,graphql",
-    "start": "node \"dist/server.js\"",
-    "build": "tsc -p . && ncp src/graphql/schema dist/graphql/schema"
+    "start": "node \"dist/src/server.js\"",
+    "build": "tsc"
   },
   "keywords": [],
   "author": "",
