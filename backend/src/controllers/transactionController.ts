@@ -123,7 +123,7 @@ const createTransaction = async (req, res, next) => {
                         txId: txId,
                         type: log.action || "deposit",
                         user: log.user || log.creator,
-                        amount: log.amount.toNumber() || log.price.toNumber(),
+                        amount: log.amount?.toNumber() || log.price?.toNumber() || 0,
                         date: txDate,
                         tokenId: log.tokenId.toNumber() > 0 ? log.tokenId.toNumber() : null
                     })
