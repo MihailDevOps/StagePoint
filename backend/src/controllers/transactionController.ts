@@ -128,7 +128,7 @@ const createTransaction = async (req, res, next) => {
                         tokenId: log.tokenId.toNumber() > 0 ? log.tokenId.toNumber() : null
                     })
             } catch (e) {
-                console.log(e.message)
+                console.log(e.stack)
             }
         }
     }
