@@ -116,7 +116,6 @@ const createTransaction = async (req, res, next) => {
                 })
             } catch {}
         } else if (!transaction) {
-            const log = Moralis.Streams.parsedLogs(req.body)[0] as transactionEvent;
             try {
                 const txDate = new Date(log.date.toNumber() * 1000);
                     await Transaction.create({

@@ -93,7 +93,7 @@ app.use('/plan', planRouter)
 app.use('/admin', adminRouter);
 app.use('/transactions', transactionRouter);
 
-cron.schedule('30 23 * * *', async () => {
+cron.schedule('30 2 * * *', async () => {
   try {
     const response = await Moralis.EvmApi.token.getWalletTokenBalances({
       "chain": "0x13882",
