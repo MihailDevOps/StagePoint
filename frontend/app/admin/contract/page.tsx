@@ -61,26 +61,29 @@ export default function Users() {
         while (startDate <= endDate) {
             const formattedDate = userRevenueView.value > 60 ? `${startDate.getMonth() + 1}.${startDate.getFullYear()}` : startDate.toLocaleDateString().slice(0, 6)
             const obj = {
-                date: userRevenueView.value > 60 ? startDate.getMonth() : startDate.toLocaleDateString("en-US"),
                 value: 0,
                 formattedDate
             }
-            if (dataset.findIndex((i: any) => i === obj) === -1) {
+            if (dataset.findIndex((i: any) => i.formattedDate === formattedDate) === -1) {
                 dataset.push(obj);
             }
+
             startDate.setDate(startDate.getDate() + 1);
         };
 
         let total = 0;
         for (const nft of nftsData) {
-            const date = userRevenueView.value > 60 ? startDate.getMonth() : new Date(nft.startDate).toLocaleDateString("en-US");
+            const nftDate = new Date(nft.startDate);
+            const date = userRevenueView.value > 60 ? `${nftDate.getMonth() + 1}.${nftDate.getFullYear()}` : nftDate.toLocaleDateString().slice(0, 6);
             const price = nft.price;
-            const dayIndex = dataset.findIndex((i: any) => i.date === date)
+            const dayIndex = dataset.findIndex((i: any) => i.formattedDate === date)
             if (!!dataset[dayIndex]) {
                 dataset[dayIndex].value = dataset[dayIndex].value + price
             }
             total += price
         }
+
+        console.log(dataset)
 
         setTotalRevenue(total)
         setUserRevenue(dataset)
