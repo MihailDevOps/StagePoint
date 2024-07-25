@@ -159,19 +159,18 @@ const getContractBalance = async (req, res) => {
         while (startDate <= endDate) {
             const formattedDate = view > 60 ? `${startDate.getMonth() + 1}.${startDate.getFullYear()}` : startDate.toLocaleDateString().slice(0, 6)
             const obj = {
-                date: view > 60 ? startDate.getMonth() : startDate.toLocaleDateString("en-US"),
                 value: 0,
                 formattedDate
             }
-            if (dataset.findIndex((i: any) => i === obj) === -1) {
+            if (dataset.findIndex((i: any) => i.formattedDate === formattedDate) === -1) {
                 dataset.push(obj);
             }
             startDate.setDate(startDate.getDate() + 1);
         };
 
         for (const item of data) {
-            const date = view > 60 ? startDate.getMonth() : item.createdAt.toLocaleDateString("en-US");
-            const dayIndex = dataset.findIndex((i: any) => i.date === date);
+            const date = view > 60 ? `${item.createdAt.getMonth() + 1}.${item.createdAt.getFullYear()}` : item.createdAt.toLocaleDateString().slice(0, 6)
+            const dayIndex = dataset.findIndex((i: any) => i.formattedDate === date);
 
             if (!!dataset[dayIndex]) {
                 dataset[dayIndex].value = item.balance
