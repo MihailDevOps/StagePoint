@@ -5,7 +5,7 @@ export default function Footer() {
     const path = usePathname();
 
     return (
-        <footer className='fixed z-50 w-full font-montserrat backdrop-blur bg-black h-[269px]'>
+        <footer className='z-50 w-full font-montserrat backdrop-blur bg-black h-[269px] hidden md:fixed'>
             <div className="flex flex-row items-center justify-between px-20 pt-14">
                 <div className="flex flex-col gap-10">
                     <img

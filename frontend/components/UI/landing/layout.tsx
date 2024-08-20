@@ -9,7 +9,7 @@ export default function Layout(
   return (
     <div className="font-ibm text-black">
       <Header />
-      <div className="mx-auto max-w-5xl">
+      <div className="mx-auto md:max-w-5xl overflow-hidden px-8">
         {children}
       </div>
       <Footer />

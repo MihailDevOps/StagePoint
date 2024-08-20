@@ -195,7 +195,7 @@ export default function Content() {
                                 <MenuItem value="all">All</MenuItem>
                             </Select>
                         </FormControl>
-                        <button className="flex flex-row text-white bg-blue-600 font-roboto text-sm py-2 px-6 h-fit rounded-md mt-8 mr-8" onClick={openCreateForm}>
+                        <button className="flex flex-row text-white bg-[#66a8ba] font-roboto text-sm py-2 px-6 h-fit rounded-md mt-8 mr-8" onClick={openCreateForm}>
                             Create new record
                             <IconPlus size={20} className="ml-1" />
                         </button>

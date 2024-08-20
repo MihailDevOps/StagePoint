@@ -17,7 +17,7 @@ export default function ToggleQuestion({ index, question, answer }: Props) {
             <div className='w-full'>
                 <div className="flex justify-between w-full">
                     <div className="text-black text-lg font-normal font-onest leading-relaxed">{question}</div>
-                    <div className="px-[7px] py-1.5 bg-blue-600 rounded-3xl justify-start items-start gap-2.5 flex ml-10 cursor-pointer" onClick={() => setOpen(!open)}>
+                    <div className="px-[7px] py-1.5 bg-[#66a8ba] rounded-3xl justify- h-fit items-start gap-2.5 flex ml-10 cursor-pointer" onClick={() => setOpen(!open)}>
                         {open ? <IconArrowUp size={22} color='white' /> : <IconArrowDown size={22} color='white' />}
                     </div>
                 </div>

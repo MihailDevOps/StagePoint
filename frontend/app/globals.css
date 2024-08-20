@@ -3,7 +3,12 @@
 @import url('https://fonts.googleapis.com/css2?family=Rubik&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Roboto&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Onest&display=swap');
-/* Указываем box sizing */
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+
 *,
 *::before,
 *::after {
@@ -14,13 +19,11 @@
   user-select: none;
 }
 
-/* Убираем внутренние отступы */
 ul[class],
 ol[class] {
   padding: 0;
 }
 
-/* Убираем внешние отступы */
 body,
 h1,
 h2,
@@ -38,7 +41,6 @@ dd {
   margin: 0;
 }
 
-/* Выставляем основные настройки по-умолчанию для body */
 body {
   min-height: 100vh;
   scroll-behavior: smooth;
@@ -47,20 +49,8 @@ body {
   color: white;
   background: #fff;
   backdrop-filter: blur(3px);
-  font-family: '';
-  /* Uncomment to see aboutUs component
-  background: rgba(30, 31, 32, 1);
-  backdrop-filter: blur(3px); 
-   */
 }
 
-/* Удаляем стандартную стилизацию для всех ul и il, у которых есть атрибут class*/
-/* ul[class],
-ol[class] {
-  list-style: disc;
-} */
-
-/* Элементы a, у которых нет класса, сбрасываем до дефолтных стилей */
 a:not([class]) {
   text-decoration-skip-ink: auto;
 }
@@ -120,11 +110,11 @@ input {
 
 .active {
   color: white;
-  background-color: #2563EB !important
+  background-color: #66a8ba !important
 }
 
 .placeholder-main {
-  color: #2563EB !important;
+  color: #66a8ba !important;
 }
 
 .outline-none-important:after {
@@ -137,7 +127,7 @@ input {
 }
 
 wui-text > text {
-  color: #2563EB !important;
+  color: #66a8ba !important;
 }
 
 w3m-account-button {
@@ -159,7 +149,3 @@ w3m-modal {
     scroll-behavior: auto !important;
   }
 }
-
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
